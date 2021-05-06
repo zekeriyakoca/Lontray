@@ -283,3 +283,7 @@ src/**/inf.yaml
 
 
 src/**/obj/
+
+src/Services/Identity/Identity.API/appsettings.Development.json
+
+src/Services/Identity/Identity.API/Logs/

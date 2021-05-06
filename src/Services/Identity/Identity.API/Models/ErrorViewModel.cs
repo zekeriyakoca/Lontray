@@ -1,11 +1,9 @@
-using System;
+using IdentityServer4.Models;
 
-namespace Identity.API.Models
+namespace Lontray.Services.Identity.API.Models
 {
-    public class ErrorViewModel
+    public record ErrorViewModel
     {
-        public string RequestId { get; set; }
-
-        public bool ShowRequestId => !string.IsNullOrEmpty(RequestId);
+        public ErrorMessage Error { get; set; }
     }
 }
