@@ -16,7 +16,20 @@ namespace Lontray.Services.Identity.API.Configuration
         public static IEnumerable<ApiResource> ApiResources =>
             new List<ApiResource>() {
                 new ApiResource("WebApi", "Web API"),
+                new ApiResource("webbffshopping","Web Bff for Shopping") // ResourceName corresponds to Apis' audience
+                {
+                    //Here we are creating a relation between ApiResources and ApiScopes
+                    Scopes = new List<string> { "webbffshopping.all" }
+                },
             };
+
+        public static IEnumerable<ApiScope> ApiScopes =>
+            new List<ApiScope>() {
+                new ApiScope("WebApi.manage", "Can manage Web API"),
+                new ApiScope("WebApi.read", "Can query Web API"),
+                new ApiScope("webbffshopping.all", "Can access to Web Bff for Shopping"), // Corresponds to Clients' allowed scopes
+            };
+
 
         public static IEnumerable<IdentityResource> IdentityResources =>
             new List<IdentityResource>
@@ -31,16 +44,25 @@ namespace Lontray.Services.Identity.API.Configuration
                 }
             };
 
-        public static IEnumerable<ApiScope> ApiScopes =>
-            new List<ApiScope>() {
-                new ApiScope("WebApi.manage", "Can manage Web API"),
-                new ApiScope("WebApi.read", "Can query Web API"),
-            };
-
-
-        public static IEnumerable<Client> Clients =>
-            new List<Client>
+        public static IEnumerable<Client> Clients(Dictionary<string, string> clientsUrl)
+        {
+            return new List<Client>
             {
+                new Client
+                {
+                    ClientId = "webbffshoppingswaggerui",
+                    ClientName = "web shopping bff Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{clientsUrl["WebBffShopping"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientsUrl["WebBffShopping"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "webbffshopping.all",
+                    }
+                },
                 new Client
                 {
                     ClientId = "WebMVC",
@@ -92,8 +114,10 @@ namespace Lontray.Services.Identity.API.Configuration
 
                     // scopes that client has access to
                     AllowedScopes = { "WebApi.manage" }
-                }
+                },
+
             };
+        }
 
     }
 }
