@@ -14,27 +14,21 @@ namespace Lontray.Services.Identity.API.Data
         public async Task SeedAsync(ConfigurationDbContext context, IConfiguration configuration)
         {
 
-            ////callbacks urls from config:
-            //var clientUrls = new Dictionary<string, string>();
+            //callbacks urls from config:
+            var clientUrls = new Dictionary<string, string>();
 
-            //clientUrls.Add("Mvc", configuration.GetValue<string>("MvcClient"));
-            //clientUrls.Add("Spa", configuration.GetValue<string>("SpaClient"));
-            //clientUrls.Add("Xamarin", configuration.GetValue<string>("XamarinCallback"));
-            //clientUrls.Add("BasketApi", configuration.GetValue<string>("BasketApiClient"));
-            //clientUrls.Add("OrderingApi", configuration.GetValue<string>("OrderingApiClient"));
-            //clientUrls.Add("MobileShoppingAgg", configuration.GetValue<string>("MobileShoppingAggClient"));
-            //clientUrls.Add("WebShoppingAgg", configuration.GetValue<string>("WebShoppingAggClient"));
-            //clientUrls.Add("WebhooksApi", configuration.GetValue<string>("WebhooksApiClient"));
-            //clientUrls.Add("WebhooksWeb", configuration.GetValue<string>("WebhooksWebClient"));
+            clientUrls.Add("WebBffShopping", configuration.GetValue<string>("WebBffShoppingClient"));
 
-            if (!context.Clients.Any())
+            if (Boolean.Parse(configuration["RecreateIdentityTables"]))
             {
-                foreach (var client in Config.Clients)
-                {
-                    context.Clients.Add(client.ToEntity());
-                }
+                context.ApiResources.RemoveRange(context.ApiResources.ToList());
+                context.ApiScopes.RemoveRange(context.ApiScopes.ToList());
+                context.IdentityResources.RemoveRange(context.IdentityResources.ToList());
+                context.Clients.RemoveRange(context.Clients.ToList());
+
                 await context.SaveChangesAsync();
             }
+
 
             if (!context.ApiResources.Any())
             {
@@ -42,8 +36,6 @@ namespace Lontray.Services.Identity.API.Data
                 {
                     context.ApiResources.Add(api.ToEntity());
                 }
-
-                await context.SaveChangesAsync();
             }
 
             if (!context.IdentityResources.Any())
@@ -52,7 +44,6 @@ namespace Lontray.Services.Identity.API.Data
                 {
                     context.IdentityResources.Add(resource.ToEntity());
                 }
-                await context.SaveChangesAsync();
             }
 
             if (!context.ApiScopes.Any())
@@ -62,19 +53,17 @@ namespace Lontray.Services.Identity.API.Data
                     context.ApiScopes.Add(api.ToEntity());
                 }
 
-                await context.SaveChangesAsync();
             }
 
-
-            if (!context.ApiResources.Any())
+            if (!context.Clients.Any())
             {
-                foreach (var resource in Config.ApiResources)
+                foreach (var client in Config.Clients(clientUrls))
                 {
-                    context.ApiResources.Add(resource.ToEntity());
+                    context.Clients.Add(client.ToEntity());
                 }
-
-                await context.SaveChangesAsync();
             }
+
+            await context.SaveChangesAsync();
         }
     }
 }
