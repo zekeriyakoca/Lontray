@@ -24,7 +24,7 @@ namespace Web.BFF.Shopping.Controllers
         [Authorize]
         public IEnumerable<string> Get()
         {
-            return ["Get it!", "Get it!"];
+            return new string[2] { "Get it!", "Get it!" };
         }
     }
 }

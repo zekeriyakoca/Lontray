@@ -287,3 +287,5 @@ src/**/obj/
 src/Services/Identity/Identity.API/appsettings.Development.json
 
 src/Services/Identity/Identity.API/Logs/
+
+src/Services/Catalog/Catalog.API/Logs/

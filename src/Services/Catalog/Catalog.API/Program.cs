@@ -1,8 +1,11 @@
 using Autofac.Extensions.DependencyInjection;
+using Catalog.API.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,7 +20,28 @@ namespace Catalog.API
 
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            try
+            {
+                var host = CreateHostBuilder(args).Build();
+
+                host.Migrate<CatalogContext>(seederAction: (context, services) =>
+                {
+                    context.Database.EnsureCreated();
+                    var env = services.GetService<IWebHostEnvironment>();
+                    var logger = services.GetService<ILogger<Program>>();
+                    services.GetService<CatalogContextSeeder>().Seed().Wait();
+                });
+               
+                host.Run();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, "Program terminated unexpectedly ({ApplicationContext})!", AppName);
+            }
+            finally
+            {
+                Log.CloseAndFlush();
+            }
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
