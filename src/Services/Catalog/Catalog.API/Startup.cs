@@ -1,5 +1,6 @@
 using Catalog.API.Infrastructure;
 using Catalog.API.Infrastructure.Filters;
+using Catalog.API.IntegrationEvents.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -43,6 +44,8 @@ namespace Catalog.API
             services.AddOptions();
             services.Configure<CatalogSettings>(Configuration);
             services.AddTransient<CatalogContextSeeder>();
+
+            services.AddTransient<ICatalogIntegrationService, CatalogIntegrationService>();
 
             services.AddCustomSwagger(Configuration)
                     .AddCustomDbContext(Configuration);

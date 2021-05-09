@@ -12,18 +12,9 @@ namespace Catalog.API.Controllers
     [Route("[controller]")]
     public class HomeController : ControllerBase
     {
-
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        public IActionResult Index()
         {
-            _logger = logger;
-        }
-
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new List<string>() { "I'm from Catalog.API" };
+            return new RedirectResult("~/swagger");
         }
     }
 }

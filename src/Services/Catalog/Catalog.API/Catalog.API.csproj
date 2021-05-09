@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Common\DomainHelper\DomainHelper.csproj" />
+    <ProjectReference Include="..\..\..\Common\EventBus\EventBus.csproj" />
     <ProjectReference Include="..\..\..\Common\Logger\Logger.csproj" />
   </ItemGroup>
 
