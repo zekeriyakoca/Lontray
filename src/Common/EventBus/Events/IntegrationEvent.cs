@@ -25,6 +25,9 @@ namespace EventBus.Events
 
         [JsonProperty]
         public DateTime CreationDate { get; private init; }
+
+        [JsonIgnore]
+        public string TypeName => this.GetType().Name;
     }
 }
 

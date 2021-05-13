@@ -12,8 +12,6 @@ namespace EventBus.Dtos
     }
     public string Value { get; set; }
 
-    public static QueueNameEnum ImageToCompress { get { return new QueueNameEnum(nameof(ImageToCompress)); } }
-    public static QueueNameEnum ImageCompressed { get { return new QueueNameEnum(nameof(ImageCompressed)); } }
     //public static QueueNameEnum MailSent { get { return new QueueNameEnum(nameof(MailSent)); } }
   }
 }

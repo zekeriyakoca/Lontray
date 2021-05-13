@@ -1,5 +1,7 @@
 ﻿using EventBus;
 using EventBus.Dtos;
+using EventBus.Events;
+using EventBus.Events.Interfaces;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
@@ -15,10 +17,10 @@ using System.Threading.Tasks;
 namespace EventBus.SimpleBus
 {
     //TODO : Refactor after creating Unit Tests
+    //TODO : Rewrite after RabbitMQ implementation
     public class SimpleBus : IEventBus, IDisposable
     {
         private static ConcurrentBag<SimpleQueue> Queues { get; set; }
-
         private readonly ILogger<SimpleBus> logger;
         private readonly IHostingEnvironment hostingEnvironment;
         private bool disposed;
@@ -30,6 +32,18 @@ namespace EventBus.SimpleBus
             Queues = new ConcurrentBag<SimpleQueue>();
             FetchQueueFromDisk();
             InitializeQueues();
+        }
+
+        public void Subscribe<TEvent, THandler>(TEvent @event, string appSuffix, THandler handler)
+         where TEvent : IntegrationEvent
+         where THandler : IIntegrationEventHandler<TEvent>
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Publish(IntegrationEvent @event)
+        {
+            throw new NotImplementedException();
         }
 
         public void Subscribe(QueueNameEnum queueName, AsyncEventHandler<BasicDeliverEventArgs> onMessageReceived)
@@ -96,8 +110,8 @@ namespace EventBus.SimpleBus
 
         private void InitializeQueues()
         {
-            CreateQueue(QueueNameEnum.ImageToCompress);
-            CreateQueue(QueueNameEnum.ImageCompressed);
+            //CreateQueue(QueueNameEnum.ImageToCompress);
+            //CreateQueue(QueueNameEnum.ImageCompressed);
         }
 
         private void CreateQueue(QueueNameEnum queueName)
@@ -209,6 +223,7 @@ namespace EventBus.SimpleBus
 
         }
 
+     
     }
 
 

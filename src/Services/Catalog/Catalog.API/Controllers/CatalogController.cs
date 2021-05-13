@@ -1,27 +1,33 @@
-﻿using Catalog.API.Infrastructure;
+﻿
+
+using Catalog.API.Infrastructure;
+using Catalog.API.IntegrationEvents.Events;
+using EventBus;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Catalog.API.Controllers
 {
-    public class CatalogController : Controller
+    [ApiController]
+    [Route("[controller]")]
+    public class CatalogController : ControllerBase
     {
-        private readonly ILogger<CatalogController> loggerl;
+        private readonly ILogger<CatalogController> logger;
         private readonly CatalogContext context;
+        private readonly IEventBus eventBus;
 
-        public CatalogController(ILogger<CatalogController> logger, CatalogContext context)
+        public CatalogController(ILogger<CatalogController> logger, CatalogContext context, IEventBus eventBus)
         {
-            this.loggerl = logger;
+            this.logger = logger;
             this.context = context;
+            this.eventBus = eventBus;
         }
 
+        [HttpGet("/Test")]
         public IActionResult Index()
         {
-            return View();
+            eventBus.Publish(new TestIntegrationEvent("Test"));
+            return Ok("");
         }
     }
 }

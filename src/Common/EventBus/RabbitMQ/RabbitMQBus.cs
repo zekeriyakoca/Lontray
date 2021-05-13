@@ -11,71 +11,176 @@ using System;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
+using EventBus.Events;
+using EventBus.Events.Interfaces;
+using System.Collections.Concurrent;
 
 namespace EventBus
 {
     public class RabbitMQBus : IEventBus, IDisposable
     {
-        const string BROKER_NAME = "image_process_bus";
+        const string BROKER_NAME = "integration_event_bus";
+        private readonly ConcurrentDictionary<string, IntegrationEvent> CurrentEventQueues;
+        private readonly int _retryCount;
+
+        private IModel _consumerChannel;
+        private IModel consumerChannel
+        {
+            get
+            {
+                if (_consumerChannel != null && _consumerChannel.IsOpen)
+                    return _consumerChannel;
+                else if (_consumerChannel != null)
+                    _consumerChannel.Dispose();
+
+                _consumerChannel = CreateConsumerChannel();
+                return _consumerChannel;
+            }
+            set
+            {
+                this._consumerChannel = value;
+            }
+        }
 
         private readonly IRabbitMQPersistentConnection _persistentConnection;
         private readonly ILogger<RabbitMQBus> _logger;
 
-        private readonly int _retryCount;
-        private bool queuesInitialized = false;
-        private IModel _consumerChannel;
-
         public RabbitMQBus(IRabbitMQPersistentConnection persistentConnection, ILogger<RabbitMQBus> logger,
                string queueName = null, int retryCount = 5)
         {
+            CurrentEventQueues = new ConcurrentDictionary<string, IntegrationEvent>();
             _persistentConnection = persistentConnection ?? throw new ArgumentNullException(nameof(persistentConnection));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             _retryCount = retryCount;
-            InitializeQueue();
-            _consumerChannel = CreateConsumerChannel();
-
+            Initialize();
         }
 
-        public void CreateQueue(QueueNameEnum queueName, IModel channel)
+        private void Initialize()
         {
-            _logger.LogTrace("Declaring Queue to publish event. QueueName : {QueueName}", queueName);
-
-            channel.QueueDeclare(queue: queueName.Value,
-                                       durable: false,
-                                       exclusive: false,
-                                       autoDelete: false,
-                                       arguments: null);
-
-            channel.QueueBind(queueName.Value, BROKER_NAME, routingKey: queueName.Value);
+            _persistentConnection.AddListenerForConnectionEstablished((s, e) =>
+            {
+                InitializeExchange();
+            });
         }
-        private void InitializeQueue()
+
+        private void InitializeExchange()
         {
             if (!_persistentConnection.IsConnected)
             {
                 _persistentConnection.TryConnect();
             }
-            using (var channel = _persistentConnection.CreateModel())
-            {
-                CreateInitialQueues(channel);
-            }
-        }
-
-        private void CreateInitialQueues(IModel channel)
-        {
-            if (queuesInitialized)
-                return;
+            using var channel = _persistentConnection.CreateModel();
 
             _logger.LogTrace("Declaring RabbitMQ exchange to publish event");
 
-            channel.ExchangeDeclare(exchange: BROKER_NAME, type: "direct");
+            channel.ExchangeDeclare(exchange: BROKER_NAME, type: "topic");
+        }
 
-            _logger.LogTrace("Declaring RabbitMQ initial queues");
+        public void Publish(IntegrationEvent @event)
+        {
+            if (!_persistentConnection.IsConnected)
+            {
+                _persistentConnection.TryConnect();
+            }
 
-            CreateQueue(QueueNameEnum.ImageToCompress, channel);
-            CreateQueue(QueueNameEnum.ImageCompressed, channel);
-            //CreateQueue(QueueNameEnum.MailSent, channel);
+            var routingKey = @event.TypeName + ".*";
+            var policy = RetryPolicy.Handle<BrokerUnreachableException>()
+                .Or<SocketException>()
+                .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
+                {
+                    _logger.LogWarning(ex, "Could not publish event: {EventId} after {Timeout}s ({ExceptionMessage})", @event.Id, $"{time.TotalSeconds:n1}", ex.Message);
+                });
 
-            queuesInitialized = true;
+            _logger.LogTrace("Creating RabbitMQ channel to publish event: {EventId} ({EventName})", @event.Id, @event.TypeName);
+
+            using (var channel = _persistentConnection.CreateModel())
+            {
+                var message = JsonConvert.SerializeObject(@event);
+                var body = Encoding.UTF8.GetBytes(message);
+
+                policy.Execute(() =>
+                {
+                    var properties = channel.CreateBasicProperties();
+                    properties.DeliveryMode = 2; // persistent
+
+                    _logger.LogTrace("Publishing event to RabbitMQ: {EventId}", @event.Id);
+
+                    channel.BasicPublish(
+                        exchange: BROKER_NAME,
+                        routingKey: routingKey,
+                        mandatory: true, // There should some subscribers. Will throw BrokerUnreachableException if no subscriber 
+                        basicProperties: properties,
+                        body: body);
+                });
+            }
+        }
+
+        public void Subscribe<TEvent, THandler>(TEvent @event, string appSuffix, THandler handler) where TEvent : IntegrationEvent where THandler : IIntegrationEventHandler<TEvent>
+        {
+
+            var queueName = @event.TypeName + "." + appSuffix;
+            var routingKey = @event.TypeName + ".*";
+
+            if (!_persistentConnection.IsConnected)
+            {
+                _persistentConnection.TryConnect();
+            }
+
+            CreateQueueIfNotExist(queueName, routingKey, consumerChannel);
+
+            StartBasicConsume(queueName, async (s, e) =>
+            {
+                var policy = RetryPolicy.Handle<Exception>()
+                .WaitAndRetryAsync(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
+                {
+                    _logger.LogWarning(ex, "Error occured while handling event: {EventId} after {Timeout}s ({ExceptionMessage})", @event.Id, $"{time:n1}", ex.Message);
+                });
+
+                var policyWithFallback = RetryPolicy.Handle<Exception>()
+                     .FallbackAsync((token) =>
+                     {
+                         _logger.LogError("Couldn't handle the event: {EventId}. Event Details {EventDetails}: ", @event.Id, JsonConvert.SerializeObject(@event));
+                         SendAck(e); // We don't want to try forever. Deleting the evet from queue.
+                         return Task.CompletedTask;
+                     })
+                     .WrapAsync(policy);
+
+                await policyWithFallback.ExecuteAsync(async () =>
+                {
+                    await handler.Handle(@event);
+                    SendAck(e);
+                });
+
+            });
+        }
+
+        public void SendAck(BasicDeliverEventArgs eventArgs)
+        {
+            consumerChannel.BasicAck(eventArgs.DeliveryTag, multiple: false);
+        }
+
+        public void SendNack(BasicDeliverEventArgs eventArgs)
+        {
+            consumerChannel.BasicNack(eventArgs.DeliveryTag, multiple: false, requeue: true);
+        }
+
+        private void CreateQueueIfNotExist(string queueName, string routingKey, IModel channel)
+        {
+
+            if (CurrentEventQueues.ContainsKey(queueName))
+            {
+                return;
+            }
+
+            _logger.LogTrace("Declaring Queue to publish event. QueueName : {QueueName}", queueName);
+
+            channel.QueueDeclare(queue: queueName,
+                                       durable: true,
+                                       exclusive: false,
+                                       autoDelete: false,
+                                       arguments: null);
+
+            channel.QueueBind(queueName, BROKER_NAME, routingKey: routingKey);
         }
 
         private IModel CreateConsumerChannel()
@@ -88,8 +193,7 @@ namespace EventBus
             _logger.LogTrace("Creating RabbitMQ consumer channel");
 
             var channel = _persistentConnection.CreateModel();
-
-            CreateInitialQueues(channel);
+            channel.BasicQos(0, prefetchCount: 20, false);
 
             channel.CallbackException += (sender, ea) =>
             {
@@ -102,61 +206,20 @@ namespace EventBus
             return channel;
         }
 
-        public void Publish(BaseQueueItemDto item, QueueNameEnum queueName)
+        private void StartBasicConsume(string queueName, AsyncEventHandler<BasicDeliverEventArgs> onMessageReceived)
         {
-            if (!_persistentConnection.IsConnected)
-            {
-                _persistentConnection.TryConnect();
-            }
+            _logger.LogTrace("Starting RabbitMQ basic consume");
 
-            var policy = RetryPolicy.Handle<BrokerUnreachableException>()
-                .Or<SocketException>()
-                .WaitAndRetry(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
-                {
-                    _logger.LogWarning(ex, "Could not publish event: {EventId} after {Timeout}s ({ExceptionMessage})", item.Id, $"{time.TotalSeconds:n1}", ex.Message);
-                });
+            var consumer = new AsyncEventingBasicConsumer(consumerChannel);
 
-            _logger.LogTrace("Creating RabbitMQ channel to publish event: {EventId} ({EventName})", item.Id, queueName.Value);
+            consumer.Received += onMessageReceived;
 
-            using (var channel = _persistentConnection.CreateModel())
-            {
-                var message = JsonConvert.SerializeObject(item);
-                var body = Encoding.UTF8.GetBytes(message);
+            var consumerTag = consumerChannel.BasicConsume(
+             queue: queueName,
+             autoAck: false,
+             consumer: consumer);
 
-                policy.Execute(() =>
-                {
-                    var properties = channel.CreateBasicProperties();
-                    properties.DeliveryMode = 2; // persistent
-                                                 //properties.ContentType = "text/plain"; // text/plain is default
-                                                 //properties.Expiration = "36000000";
 
-                    _logger.LogTrace("Publishing event to RabbitMQ: {EventId}", item.Id);
-
-                    channel.BasicPublish(
-                        exchange: BROKER_NAME,
-                        routingKey: queueName.Value,
-                        mandatory: true,
-                        basicProperties: properties,
-                        body: body);
-                });
-            }
-        }
-
-        public void Subscribe(QueueNameEnum queueName, AsyncEventHandler<BasicDeliverEventArgs> onMessageReceived)
-        {
-            if (!queuesInitialized)
-                InitializeQueue();
-
-            StartBasicConsume(queueName, onMessageReceived);
-        }
-
-        public void SendAck(BasicDeliverEventArgs eventArgs)
-        {
-            _consumerChannel.BasicAck(eventArgs.DeliveryTag, multiple: false);
-        }
-        public void SendNack(BasicDeliverEventArgs eventArgs)
-        {
-            _consumerChannel.BasicNack(eventArgs.DeliveryTag, multiple: false, requeue: true);
         }
 
         public void Dispose()
@@ -166,32 +229,11 @@ namespace EventBus
                 _consumerChannel.Dispose();
             }
         }
-
-        private void StartBasicConsume(QueueNameEnum queueName, AsyncEventHandler<BasicDeliverEventArgs> onMessageReceived)
-        {
-            _logger.LogTrace("Starting RabbitMQ basic consume");
-
-            _consumerChannel.QueueDeclare(queue: queueName.Value,
-                                       durable: false,
-                                       exclusive: false,
-                                       autoDelete: false,
-                                       arguments: null);
-
-            var consumer = new AsyncEventingBasicConsumer(_consumerChannel);
-
-            consumer.Received += onMessageReceived;
-
-            var consumerTag = _consumerChannel.BasicConsume(
-                queue: queueName.Value,
-                autoAck: false,
-                consumer: consumer);
-        }
-
         // This event handler is just for test
         private async Task Consumer_Received(object sender, BasicDeliverEventArgs eventArgs)
         {
             var eventName = eventArgs.RoutingKey;
-            var message = Encoding.UTF8.GetString(eventArgs.Body.ToArray()); 
+            var message = Encoding.UTF8.GetString(eventArgs.Body.ToArray());
 
             try
             {

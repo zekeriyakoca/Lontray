@@ -1,4 +1,6 @@
 ﻿using EventBus.Dtos;
+using EventBus.Events;
+using EventBus.Events.Interfaces;
 using RabbitMQ.Client.Events;
 using System;
 using System.Collections.Generic;
@@ -8,14 +10,14 @@ namespace EventBus
 {
     public interface IEventBus
     {
-        void Publish(BaseQueueItemDto item, QueueNameEnum queueName);
+        void Subscribe<TEvent, THandler>(TEvent @event, string appSuffix, THandler handler) where TEvent : IntegrationEvent where THandler : IIntegrationEventHandler<TEvent>;
 
-        void Subscribe(QueueNameEnum queueName, AsyncEventHandler<BasicDeliverEventArgs> onMessageReceived);
+        void Publish(IntegrationEvent @event);
         void SendAck(BasicDeliverEventArgs eventArgs);
         void SendNack(BasicDeliverEventArgs eventArgs);
-      //void Subscribe<T, TH>()
-      //    where T : IntegrationEvent
-      //    where TH : IIntegrationEventHandler<T>;
+        //void Subscribe<T, TH>()
+        //    where T : IntegrationEvent
+        //    where TH : IIntegrationEventHandler<T>;
 
         //void SubscribeDynamic<TH>(string eventName)
         //    where TH : IDynamicIntegrationEventHandler;

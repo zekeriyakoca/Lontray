@@ -7,10 +7,11 @@ using Serilog.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Catalog.API.IntegrationEvents.EventHandlers
-{  
+{
     public record SomethingDoneIntegrationEventHandler : IIntegrationEventHandler<TestIntegrationEvent>
     {
         private readonly CatalogContext _catalogContext;
@@ -28,6 +29,7 @@ namespace Catalog.API.IntegrationEvents.EventHandlers
         {
             using (LogContext.PushProperty("IntegrationEventContext", $"{@event.Id}-{Program.AppName}"))
             {
+                Thread.Sleep(TimeSpan.FromSeconds(10));
                 _logger.LogInformation("----- Handling integration event: {IntegrationEventId} at {AppName} - ({@IntegrationEvent})", @event.Id, Program.AppName, @event);
 
                 //we're not blocking stock/inventory

@@ -11,5 +11,7 @@ namespace EventBus
         bool TryConnect();
 
         IModel CreateModel();
+
+        void AddListenerForConnectionEstablished(EventHandler<EventArgs> handler);
     }
 }

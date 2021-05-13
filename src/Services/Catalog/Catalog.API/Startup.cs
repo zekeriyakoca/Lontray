@@ -1,6 +1,10 @@
 using Catalog.API.Infrastructure;
 using Catalog.API.Infrastructure.Filters;
+using Catalog.API.IntegrationEvents.EventHandlers;
+using Catalog.API.IntegrationEvents.Events;
 using Catalog.API.IntegrationEvents.Services;
+using EventBus;
+using EventBus.Events.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -43,12 +47,39 @@ namespace Catalog.API
 
             services.AddOptions();
             services.Configure<CatalogSettings>(Configuration);
+
+            var connectionString = Configuration["ConnectionString"];
+            var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
+            services.AddDbContext<CatalogContext>(options =>
+            {
+                options.UseSqlServer(connectionString,
+                    (sqlOptions) =>
+                    {
+                        sqlOptions.MigrationsAssembly(migrationAssembly);
+                        sqlOptions.EnableRetryOnFailure(15, TimeSpan.FromSeconds(30), default);
+                    });
+            });
             services.AddTransient<CatalogContextSeeder>();
 
             services.AddTransient<ICatalogIntegrationService, CatalogIntegrationService>();
 
+            services.AddEventBusRabbitMQ(Configuration);
+
+            testRabbitMq(services, Configuration);
+
             services.AddCustomSwagger(Configuration)
                     .AddCustomDbContext(Configuration);
+        }
+
+        private void testRabbitMq(IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddTransient<IIntegrationEventHandler<TestIntegrationEvent>, SomethingDoneIntegrationEventHandler>();
+
+            using var scope = services.BuildServiceProvider().CreateScope();
+            var eventBus = scope.ServiceProvider.GetRequiredService<IEventBus>();
+            var @event = new TestIntegrationEvent("Test Event Name");
+            var eventHandler = scope.ServiceProvider.GetRequiredService<IIntegrationEventHandler<TestIntegrationEvent>>();
+            eventBus.Subscribe<TestIntegrationEvent, IIntegrationEventHandler<TestIntegrationEvent>>(@event, "OrderApi", eventHandler);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
