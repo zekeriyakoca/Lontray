@@ -34,7 +34,7 @@ namespace EventBus.SimpleBus
             InitializeQueues();
         }
 
-        public void Subscribe<TEvent, THandler>(TEvent @event, string appSuffix, THandler handler)
+        public void Subscribe<TEvent, THandler>(string typeName, string appSuffix, THandler handler)
          where TEvent : IntegrationEvent
          where THandler : IIntegrationEventHandler<TEvent>
         {

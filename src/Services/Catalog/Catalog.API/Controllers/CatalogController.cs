@@ -26,7 +26,7 @@ namespace Catalog.API.Controllers
         [HttpGet("/Test")]
         public IActionResult Index()
         {
-            eventBus.Publish(new TestIntegrationEvent("Test"));
+            eventBus.Publish(new SomethingDoneIntegrationEvent("Test"));
             return Ok("");
         }
     }

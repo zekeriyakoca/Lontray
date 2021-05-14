@@ -12,20 +12,20 @@ using System.Threading.Tasks;
 
 namespace Catalog.API.IntegrationEvents.EventHandlers
 {
-    public record SomethingDoneIntegrationEventHandler : IIntegrationEventHandler<SomethingDoneIntegrationEvent>
+    public record SomethingCrazyDoneIntegrationEventHandler : IIntegrationEventHandler<SomethingCrazyDoneIntegrationEvent>
     {
         private readonly CatalogContext _catalogContext;
-        private readonly ILogger<SomethingDoneIntegrationEventHandler> _logger;
+        private readonly ILogger<SomethingCrazyDoneIntegrationEventHandler> _logger;
 
-        public SomethingDoneIntegrationEventHandler(
+        public SomethingCrazyDoneIntegrationEventHandler(
             CatalogContext catalogContext,
-            ILogger<SomethingDoneIntegrationEventHandler> logger)
+            ILogger<SomethingCrazyDoneIntegrationEventHandler> logger)
         {
             _catalogContext = catalogContext;
             _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
         }
 
-        public async Task Handle(SomethingDoneIntegrationEvent @event)
+        public async Task Handle(SomethingCrazyDoneIntegrationEvent @event)
         {
             using (LogContext.PushProperty("IntegrationEventContext", $"{@event.Id}-{Program.AppName}"))
             {

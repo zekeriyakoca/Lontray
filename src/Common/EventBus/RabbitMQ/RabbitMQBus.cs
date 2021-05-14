@@ -115,11 +115,11 @@ namespace EventBus
             }
         }
 
-        public void Subscribe<TEvent, THandler>(TEvent @event, string appSuffix, THandler handler) where TEvent : IntegrationEvent where THandler : IIntegrationEventHandler<TEvent>
+        public void Subscribe<TEvent, THandler>(string typeName, string appSuffix, THandler handler) where TEvent : IntegrationEvent where THandler : IIntegrationEventHandler<TEvent>
         {
 
-            var queueName = @event.TypeName + "." + appSuffix;
-            var routingKey = @event.TypeName + ".*";
+            var queueName = typeName + "." + appSuffix;
+            var routingKey = typeName + ".*";
 
             if (!_persistentConnection.IsConnected)
             {
@@ -130,6 +130,7 @@ namespace EventBus
 
             StartBasicConsume(queueName, async (s, e) =>
             {
+                var @event = e.DeserializeBody<TEvent>();
                 var policy = RetryPolicy.Handle<Exception>()
                 .WaitAndRetryAsync(_retryCount, retryAttempt => TimeSpan.FromSeconds(Math.Pow(2, retryAttempt)), (ex, time) =>
                 {

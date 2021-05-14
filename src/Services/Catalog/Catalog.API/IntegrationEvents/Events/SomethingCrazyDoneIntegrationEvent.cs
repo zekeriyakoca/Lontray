@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace Catalog.API.IntegrationEvents.Events
 {
-    public record TestIntegrationEvent : IntegrationEvent
+    public record SomethingCrazyDoneIntegrationEvent : IntegrationEvent
     {
-        public TestIntegrationEvent(string name)
+        public SomethingCrazyDoneIntegrationEvent() : base() { }
+
+        public SomethingCrazyDoneIntegrationEvent(string name)
         {
             Name = name;
         }

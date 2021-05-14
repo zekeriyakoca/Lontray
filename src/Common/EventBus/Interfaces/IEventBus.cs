@@ -10,7 +10,7 @@ namespace EventBus
 {
     public interface IEventBus
     {
-        void Subscribe<TEvent, THandler>(TEvent @event, string appSuffix, THandler handler) where TEvent : IntegrationEvent where THandler : IIntegrationEventHandler<TEvent>;
+        void Subscribe<TEvent, THandler>(string typeName, string appSuffix, THandler handler) where TEvent : IntegrationEvent where THandler : IIntegrationEventHandler<TEvent>;
 
         void Publish(IntegrationEvent @event);
         void SendAck(BasicDeliverEventArgs eventArgs);
