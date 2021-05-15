@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Basket.API.Infrastructure.Exceptions
+namespace Basket.API
 {
     public class BasketDomainException : Exception
     {

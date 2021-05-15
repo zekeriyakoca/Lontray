@@ -1,3 +1,9 @@
+using Autofac;
+using Autofac.Extensions.DependencyInjection;
+using Basket.API.Infrastructure.Filters;
+using Basket.API.Infrastructure.Repositories;
+using EventBus;
+using EventBus.Events.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +16,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace Basket.API
@@ -26,12 +33,43 @@ namespace Basket.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            services.AddControllers(options =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Basket.API", Version = "v1" });
+                options.Filters.Add(typeof(GlobalExceptionFilter));
+            }).AddNewtonsoftJson();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy",
+                    builder => builder
+                    .SetIsOriginAllowed((host) => true)
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials());
             });
+
+            services.AddOptions();
+            services.Configure<BasketSettings>(Configuration);
+
+            services.AddTransient<IBasketRepository, RedisBasketRepository>();
+
+            services.AddCache(Cache.Enum.CachingServiceEnum.InMemory);
+            //services.AddCache(Cache.Enum.CachingServiceEnum.Redis); // Activate after Redis is ready
+
+            services.AddEventBusRabbitMQ(Configuration);
+
+            services.AddCustomSwagger(Configuration);
+        }
+
+        //Configure Autofac Container
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            //Add IntegrationHandlers to Container
+            var currentAssembly = Assembly.GetExecutingAssembly();
+            builder.RegisterAssemblyTypes(currentAssembly)
+                .Where(t => t.GetInterfaces().Contains(typeof(IIntegrationEventHandler)))
+                .PreserveExistingDefaults()
+                .AsImplementedInterfaces();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,13 +85,53 @@ namespace Basket.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("CorsPolicy");
 
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
             });
+
+            app.ConfigureIntegrationEvents();
+        }
+    }
+    internal static class ServiceProviderExtensions
+    {
+        internal static void ConfigureIntegrationEvents(this IApplicationBuilder app)
+        {
+            var autofacContainer = app.ApplicationServices.GetAutofacRoot();
+
+            var eventBus = autofacContainer.Resolve<IEventBus>();
+            var integrationEventHandlers = autofacContainer.ResolveOptional<IEnumerable<IIntegrationEventHandler>>();
+            foreach (var handler in integrationEventHandlers)
+            {
+                var @event = handler.GetType().GetInterfaces().First().GenericTypeArguments.First();
+
+                var subscribemethod = typeof(IEventBus)
+                    .GetMethod("Subscribe")
+                    .MakeGenericMethod(@event, handler.GetType());
+
+                subscribemethod.Invoke(eventBus, new object[] { @event.Name, "BasketApi", handler });
+            }
+        }
+
+        internal static IServiceCollection AddCustomSwagger(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddSwaggerGen(options =>
+            {
+                options.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Basket API",
+                    Version = "v1",
+                    Description = "The Basket API."
+                });
+            });
+
+            return services;
+
         }
     }
 }

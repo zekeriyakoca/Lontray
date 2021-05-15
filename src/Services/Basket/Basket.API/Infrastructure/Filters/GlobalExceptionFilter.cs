@@ -1,18 +1,16 @@
-﻿using Catalog.API.Infrastructure.Exceptions;
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace Catalog.API.Infrastructure.Filters
+namespace Basket.API.Infrastructure.Filters
 {
     public class GlobalExceptionFilter : IExceptionFilter
     {
@@ -24,15 +22,13 @@ namespace Catalog.API.Infrastructure.Filters
             this.logger = logger;
             this.env = env;
         }
-
         public void OnException(ExceptionContext context)
         {
-            logger.LogError(new EventId(context.Exception.HResult),
-                context.Exception,
-                context.Exception.Message);
+            Exception exception = context.Exception;
+            logger.LogError(new EventId(exception.HResult), exception, exception.Message);
 
-            if (context.Exception is CatalogDomainException)
-            {
+            if (exception is BasketDomainException) {
+
                 var problemDetails = new ValidationProblemDetails()
                 {
                     Instance = context.HttpContext.Request.Path,
@@ -44,7 +40,6 @@ namespace Catalog.API.Infrastructure.Filters
 
                 context.Result = new BadRequestObjectResult(problemDetails);
                 context.HttpContext.Response.StatusCode = (int)StatusCodes.Status400BadRequest;
-
             }
             else
             {
@@ -53,7 +48,6 @@ namespace Catalog.API.Infrastructure.Filters
                     Messages = "Error occured",
                     DeveloperMessage = env.IsDevelopment() ? context.Exception : default
                 };
-
                 context.Result = new BadRequestObjectResult(errorDetails);
                 context.HttpContext.Response.StatusCode = (int)StatusCodes.Status400BadRequest;
             }

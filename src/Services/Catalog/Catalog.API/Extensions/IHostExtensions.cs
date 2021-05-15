@@ -28,7 +28,6 @@ namespace Microsoft.AspNetCore.Hosting
                     onRetry: (exception, timeSpan, retry, ctx) =>
                     {
                         logger.LogWarning(exception, "[{prefix}] Exception {ExceptionType} with message {Message} detected on attempt {retry} of {retries}", nameof(TContext), exception.GetType().Name, exception.Message, retry, retries);
-
                     });
                 try
                 {
