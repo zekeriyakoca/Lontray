@@ -1,0 +1,21 @@
+﻿*** Application, using this class library, should include following Json data in appsettings.*.json
+
+** In case of using RabbitMQ implementation :
+
+{
+	  "RabbitMQ": {
+          "EventBusConnection": "localhost",
+          "EventBusPort": "15672",
+          "EventBusUserName": "*********",
+          "EventBusPassword": "*********",
+          "EventBusRetryCount": "3",
+          "SubscriptionClientName": "ExampleClientName" // string
+  }
+}
+
+** In case of using SimpleQueue implementation :
+No additional configuration
+
+
+*** You should Inject "ILogger" to DI Container to use this Service via DI.
+//TODO : Add Dummy Logger to remove Logger dependency

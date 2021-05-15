@@ -6,25 +6,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Web.BFF.Shopping.Controllers
+namespace Catalog.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
     public class HomeController : ControllerBase
     {
-
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         [HttpGet]
-        [Authorize]
-        public IEnumerable<string> Get()
+        public IActionResult Index()
         {
-            return ["Get it!", "Get it!"];
+            return new RedirectResult("~/swagger");
         }
     }
 }
