@@ -9,7 +9,6 @@ namespace Catalog.API.Entities
 {
     public class CatalogItem : EntityAudited
     {
-
         public string Name { get; set; }
 
         public string Description { get; set; }

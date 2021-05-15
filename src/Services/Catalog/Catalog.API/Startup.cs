@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Catalog.API.AppServices;
 using Catalog.API.Infrastructure;
 using Catalog.API.Infrastructure.Filters;
 using Catalog.API.IntegrationEvents.EventHandlers;
@@ -66,7 +67,11 @@ namespace Catalog.API
             });
             services.AddTransient<CatalogContextSeeder>();
 
+            services.AddTransient<ICatalogAppService, CatalogAppService>();
+
             services.AddTransient<ICatalogIntegrationService, CatalogIntegrationService>();
+
+            services.AddAutoMapper(typeof(Startup));
 
             services.AddEventBusRabbitMQ(Configuration);
 
