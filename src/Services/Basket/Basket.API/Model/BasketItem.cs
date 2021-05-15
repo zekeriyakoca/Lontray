@@ -8,11 +8,15 @@ namespace Basket.API.Model
 {
     public class BasketItem : IValidatableObject
     {
+        [Required]
         public string Id { get; set; }
+        [Required]
         public int ProductId { get; set; }
+        [Required]
         public string ProductName { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal OldUnitPrice { get; set; }
+        [Required]
         public int Quantity { get; set; }
         public string PictureUrl { get; set; }
 
