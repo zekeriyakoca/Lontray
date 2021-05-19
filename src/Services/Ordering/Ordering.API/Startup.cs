@@ -37,8 +37,6 @@ namespace Ordering.API
             
         }
 
-        
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
@@ -62,9 +60,9 @@ namespace Ordering.API
         }
     }
 
-    public static class StartupExtensions {
+    internal static class StartupExtensions {
 
-        public static void StartDomainHandlers(this IServiceCollection services)
+        internal static void StartDomainHandlers(this IServiceCollection services)
         {
             DomainEvents.Init(services);
         }
