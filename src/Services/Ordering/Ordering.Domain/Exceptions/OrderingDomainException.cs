@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Exceptions
 {
-    public class OrderingDomainException
+    public class OrderingDomainException : Exception
     {
     }
 }

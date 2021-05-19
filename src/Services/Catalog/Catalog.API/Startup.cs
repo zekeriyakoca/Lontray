@@ -54,17 +54,6 @@ namespace Catalog.API
             services.AddOptions();
             services.Configure<CatalogSettings>(Configuration);
 
-            var connectionString = Configuration["ConnectionString"];
-            var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            services.AddDbContext<CatalogContext>(options =>
-            {
-                options.UseSqlServer(connectionString,
-                    (sqlOptions) =>
-                    {
-                        sqlOptions.MigrationsAssembly(migrationAssembly);
-                        sqlOptions.EnableRetryOnFailure(15, TimeSpan.FromSeconds(30), default);
-                    });
-            });
             services.AddTransient<CatalogContextSeeder>();
 
             services.AddTransient<ICatalogAppService, CatalogAppService>();
@@ -132,7 +121,7 @@ namespace Catalog.API
                     .GetMethod("Subscribe")
                     .MakeGenericMethod(@event, handler.GetType());
 
-                subscribemethod.Invoke(eventBus, new object[] { @event.Name, "OrderApi", handler });
+                subscribemethod.Invoke(eventBus, new object[] { @event.Name, "CatalogApi", handler });
             }
         }
 
