@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Ordering.API.Infrastructure.AutofacModules;
 using Ordering.API.Infrastructure.Filters;
 using Ordering.Domain.Common;
 using Ordering.Infrastructure;
@@ -58,6 +59,8 @@ namespace Ordering.API
             services.AddCustomSwagger(Configuration)
                     .AddCustomDbContext(Configuration);
 
+            services.AddTransient<OrderingContextSeeder>();
+
             InitializeAdditionalContainer(services);
         }
 
@@ -69,12 +72,8 @@ namespace Ordering.API
         //Configure Autofac Container
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            //Add IntegrationHandlers to Container
-            var currentAssembly = Assembly.GetExecutingAssembly();
-            builder.RegisterAssemblyTypes(currentAssembly)
-                .Where(t => t.GetInterfaces().Contains(typeof(IIntegrationEventHandler)))
-                .PreserveExistingDefaults()
-                .AsImplementedInterfaces();
+            builder.RegisterModule(new ApplicationModule());
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

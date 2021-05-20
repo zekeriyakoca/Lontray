@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Ordering.Infrastructure;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Ordering.API
 {
@@ -17,7 +19,13 @@ namespace Ordering.API
 
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+            host.Migrate<OrderingContext>(seederAction: (context, provider) =>
+            {
+                context.Database.EnsureCreated();
+                provider.GetService<OrderingContextSeeder>().Seed().Wait();
+            });
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
