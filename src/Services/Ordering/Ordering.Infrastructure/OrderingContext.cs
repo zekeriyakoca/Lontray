@@ -1,10 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Ordering.Domain.Aggregates;
 using Ordering.Domain.Common;
+using Ordering.Infrastructure.Configs;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -25,6 +27,12 @@ namespace Ordering.Infrastructure
         public DbSet<Order> Orders { get; set; }
         public DbSet<Buyer> Buyers { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(PaymentMethodConfigurations)));
+            base.OnModelCreating(modelBuilder);
+        }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {

@@ -295,3 +295,5 @@ src/Services/Catalog/Catalog.API/appsettings.Development.json
 src/Services/Basket/Basket.API/appsettings.Development.json
 
 src/Services/Ordering/Ordering.API/appsettings.Development.json
+
+src/Services/Ordering/Ordering.API/Logs/

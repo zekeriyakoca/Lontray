@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ordering.Domain.Aggregates.BuyerModels
+namespace Ordering.Domain.Aggregates
 {
     public class CardType : Enumeration
     {
-        public CardType(int id, string name) : base(id, name) { }
+        private CardType(int id, string name) : base(id, name) { }
 
         public static CardType Amex = new CardType(1, nameof(Amex));
         public static CardType Visa => new CardType(2, nameof(Visa));

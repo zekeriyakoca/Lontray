@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -9,7 +11,12 @@ namespace Ordering.Domain.Common
 {
     public abstract class Enumeration : IComparable
     {
-        public int Id { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
+        public int Id { get; set; } = 1;
+
+        [Required]
+        [MaxLength(200)]
         public string Name { get; set; }
 
         protected Enumeration(int id, string name) => (Id, Name) = (id, name);

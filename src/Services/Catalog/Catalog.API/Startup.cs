@@ -25,9 +25,12 @@ namespace Catalog.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            this.env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -65,7 +68,7 @@ namespace Catalog.API
             services.AddEventBusRabbitMQ(Configuration);
 
             services.AddCustomSwagger(Configuration)
-                    .AddCustomDbContext(Configuration);
+                    .AddCustomDbContext(Configuration, env);
         }
 
         //Configure Autofac Container
@@ -142,7 +145,7 @@ namespace Catalog.API
 
         }
 
-        internal static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
+        internal static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env)
         {
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<CatalogContext>(options =>
@@ -153,6 +156,7 @@ namespace Catalog.API
                                              sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
                                              sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                                          });
+                    if (env.IsDevelopment()) options.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information); // logs all sql commands to console
                 });
 
 

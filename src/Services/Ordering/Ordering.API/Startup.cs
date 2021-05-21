@@ -4,13 +4,10 @@ using EventBus;
 using EventBus.Events.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Ordering.API.Infrastructure.AutofacModules;
 using Ordering.API.Infrastructure.Filters;
@@ -20,15 +17,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Ordering.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            this.env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -57,7 +56,7 @@ namespace Ordering.API
             services.AddEventBusRabbitMQ(Configuration);
 
             services.AddCustomSwagger(Configuration)
-                    .AddCustomDbContext(Configuration);
+                    .AddCustomDbContext(Configuration, env);
 
             services.AddTransient<OrderingContextSeeder>();
 
@@ -138,7 +137,7 @@ namespace Ordering.API
 
         }
 
-        internal static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
+        internal static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env)
         {
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<OrderingContext>(options =>
@@ -149,6 +148,7 @@ namespace Ordering.API
                                              sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
                                              sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                                          });
+                    if (env.IsDevelopment()) options.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information); // logs all sql commands to console
                 });
 
 

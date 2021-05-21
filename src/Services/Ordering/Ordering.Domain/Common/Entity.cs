@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,7 +10,9 @@ namespace Ordering.Domain.Common
 {
     public abstract class Entity
     {
-        int _Id;
+        private int _Id;
+
+        [Key]
         public virtual int Id
         {
             get => _Id;
@@ -16,6 +20,8 @@ namespace Ordering.Domain.Common
         }
 
         private List<IDomainEvent> _domainEvents;
+
+        [NotMapped]
         public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents?.AsReadOnly();
 
         public void AddDomainEvent(IDomainEvent eventItem)

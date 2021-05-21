@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Ordering.Domain.Aggregates.OrderModels
+namespace Ordering.Domain.Aggregates
 {
     interface IOrderRepository
     {
