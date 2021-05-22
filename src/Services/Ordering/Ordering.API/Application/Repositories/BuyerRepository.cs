@@ -1,4 +1,4 @@
-﻿namespace Ordering.API.Application.Repositories
+﻿namespace Ordering.Application.Repositories
 {
     public class BuyerRepository
     {

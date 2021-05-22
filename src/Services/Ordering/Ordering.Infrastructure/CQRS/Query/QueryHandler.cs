@@ -1,4 +1,4 @@
-﻿using Ordering.API.Infrastructure.CQRS;
+﻿using Ordering.Infrastructure.CQRS;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Ordering.Infrastructure.CQRS
 {
-    public interface IQueryHandler<TQuery, TResult>
+    public interface IQueryHandler<TQuery, TResult> 
     {
         public Task<TResult> Handle(TQuery query);
     }
@@ -20,7 +20,7 @@ namespace Ordering.Infrastructure.CQRS
 
         public QueryHandler(OrderingSettings options)
         {
-            connectionString = options.ConnectionString;
+            connectionString = options?.ConnectionString ?? throw new ArgumentNullException(nameof(options.ConnectionString));
         }
 
         public async Task<TResult> Handle(TQuery query)

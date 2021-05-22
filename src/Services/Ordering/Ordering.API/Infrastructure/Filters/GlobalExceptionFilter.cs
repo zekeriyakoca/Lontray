@@ -6,7 +6,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Ordering.Domain.Exceptions;
 
-namespace Ordering.API.Infrastructure.Filters
+namespace Ordering.Infrastructure.Filters
 {
     public class GlobalExceptionFilter : IExceptionFilter
     {

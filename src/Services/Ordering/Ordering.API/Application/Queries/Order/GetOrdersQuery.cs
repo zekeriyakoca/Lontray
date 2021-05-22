@@ -1,17 +1,18 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Options;
+using Ordering.Infrastructure.CQRS;
 using Ordering.Domain.Aggregates;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.CQRS;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Application.Queries
+namespace Ordering.Application.Queries
 {
     public class GetOrdersQuery : IQuery<IEnumerable<Order>>
     { }
-  
-    public class GetOrderQueryHandler : QueryHandler<GetOrdersQuery, IEnumerable<Order>>, IQueryHandler<GetOrdersQuery, IEnumerable<Order>>
+
+    public class GetOrderQueryHandler : QueryHandler<GetOrdersQuery, IEnumerable<Order>>
     {
         public GetOrderQueryHandler(IOptions<OrderingSettings> orderingOptions) : base(orderingOptions.Value)
         { }
@@ -20,6 +21,5 @@ namespace Ordering.API.Application.Queries
         {
             return await connection.QueryAsync<Order>("Select * from Orders");
         }
-
     }
 }

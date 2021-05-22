@@ -7,34 +7,22 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Common
 {
-    public static class DomainEvents
+    public class DomainEvents
     {
-        private static ServiceProvider provider;
+        private readonly IServiceProvider provider;
 
-        public static void Init(IServiceCollection buildInContainer)
+        public DomainEvents(IServiceProvider provider)
         {
-            provider = buildInContainer.BuildServiceProvider();
+            this.provider = provider;
         }
-
-        public static async Task Raise<T>(T args) where T : IDomainEvent
+        public async Task Raise<T>(T args) where T : IDomainEvent
         {
-            if (provider != null)
+            using var scope = provider.CreateScope();
+            foreach (var handler in scope.ServiceProvider.GetServices<IHandler<T>>())
             {
-                foreach (var handler in provider.GetServices<IHandler<T>>())
-                {
-                    await handler.Handle(args);
-                }
+                await handler.Handle(args);
             }
         }
-
-        public static async Task Call<TEvent, TParam>(TParam param) where TEvent : IEventHandler<TParam>
-        {
-            foreach (var handler in provider.GetServices<TEvent>())
-            {
-                await handler.Handle(param);
-            }
-        }
-
 
     }
 }

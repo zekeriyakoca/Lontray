@@ -1,6 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.DependencyInjection;
 using Ordering.Domain.Aggregates;
 using Ordering.Domain.Common;
+using Ordering.Domain.Events;
 using Ordering.Infrastructure.Configs;
 using System;
 using System.Collections.Generic;
@@ -16,10 +20,12 @@ namespace Ordering.Infrastructure
     public class OrderingContext : DbContext
     {
         private readonly DbContextOptions options;
+        private readonly IHttpContextAccessor accessor;
 
-        public OrderingContext([NotNullAttribute] DbContextOptions options) : base(options)
+        public OrderingContext([NotNullAttribute] DbContextOptions options, IHttpContextAccessor accessor) : base(options)
         {
             this.options = options;
+            this.accessor = accessor;
         }
 
         public const string DEFAULT_SCHEMA = "ordering";
@@ -34,19 +40,19 @@ namespace Ordering.Infrastructure
             base.OnModelCreating(modelBuilder);
         }
 
-        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            OnSaveChanges();
-            return base.SaveChangesAsync(cancellationToken);
+            await OnSaveChangesAsync();
+            return await base.SaveChangesAsync(cancellationToken);
         }
 
         public override int SaveChanges()
         {
-            OnSaveChanges();
+            OnSaveChangesAsync().Wait();
             return base.SaveChanges();
         }
 
-        private void OnSaveChanges()
+        private async Task OnSaveChangesAsync()
         {
             var domainEntities = ChangeTracker
                 .Entries<Entity>()
@@ -57,17 +63,28 @@ namespace Ordering.Infrastructure
                  .SelectMany(x => x.Entity.DomainEvents)
                  .ToList();
 
-            domainEntities.ToList()
-                .ForEach(entity => entity.Entity.ClearDomainEvents());
+            await HandleDomainEvents(domainEntities, domainEvents);
+        }
 
-            var raiseMethodInfo = typeof(DomainEvents)
-                   .GetMethod("Raise");
-
-            domainEvents.ForEach(e =>
+        private async Task HandleDomainEvents(IEnumerable<EntityEntry<Entity>> domainEntities, List<IDomainEvent> domainEvents)
+        {
+            if (domainEvents.Count > 0)
             {
-                raiseMethodInfo.MakeGenericMethod(e.GetType())
-                   .Invoke(null, new object[] { e });
-            });
+                domainEntities.ToList()
+                    .ForEach(entity => entity.Entity.ClearDomainEvents());
+
+                foreach (var e in domainEvents)
+                {
+                    var handlerType = typeof(IHandler<>).MakeGenericType(e.GetType());
+
+                    var handler = accessor.HttpContext.RequestServices.GetService(handlerType);
+
+                    var handleMethod = handlerType
+                        .GetMethod("Handle");
+
+                    await (Task)handleMethod.Invoke(handler, new object[] { e });
+                };
+            }
         }
     }
 }

@@ -9,11 +9,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Ordering.API.Application.Queries;
-using Ordering.API.Infrastructure.AutofacModules;
-using Ordering.API.Infrastructure.Filters;
 using Ordering.Domain.Common;
 using Ordering.Infrastructure;
+using Ordering.Infrastructure.AutofacModules;
+using Ordering.Infrastructure.CQRS;
+using Ordering.Infrastructure.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -57,9 +57,12 @@ namespace Ordering.API
             services.AddEventBusRabbitMQ(Configuration)
                     .AddCustomSwagger(Configuration)
                     .AddCustomDbContext(Configuration, env);
-
+            
+            services.AddHttpContextAccessor();
+            
             services.AddTransient<OrderingContextSeeder>();
             services.AddTransient<IQueryExecuter, QueryExecuter>();
+            services.AddTransient<ICommandExecuter, CommandExecuter>();
 
             InitializeAdditionalContainer(services);
         }
@@ -157,9 +160,9 @@ namespace Ordering.API
             return services;
         }
 
-        internal static void StartDomainHandlers(this IServiceCollection services)
-        {
-            DomainEvents.Init(services);
-        }
+        //internal static void StartDomainHandlers(this IServiceCollection services)
+        //{
+        //    DomainEvents.Init(services);
+        //}
     }
 }
