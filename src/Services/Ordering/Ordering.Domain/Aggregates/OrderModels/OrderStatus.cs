@@ -27,11 +27,11 @@ namespace Ordering.Domain.Aggregates
         public static OrderStatus FromName(string name)
         {
             var state = List()
-                .SingleOrDefault(s => String.Equals(s.Name, name, StringComparison.CurrentCultureIgnoreCase));
+                .SingleOrDefault(s => string.Equals(s.Name, name, StringComparison.CurrentCultureIgnoreCase));
 
             if (state == null)
             {
-                throw new OrderingDomainException($"Possible values for OrderStatus: {String.Join(",", List().Select(s => s.Name))}");
+                throw new OrderingDomainException($"Possible values for OrderStatus: {string.Join(",", List().Select(s => s.Name))}");
             }
 
             return state;
@@ -43,7 +43,7 @@ namespace Ordering.Domain.Aggregates
 
             if (state == null)
             {
-                throw new OrderingDomainException($"Possible values for OrderStatus: {String.Join(",", List().Select(s => s.Name))}");
+                throw new OrderingDomainException($"Possible values for OrderStatus: {string.Join(",", List().Select(s => s.Name))}");
             }
 
             return state;

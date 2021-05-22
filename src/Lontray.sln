@@ -33,7 +33,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventBus", "Common\EventBus
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Basket", "Basket", "{AA0A89B6-B551-4A35-A1A5-B5471AAC6847}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{7305ECB1-75E9-4A45-841E-0D988581DB00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Basket.API", "Services\Basket\Basket.API\Basket.API.csproj", "{7305ECB1-75E9-4A45-841E-0D988581DB00}"
 	ProjectSection(ProjectDependencies) = postProject
 		{E5B438F9-F0F5-4EE0-B273-7FBDC1FD6F3A} = {E5B438F9-F0F5-4EE0-B273-7FBDC1FD6F3A}
 	EndProjectSection
@@ -42,15 +42,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8EF66CE7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{8950EC48-6BC1-4173-B8CB-0B63BB060336}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Cache", "Common\Cache\Cache.csproj", "{8B7C439E-ECDB-4309-95AD-182F7F68981F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Cache", "Common\Cache\Cache.csproj", "{8B7C439E-ECDB-4309-95AD-182F7F68981F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Ordering", "Ordering", "{78D78254-FA17-4724-86D5-BF3B956C75F8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.API", "Services\Ordering\Ordering.API\Ordering.API.csproj", "{E4C62FB7-74B1-402C-84EF-B3E613263754}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.API", "Services\Ordering\Ordering.API\Ordering.API.csproj", "{E4C62FB7-74B1-402C-84EF-B3E613263754}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Domain", "Services\Ordering\Ordering.Domain\Ordering.Domain.csproj", "{FE037AF0-D7C6-400B-A157-352D00AEEA20}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Domain", "Services\Ordering\Ordering.Domain\Ordering.Domain.csproj", "{FE037AF0-D7C6-400B-A157-352D00AEEA20}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ordering.Infrastructure", "Services\Ordering\Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{EDCAEABF-C971-429B-B60F-1A57B8E2B0AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Ordering.Infrastructure", "Services\Ordering\Ordering.Infrastructure\Ordering.Infrastructure.csproj", "{EDCAEABF-C971-429B-B60F-1A57B8E2B0AB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

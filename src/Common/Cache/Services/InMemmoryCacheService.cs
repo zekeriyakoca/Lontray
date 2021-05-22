@@ -38,7 +38,7 @@ namespace Cache.Services
 
         public Task SetValue(string key, object myObject)
         {
-            if (String.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(key))
             {
                 return Task.FromException(new ArgumentNullException("Key value is required"));
             }
@@ -48,7 +48,7 @@ namespace Cache.Services
 
         public Task SetValue<T>(string key, T myObject)
         {
-            if (String.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(key))
             {
                 return Task.FromException(new ArgumentNullException("Key value is required"));
             }
@@ -58,7 +58,7 @@ namespace Cache.Services
 
         public Task SetValue<T>(string key, T myObject, int second)
         {
-            if (String.IsNullOrWhiteSpace(key))
+            if (string.IsNullOrWhiteSpace(key))
             {
                 return Task.FromException(new ArgumentNullException("Key value is required"));
             }

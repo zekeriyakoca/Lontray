@@ -1,6 +1,5 @@
 ﻿using Basket.API.Model;
 using Cache.Services;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,7 +42,7 @@ namespace Basket.API.Infrastructure.Repositories
         internal static string Prefix = "Basket.API-";
         internal static string ToRedisKey(this string key)
         {
-            return String.Concat(Prefix, key);
+            return string.Concat(Prefix, key);
         }
         internal static string UnwrapRedisPrefix(this string key)
         {

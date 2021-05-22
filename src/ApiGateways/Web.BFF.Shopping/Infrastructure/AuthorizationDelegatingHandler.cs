@@ -21,13 +21,13 @@ namespace Web.BFF.Shopping.Infrastructure
         {
             var authorizationHeader = httpContext.Request.Headers["Authorization"];
 
-            if (!String.IsNullOrWhiteSpace(authorizationHeader))
+            if (!string.IsNullOrWhiteSpace(authorizationHeader))
             {
                 request.Headers.Add("Authorization", new List<string>() { authorizationHeader });
             }
 
             var token = await httpContext.GetTokenAsync("access_token");
-            if (!String.IsNullOrWhiteSpace(token))
+            if (!string.IsNullOrWhiteSpace(token))
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
             }

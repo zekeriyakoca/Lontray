@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Logger
+﻿namespace Logger
 {
     public class LoggingSettings
     {
@@ -12,8 +10,8 @@ namespace Logger
         public string RoolingFileName { get; set; }
         public string SeqServerUrl { get; set; }
 
-        public bool IsElkActive => !String.IsNullOrWhiteSpace(ElasticSearchUrl);
-        public bool HasElkCredentials => (!String.IsNullOrWhiteSpace(ElasticSearchPassword) && !String.IsNullOrWhiteSpace(ElasticSearchPassword));
-        public bool IsSeqActive => !String.IsNullOrWhiteSpace(SeqServerUrl);
+        public bool IsElkActive => !string.IsNullOrWhiteSpace(ElasticSearchUrl);
+        public bool HasElkCredentials => (!string.IsNullOrWhiteSpace(ElasticSearchPassword) && !string.IsNullOrWhiteSpace(ElasticSearchPassword));
+        public bool IsSeqActive => !string.IsNullOrWhiteSpace(SeqServerUrl);
     }
 }
