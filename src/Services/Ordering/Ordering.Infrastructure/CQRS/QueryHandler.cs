@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ordering.API.Infrastructure.CQRS;
+using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
@@ -48,8 +49,11 @@ namespace Ordering.Infrastructure.CQRS
 
         public void Dispose()
         {
-            if (connection.State == System.Data.ConnectionState.Open) connection.Close();
-            connection.Dispose();
+            if (connection != null)
+            {
+                if (connection.State == System.Data.ConnectionState.Open) connection.Close();
+                connection.Dispose();
+            }
         }
 
     }

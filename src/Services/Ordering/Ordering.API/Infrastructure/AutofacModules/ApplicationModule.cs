@@ -2,10 +2,8 @@
 using EventBus.Events.Interfaces;
 using Ordering.Infrastructure.CQRS;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Ordering.API.Infrastructure.AutofacModules
 {
@@ -18,13 +16,11 @@ namespace Ordering.API.Infrastructure.AutofacModules
 
         protected override void Load(ContainerBuilder builder)
         {
-
-
             var currentAssembly = Assembly.GetAssembly(typeof(Startup));
 
-            //TODO : Test following generic injection
+            //Add QueryHandlers to Container
             builder.RegisterAssemblyTypes(currentAssembly)
-                .Where(t => t.GetNestedTypes().Contains(typeof(QueryHandler<,>)))
+                .Where(t => t.FullName.EndsWith("QueryHandler"))
                 .PreserveExistingDefaults()
                 .AsImplementedInterfaces();
 

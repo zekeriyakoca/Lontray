@@ -9,6 +9,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Ordering.API.Application.Queries;
 using Ordering.API.Infrastructure.AutofacModules;
 using Ordering.API.Infrastructure.Filters;
 using Ordering.Domain.Common;
@@ -32,7 +33,6 @@ namespace Ordering.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers(options =>
@@ -50,29 +50,31 @@ namespace Ordering.API
                     .AllowCredentials());
             });
 
-            services.AddOptions();
-            services.Configure<OrderingSettings>(Configuration);
+            services.AddOptions()
+                .Configure<OrderingSettings>(Configuration);
 
-            services.AddEventBusRabbitMQ(Configuration);
 
-            services.AddCustomSwagger(Configuration)
+            services.AddEventBusRabbitMQ(Configuration)
+                    .AddCustomSwagger(Configuration)
                     .AddCustomDbContext(Configuration, env);
 
             services.AddTransient<OrderingContextSeeder>();
+            services.AddTransient<IQueryExecuter, QueryExecuter>();
 
             InitializeAdditionalContainer(services);
         }
 
         private static void InitializeAdditionalContainer(IServiceCollection services)
         {
-            services.StartDomainHandlers();
+            // There is no need this class anymore since we are handling domain events during SaveChanges method of EF.
+            // This approach also provide access to DI
+            //services.StartDomainHandlers();
         }
 
         //Configure Autofac Container
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterModule(new ApplicationModule());
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -3,17 +3,15 @@ using Microsoft.Extensions.Options;
 using Ordering.Domain.Aggregates;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.CQRS;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Ordering.API.Application.Queries
 {
-    public class GetOrdersQuery
+    public class GetOrdersQuery : IQuery<IEnumerable<Order>>
     { }
-
-    public class GetOrderQueryHandler : QueryHandler<GetOrdersQuery, IEnumerable<Order>>
+  
+    public class GetOrderQueryHandler : QueryHandler<GetOrdersQuery, IEnumerable<Order>>, IQueryHandler<GetOrdersQuery, IEnumerable<Order>>
     {
         public GetOrderQueryHandler(IOptions<OrderingSettings> orderingOptions) : base(orderingOptions.Value)
         { }
@@ -22,5 +20,6 @@ namespace Ordering.API.Application.Queries
         {
             return await connection.QueryAsync<Order>("Select * from Orders");
         }
+
     }
 }
