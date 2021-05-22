@@ -52,7 +52,7 @@ namespace Cache.Services
             {
                 return Task.FromException(new ArgumentNullException("Key value is required"));
             }
-            cache.Set(key,JsonConvert.SerializeObject( myObject), TimeSpan.FromSeconds(600));
+            cache.Set(key, JsonConvert.SerializeObject(myObject), TimeSpan.FromSeconds(600));
             return Task.CompletedTask;
         }
 

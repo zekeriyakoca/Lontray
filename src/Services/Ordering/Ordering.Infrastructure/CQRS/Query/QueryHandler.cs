@@ -1,14 +1,10 @@
-﻿using Ordering.Infrastructure.CQRS;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Ordering.Infrastructure.CQRS
 {
-    public interface IQueryHandler<TQuery, TResult> 
+    public interface IQueryHandler<TQuery, TResult>
     {
         public Task<TResult> Handle(TQuery query);
     }

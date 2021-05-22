@@ -3,8 +3,6 @@
 using Catalog.API.AppServices;
 using Catalog.API.Dtos;
 using Catalog.API.Infrastructure;
-using Catalog.API.IntegrationEvents.Events;
-using EventBus;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;

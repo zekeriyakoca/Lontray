@@ -1,6 +1,5 @@
 ﻿
 using EventBus.Events;
-using System;
 
 namespace Catalog.API.IntegrationEvents.Events
 {

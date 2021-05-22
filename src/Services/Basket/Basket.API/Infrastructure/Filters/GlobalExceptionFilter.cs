@@ -5,10 +5,6 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace Basket.API.Infrastructure.Filters
 {
@@ -27,7 +23,8 @@ namespace Basket.API.Infrastructure.Filters
             Exception exception = context.Exception;
             logger.LogError(new EventId(exception.HResult), exception, exception.Message);
 
-            if (exception is BasketDomainException) {
+            if (exception is BasketDomainException)
+            {
 
                 var problemDetails = new ValidationProblemDetails()
                 {

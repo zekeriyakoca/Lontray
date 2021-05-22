@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Lontray.Services.Identity.API
+﻿namespace Lontray.Services.Identity.API
 {
     public class AppSettings
     {

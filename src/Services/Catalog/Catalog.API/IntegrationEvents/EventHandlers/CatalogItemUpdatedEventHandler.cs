@@ -1,12 +1,9 @@
 ﻿using Catalog.API.Infrastructure;
 using Catalog.API.IntegrationEvents.Events;
-using EventBus.Events;
 using EventBus.Events.Interfaces;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 

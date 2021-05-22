@@ -1,9 +1,6 @@
 ﻿using Autofac;
 using EventBus.Events.Interfaces;
 using Ordering.API;
-using Ordering.Domain.Common;
-using Ordering.Domain.Events;
-using Ordering.Infrastructure.CQRS;
 using System;
 using System.Linq;
 using System.Reflection;

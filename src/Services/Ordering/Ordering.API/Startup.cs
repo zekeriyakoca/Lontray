@@ -9,7 +9,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Ordering.Domain.Common;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.AutofacModules;
 using Ordering.Infrastructure.CQRS;
@@ -57,9 +56,9 @@ namespace Ordering.API
             services.AddEventBusRabbitMQ(Configuration)
                     .AddCustomSwagger(Configuration)
                     .AddCustomDbContext(Configuration, env);
-            
+
             services.AddHttpContextAccessor();
-            
+
             services.AddTransient<OrderingContextSeeder>();
             services.AddTransient<IQueryExecuter, QueryExecuter>();
             services.AddTransient<ICommandExecuter, CommandExecuter>();

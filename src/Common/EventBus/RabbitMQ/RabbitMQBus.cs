@@ -1,5 +1,5 @@
-﻿using EventBus.Dtos;
-using EventBus;
+﻿using EventBus.Events;
+using EventBus.Events.Interfaces;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Polly;
@@ -8,12 +8,10 @@ using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using RabbitMQ.Client.Exceptions;
 using System;
+using System.Collections.Concurrent;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
-using EventBus.Events;
-using EventBus.Events.Interfaces;
-using System.Collections.Concurrent;
 
 namespace EventBus
 {

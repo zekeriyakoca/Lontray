@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Ordering.Application.Commands;
 using Ordering.Application.Queries;
-using Ordering.Infrastructure.CQRS;
 using Ordering.Domain.Aggregates;
+using Ordering.Infrastructure.CQRS;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Ordering.Application.Commands;
 
 namespace Ordering.API.Controllers
 {

@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EventBus.Dtos
+﻿namespace EventBus.Dtos
 {
-  public class QueueNameEnum
-  {
-    private QueueNameEnum(string @value)
+    public class QueueNameEnum
     {
-      this.Value = value;
-    }
-    public string Value { get; set; }
+        private QueueNameEnum(string @value)
+        {
+            this.Value = value;
+        }
+        public string Value { get; set; }
 
-    //public static QueueNameEnum MailSent { get { return new QueueNameEnum(nameof(MailSent)); } }
-  }
+        //public static QueueNameEnum MailSent { get { return new QueueNameEnum(nameof(MailSent)); } }
+    }
 }

@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using Microsoft.Extensions.Options;
-using Ordering.Infrastructure.CQRS;
 using Ordering.Domain.Aggregates;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.CQRS;

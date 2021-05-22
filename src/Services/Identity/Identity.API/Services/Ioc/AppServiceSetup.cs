@@ -2,10 +2,6 @@
 using Lontray.Services.Identity.API.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Lontray.Services.Identity.API.Services.Ioc
 {

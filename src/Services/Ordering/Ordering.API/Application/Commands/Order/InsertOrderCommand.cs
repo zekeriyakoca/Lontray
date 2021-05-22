@@ -1,8 +1,8 @@
-﻿using Ordering.Infrastructure;
+﻿using Ordering.Domain.Aggregates;
+using Ordering.Domain.Events;
+using Ordering.Infrastructure;
 using Ordering.Infrastructure.CQRS;
 using System.Threading.Tasks;
-using Ordering.Domain.Aggregates;
-using Ordering.Domain.Events;
 
 namespace Ordering.Application.Commands
 {

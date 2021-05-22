@@ -1,5 +1,4 @@
-﻿using EventBus;
-using EventBus.Dtos;
+﻿using EventBus.Dtos;
 using EventBus.Events;
 using EventBus.Events.Interfaces;
 using Microsoft.AspNetCore.Hosting;
@@ -223,7 +222,7 @@ namespace EventBus.SimpleBus
 
         }
 
-     
+
     }
 
 

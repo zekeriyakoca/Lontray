@@ -3,9 +3,6 @@ using Catalog.API.Dtos;
 using Catalog.API.Entities;
 using Catalog.API.IntegrationEvents.Events;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Catalog.API.Infrastructure.Configurations.AutoMapper
 {

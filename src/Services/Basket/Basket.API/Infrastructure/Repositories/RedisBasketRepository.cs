@@ -29,7 +29,7 @@ namespace Basket.API.Infrastructure.Repositories
         public IEnumerable<string> GetUsers()
         {
             // TODO : Evaluate caching users for a certain period of time
-            return cache.GetKeys($"{Prefix}*").Select(k=>k.UnwrapRedisPrefix());
+            return cache.GetKeys($"{Prefix}*").Select(k => k.UnwrapRedisPrefix());
         }
 
         public async Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket)
