@@ -36,7 +36,7 @@ namespace Basket.API.Infrastructure.Filters
                 problemDetails.Errors.Add("DomainValidations", new string[] { context.Exception.Message.ToString() });
 
                 context.Result = new BadRequestObjectResult(problemDetails);
-                context.HttpContext.Response.StatusCode = (int)StatusCodes.Status400BadRequest;
+                context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
             }
             else
             {
@@ -46,7 +46,7 @@ namespace Basket.API.Infrastructure.Filters
                     DeveloperMessage = env.IsDevelopment() ? context.Exception : default
                 };
                 context.Result = new BadRequestObjectResult(errorDetails);
-                context.HttpContext.Response.StatusCode = (int)StatusCodes.Status400BadRequest;
+                context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
             }
 
             context.ExceptionHandled = true;

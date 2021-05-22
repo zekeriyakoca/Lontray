@@ -64,7 +64,7 @@ namespace Cache.Services
         public IEnumerable<string> GetKeys(string pattern)
         {
             var server = GetServer(); // TODO : Modify for multiple instance Redis
-            var data = String.IsNullOrWhiteSpace(pattern) ? server.Keys() : server.Keys(pattern: pattern);
+            var data = string.IsNullOrWhiteSpace(pattern) ? server.Keys() : server.Keys(pattern: pattern);
 
             return data?.Select(k => k.ToString());
         }

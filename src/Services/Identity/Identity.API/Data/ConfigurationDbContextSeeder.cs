@@ -2,7 +2,6 @@
 using IdentityServer4.EntityFramework.Mappers;
 using Lontray.Services.Identity.API.Configuration;
 using Microsoft.Extensions.Configuration;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -19,7 +18,7 @@ namespace Lontray.Services.Identity.API.Data
 
             clientUrls.Add("WebBffShopping", configuration.GetValue<string>("WebBffShoppingClient"));
 
-            if (Boolean.Parse(configuration["RecreateIdentityTables"]))
+            if (bool.Parse(configuration["RecreateIdentityTables"]))
             {
                 context.ApiResources.RemoveRange(context.ApiResources.ToList());
                 context.ApiScopes.RemoveRange(context.ApiScopes.ToList());

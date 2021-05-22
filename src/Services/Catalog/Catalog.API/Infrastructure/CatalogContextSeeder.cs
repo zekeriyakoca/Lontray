@@ -104,7 +104,7 @@ namespace Catalog.API.Infrastructure
         {
             brand = brand.Trim('"').Trim();
 
-            if (String.IsNullOrEmpty(brand))
+            if (string.IsNullOrEmpty(brand))
             {
                 throw new Exception("catalog Brand Name is empty");
             }
@@ -159,7 +159,7 @@ namespace Catalog.API.Infrastructure
         {
             type = type.Trim('"').Trim();
 
-            if (String.IsNullOrEmpty(type))
+            if (string.IsNullOrEmpty(type))
             {
                 throw new Exception("catalog Type Name is empty");
             }
@@ -214,7 +214,7 @@ namespace Catalog.API.Infrastructure
                         .Where(x => x != null);
         }
 
-        private CatalogItem CreateCatalogItem(string[] column, string[] headers, Dictionary<String, int> catalogTypeIdLookup, Dictionary<String, int> catalogBrandIdLookup)
+        private CatalogItem CreateCatalogItem(string[] column, string[] headers, Dictionary<string, int> catalogTypeIdLookup, Dictionary<string, int> catalogBrandIdLookup)
         {
             if (column.Count() != headers.Count())
             {
@@ -234,7 +234,7 @@ namespace Catalog.API.Infrastructure
             }
 
             string priceString = column[Array.IndexOf(headers, "price")].Trim('"').Trim();
-            if (!Decimal.TryParse(priceString, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out Decimal price))
+            if (!decimal.TryParse(priceString, NumberStyles.AllowDecimalPoint, CultureInfo.InvariantCulture, out decimal price))
             {
                 throw new Exception($"price={priceString}is not a valid decimal number");
             }
@@ -253,7 +253,7 @@ namespace Catalog.API.Infrastructure
             if (availableStockIndex != -1)
             {
                 string availableStockString = column[availableStockIndex].Trim('"').Trim();
-                if (!String.IsNullOrEmpty(availableStockString))
+                if (!string.IsNullOrEmpty(availableStockString))
                 {
                     if (int.TryParse(availableStockString, out int availableStock))
                     {
@@ -270,7 +270,7 @@ namespace Catalog.API.Infrastructure
             if (restockThresholdIndex != -1)
             {
                 string restockThresholdString = column[restockThresholdIndex].Trim('"').Trim();
-                if (!String.IsNullOrEmpty(restockThresholdString))
+                if (!string.IsNullOrEmpty(restockThresholdString))
                 {
                     if (int.TryParse(restockThresholdString, out int restockThreshold))
                     {
@@ -287,7 +287,7 @@ namespace Catalog.API.Infrastructure
             if (maxStockThresholdIndex != -1)
             {
                 string maxStockThresholdString = column[maxStockThresholdIndex].Trim('"').Trim();
-                if (!String.IsNullOrEmpty(maxStockThresholdString))
+                if (!string.IsNullOrEmpty(maxStockThresholdString))
                 {
                     if (int.TryParse(maxStockThresholdString, out int maxStockThreshold))
                     {
@@ -304,7 +304,7 @@ namespace Catalog.API.Infrastructure
             if (onReorderIndex != -1)
             {
                 string onReorderString = column[onReorderIndex].Trim('"').Trim();
-                if (!String.IsNullOrEmpty(onReorderString))
+                if (!string.IsNullOrEmpty(onReorderString))
                 {
                     if (bool.TryParse(onReorderString, out bool onReorder))
                     {

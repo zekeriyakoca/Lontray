@@ -95,7 +95,7 @@ namespace EventBus.SimpleBus
             var queue = GetQueue(queueName);
             var queueItem = Encoding.UTF8.GetString(eventArgs.Body.ToArray());
 
-            if (!String.IsNullOrWhiteSpace(queueItem))
+            if (!string.IsNullOrWhiteSpace(queueItem))
             {
                 //TODO : Implement requeuing after implementation of retry policy
                 logger.LogError("Requeuing failed task...");
@@ -147,7 +147,7 @@ namespace EventBus.SimpleBus
 
             using StreamReader outputFile = new StreamReader(path);
             var json = outputFile.ReadToEnd();
-            if (!String.IsNullOrWhiteSpace(json))
+            if (!string.IsNullOrWhiteSpace(json))
                 Queues = JsonConvert.DeserializeObject<ConcurrentBag<SimpleQueue>>(json);
         }
 
@@ -164,7 +164,7 @@ namespace EventBus.SimpleBus
             }
 
             public string Name { get; set; }
-            public ConcurrentQueue<String> Queue { get; }
+            public ConcurrentQueue<string> Queue { get; }
 
             public void AddListener(AsyncEventHandler<BasicDeliverEventArgs> handler)
             {
