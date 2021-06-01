@@ -24,7 +24,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Folder Include="Application\IntegrationEvents\" />
 		<Folder Include="Application\Validations\" />
 		<Folder Include="Extensions\Mappers\" />
 		<Folder Include="Application\Dtos\" />

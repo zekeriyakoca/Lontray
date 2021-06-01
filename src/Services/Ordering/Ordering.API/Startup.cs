@@ -13,6 +13,7 @@ using Ordering.Infrastructure;
 using Ordering.Infrastructure.AutofacModules;
 using Ordering.Infrastructure.CQRS;
 using Ordering.Infrastructure.Filters;
+using Ordering.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -62,6 +63,7 @@ namespace Ordering.API
             services.AddTransient<OrderingContextSeeder>();
             services.AddTransient<IQueryExecuter, QueryExecuter>();
             services.AddTransient<ICommandExecuter, CommandExecuter>();
+            services.AddTransient<IOrderingIntegrationService, OrderingIntegrationService>();
 
             InitializeAdditionalContainer(services);
         }
