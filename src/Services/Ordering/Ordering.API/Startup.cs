@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EventBus;
 using EventBus.Events.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Ordering.API.Infrastructure.Filters;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.AutofacModules;
 using Ordering.Infrastructure.CQRS;
@@ -16,6 +18,7 @@ using Ordering.Infrastructure.Filters;
 using Ordering.Infrastructure.Services;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
 
@@ -56,6 +59,7 @@ namespace Ordering.API
 
             services.AddEventBusRabbitMQ(Configuration)
                     .AddCustomSwagger(Configuration)
+                    .ConfigureAuthService(Configuration)
                     .AddCustomDbContext(Configuration, env);
 
             services.AddHttpContextAccessor();
@@ -88,12 +92,18 @@ namespace Ordering.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Ordering.API v1"));
+                app.UseSwaggerUI(setup =>
+                {
+                    setup.SwaggerEndpoint($"/swagger/v1/swagger.json", "Ordering.API V1");
+                    setup.OAuthClientId("orderingswaggerui");
+                    setup.OAuthAppName("Ordering Swagger UI");
+                });
             }
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -130,13 +140,31 @@ namespace Ordering.API
         {
             services.AddSwaggerGen(options =>
             {
-                //options.DescribeAllEnumsAsStrings();
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Ordering API",
+                    Title = "The Ordering API",
                     Version = "v1",
-                    Description = "The Ordering API."
+                    Description = "The Ordering API"
                 });
+
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows()
+                    {
+                        Implicit = new OpenApiOAuthFlow()
+                        {
+                            AuthorizationUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/authorize"),
+                            TokenUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/token"),
+                            Scopes = new Dictionary<string, string>()
+                            {
+                                { "orderingApi", "Ordering API" }
+                            }
+                        }
+                    }
+                });
+
+                options.OperationFilter<AuthorizeCheckOperationFilter>();
             });
 
             return services;
@@ -157,6 +185,28 @@ namespace Ordering.API
                     if (env.IsDevelopment()) options.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information); // logs all sql commands to console
                 });
 
+
+            return services;
+        }
+
+        internal static IServiceCollection ConfigureAuthService(this IServiceCollection services, IConfiguration configuration)
+        {
+            // prevent from mapping "sub" claim to nameidentifier.
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+
+            var identityUrl = configuration.GetValue<string>("IdentityUrl");
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = identityUrl;
+                options.RequireHttpsMetadata = false;
+                options.Audience = "orderingApi";
+            });
 
             return services;
         }

@@ -9,19 +9,36 @@ namespace Lontray.Services.Identity.API.Configuration
 
         public static IEnumerable<ApiResource> ApiResources =>
             new List<ApiResource>() {
-                new ApiResource("WebApi", "Web API"),
-                new ApiResource("webbffshopping","Web Bff for Shopping") // ResourceName corresponds to Apis' audience
+                // ResourceName corresponds to Apis' audience
+                new ApiResource("webbffshopping","Web Bff for Shopping")
                 {
                     //Here we are creating a relation between ApiResources and ApiScopes
                     Scopes = new List<string> { "webbffshopping.all" }
+                },
+                new ApiResource("BasketApi", "Basket API")
+                {
+                    Scopes = new List<string> { "BasketApi.read", "BasketApi.all" }
+                },
+                new ApiResource("OrderApi", "Order API")
+                {
+                    Scopes = new List<string> { "OrderApi.read", "OrderApi.all" }
+                },
+                new ApiResource("CatalogApi", "Catalog API")
+                {
+                    Scopes = new List<string> { "CatalogApi.read", "CatalogApi.all" }
                 },
             };
 
         public static IEnumerable<ApiScope> ApiScopes =>
             new List<ApiScope>() {
-                new ApiScope("WebApi.manage", "Can manage Web API"),
-                new ApiScope("WebApi.read", "Can query Web API"),
                 new ApiScope("webbffshopping.all", "Can access to Web Bff for Shopping"), // Corresponds to Clients' allowed scopes
+                
+                new ApiScope("BasketApi.read", "Can query Basket API"),
+                new ApiScope("BasketApi.all", "Can manage Basket API"),
+                new ApiScope("OrderApi.read", "Can query Order API"),
+                new ApiScope("OrderApi.all", "Can manage Order API"),
+                new ApiScope("CatalogApi.read", "Can query Catalog API"),
+                new ApiScope("CatalogApi.all", "Can manage Catalog API"),
             };
 
 
@@ -69,7 +86,7 @@ namespace Lontray.Services.Identity.API.Configuration
                     },
 
                     // scopes that client has access to
-                    AllowedScopes = { "WebApi.manage" }
+                    AllowedScopes = { "WebApi.manage", "BasketApi.all", "OrderApi.all", "CatalogApi.all" }
                 },
                 new Client
                 {
@@ -108,6 +125,51 @@ namespace Lontray.Services.Identity.API.Configuration
 
                     // scopes that client has access to
                     AllowedScopes = { "WebApi.manage" }
+                },
+                new Client
+                {
+                    ClientId = "basketswaggerui",
+                    ClientName = "Basket API Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{clientsUrl["BasketApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientsUrl["BasketApi"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "basket.all",
+                    }
+                },
+                new Client
+                {
+                    ClientId = "catalogswaggerui",
+                    ClientName = "Catalog API Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{clientsUrl["CatalogApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientsUrl["CatalogApi"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "catalog.all",
+                    }
+                },
+                 new Client
+                {
+                    ClientId = "orderingswaggerui",
+                    ClientName = "Ordering API Swagger UI",
+                    AllowedGrantTypes = GrantTypes.Implicit,
+                    AllowAccessTokensViaBrowser = true,
+
+                    RedirectUris = { $"{clientsUrl["OrderingApi"]}/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientsUrl["OrderingApi"]}/swagger/" },
+
+                    AllowedScopes =
+                    {
+                        "ordering.all",
+                    }
                 },
 
             };

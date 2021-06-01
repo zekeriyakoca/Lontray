@@ -16,7 +16,10 @@ namespace Lontray.Services.Identity.API.Data
             //callbacks urls from config:
             var clientUrls = new Dictionary<string, string>();
 
-            clientUrls.Add("WebBffShopping", configuration.GetValue<string>("WebBffShoppingClient"));
+            clientUrls.Add("WebBffShopping", configuration.GetValue<string>("Urls:WebBffShoppingClient"));
+            clientUrls.Add("BasketApi", configuration.GetValue<string>("Urls:BasketApi"));
+            clientUrls.Add("OrderingApi", configuration.GetValue<string>("Urls:OrderingApi"));
+            clientUrls.Add("CatalogApi", configuration.GetValue<string>("Urls:CatalogApi"));
 
             if (bool.Parse(configuration["RecreateIdentityTables"]))
             {
