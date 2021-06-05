@@ -1,5 +1,6 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Basket.API.Grpc;
 using Basket.API.Infrastructure.Filters;
 using Basket.API.Infrastructure.Repositories;
 using EventBus;
@@ -98,6 +99,7 @@ namespace Basket.API
             {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<BasketService>();
             });
 
             app.ConfigureIntegrationEvents();
