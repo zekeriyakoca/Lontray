@@ -9,9 +9,13 @@
 	<PropertyGroup>
 		<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
 	</PropertyGroup>
+	<ItemGroup>
+	  <None Remove="Proto\ordering.proto" />
+	</ItemGroup>
 
 	<ItemGroup>
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
+		<PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
 		<PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.6" />
 		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.5">
@@ -36,6 +40,10 @@
 		<ProjectReference Include="..\..\..\Common\Logger\Logger.csproj" />
 		<ProjectReference Include="..\Ordering.Domain\Ordering.Domain.csproj" />
 		<ProjectReference Include="..\Ordering.Infrastructure\Ordering.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Protobuf Include="Proto\ordering.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 </Project>
