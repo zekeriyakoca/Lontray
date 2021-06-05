@@ -53,6 +53,13 @@ namespace Basket.API.Controllers
             throw new NotImplementedException();
         }
 
+        [HttpPost("ApplyCode/{code}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ApplyCoupon([FromQuery] string code)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpDelete("{customerId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> DeleteBasket([FromQuery] string customerId)
