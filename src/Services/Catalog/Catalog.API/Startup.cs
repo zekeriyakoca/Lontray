@@ -1,6 +1,7 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Catalog.API.AppServices;
+using Catalog.API.Grpc;
 using Catalog.API.Infrastructure;
 using Catalog.API.Infrastructure.Filters;
 using Catalog.API.IntegrationEvents.Services;
@@ -109,6 +110,7 @@ namespace Catalog.API
             {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<CatalogService>();
             });
 
             app.ConfigureIntegrationEvents();

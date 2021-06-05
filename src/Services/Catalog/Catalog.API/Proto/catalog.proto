@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+option csharp_namespace = "Catalog.API.Grpc";
+
+package CatalogApi;
+
+
+service Catalog {
+	rpc ValidateBasket(CheckAvailibilityRequest) returns (CheckAvailibilityResponse) {}
+}
+
+message CheckAvailibilityRequest {
+	repeated CatalogItemAvailibilityRequest items =1;
+}
+
+message CatalogItemAvailibilityRequest {
+	int32 id = 1;
+	int32 quantity = 2;
+}
+
+message CheckAvailibilityResponse {
+	repeated CatalogItemAvailibilityResponse items =1;
+}
+
+message CatalogItemAvailibilityResponse {
+	int32 id = 1;
+	bool availibility = 2;
+}

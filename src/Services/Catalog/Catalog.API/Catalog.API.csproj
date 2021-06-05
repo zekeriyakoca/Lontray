@@ -8,9 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Proto\catalog.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+    <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.5" />
@@ -29,6 +34,10 @@
     <ProjectReference Include="..\..\..\Common\DomainHelper\DomainHelper.csproj" />
     <ProjectReference Include="..\..\..\Common\EventBus\EventBus.csproj" />
     <ProjectReference Include="..\..\..\Common\Logger\Logger.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="Proto\catalog.proto" GrpcServices="Server" />
   </ItemGroup>
 
 </Project>
