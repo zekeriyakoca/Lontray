@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Ordering.API.Grpc";
+option csharp_namespace = "OrderingGrpc";
 
 package OrderingApi;
 

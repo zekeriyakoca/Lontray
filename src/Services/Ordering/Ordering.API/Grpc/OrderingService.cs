@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Ordering.API.Grpc
+namespace OrderingGrpc
 {
     public class OrderingService : Ordering.OrderingBase
     {

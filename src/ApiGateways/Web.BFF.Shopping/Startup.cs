@@ -1,3 +1,4 @@
+using BasketGrpc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -5,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
@@ -82,6 +84,12 @@ namespace Web.BFF.Shopping
                 options.Authority = Configuration["Urls:Identity"];
                 options.Audience = "webbffshopping";
                 options.RequireHttpsMetadata = false;
+            });
+
+            services.AddGrpcClient<Basket.BasketClient>((services, options) =>
+            {
+                var basketApi = services.GetRequiredService<IOptions<UrlConfig>>().Value.BasketGrpc;
+                options.Address = new Uri(basketApi);
             });
         }
 

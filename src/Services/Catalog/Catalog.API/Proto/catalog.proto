@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-option csharp_namespace = "Catalog.API.Grpc";
+option csharp_namespace = "CatalogGrpc";
 
 package CatalogApi;
 

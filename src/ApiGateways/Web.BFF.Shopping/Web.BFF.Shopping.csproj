@@ -8,10 +8,27 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="5.0.5" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\..\Services\Basket\Basket.API\Proto\basket.proto" GrpcServices="Client">
+      <Link>Protos\basket.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\..\Services\Catalog\Catalog.API\Proto\catalog.proto" GrpcServices="Client">
+      <Link>Protos\catalog.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\..\Services\Ordering\Ordering.API\Proto\ordering.proto" GrpcServices="Client">
+      <Link>Protos\ordering.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>
