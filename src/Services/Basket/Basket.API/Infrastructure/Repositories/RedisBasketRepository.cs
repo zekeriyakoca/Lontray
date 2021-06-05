@@ -15,9 +15,9 @@ namespace Basket.API.Infrastructure.Repositories
         {
             this.cache = cache;
         }
-        public async Task DeleteBasketAsync(string id)
+        public async Task DeleteBasketAsync(string customerId)
         {
-            await cache.RemoveValue(id.ToRedisKey());
+            await cache.RemoveValue(customerId.ToRedisKey());
         }
 
         public async Task<CustomerBasket> GetBasketAsync(string customerId)
@@ -33,7 +33,7 @@ namespace Basket.API.Infrastructure.Repositories
 
         public async Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket)
         {
-            await cache.SetValue<CustomerBasket>(basket.BuyerId.ToRedisKey(), basket);
+            await cache.SetValue<CustomerBasket>(basket.CustomerId.ToRedisKey(), basket);
             return basket; // TODO : Evaluate returning data from cache
         }
     }
