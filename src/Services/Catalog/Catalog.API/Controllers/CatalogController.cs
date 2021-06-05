@@ -39,13 +39,6 @@ namespace Catalog.API.Controllers
             throw new NotImplementedException();
         }
 
-        // TODO : Move to GRPC Service
-        //[HttpPost("")]
-        //public async Task<ActionResult> CheckAvailibity([FromQuery] dynamic dto)
-        //{
-        //    throw new NotImplementedException();
-        //}
-
         [HttpPost("")]
         public async Task<ActionResult> AddCatalogItem([FromBody] CreateCatalogItemDto dto)
         {
