@@ -12,6 +12,7 @@ namespace Catalog.API.Infrastructure.Configurations.AutoMapper
         {
             CreateMap<CatalogItem, CreateCatalogItemDto>()
                 .ReverseMap();
+
             CreateMap<CatalogItem, CatalogItemCreatedEvent>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.CatalogItemId, opt => opt.MapFrom(src => src.Id));
@@ -22,6 +23,13 @@ namespace Catalog.API.Infrastructure.Configurations.AutoMapper
             CreateMap<CatalogItem, CatalogItemUpdatedEvent>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(src => Guid.NewGuid()))
                 .ForMember(dest => dest.CatalogItemId, opt => opt.MapFrom(src => src.Id));
+
+            CreateMap<CatalogBrand, CatalogBrandDto>().ReverseMap();
+            CreateMap<CatalogType, CatalogTypeDto>().ReverseMap();
+            CreateMap<CatalogFeature, CatalogFeatureDto>().ReverseMap();
+
+            CreateMap<CatalogItem, CatalogItemDto>().ReverseMap();
+            CreateMap<CatalogItem, CatalogItemSimpleDto>().ReverseMap();
         }
     }
 }
