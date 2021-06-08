@@ -1,8 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Basket.API.Grpc;
 using Basket.API.Infrastructure.Filters;
 using Basket.API.Infrastructure.Repositories;
+using BasketGrpc;
 using EventBus;
 using EventBus.Events.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
