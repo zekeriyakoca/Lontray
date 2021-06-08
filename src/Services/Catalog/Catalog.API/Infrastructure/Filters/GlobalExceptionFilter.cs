@@ -5,12 +5,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 
 namespace Catalog.API.Infrastructure.Filters
 {
@@ -43,7 +37,7 @@ namespace Catalog.API.Infrastructure.Filters
                 problemDetails.Errors.Add("DomainValidations", new string[] { context.Exception.Message.ToString() });
 
                 context.Result = new BadRequestObjectResult(problemDetails);
-                context.HttpContext.Response.StatusCode = (int)StatusCodes.Status400BadRequest;
+                context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
 
             }
             else
@@ -55,7 +49,7 @@ namespace Catalog.API.Infrastructure.Filters
                 };
 
                 context.Result = new BadRequestObjectResult(errorDetails);
-                context.HttpContext.Response.StatusCode = (int)StatusCodes.Status400BadRequest;
+                context.HttpContext.Response.StatusCode = StatusCodes.Status400BadRequest;
             }
 
             context.ExceptionHandled = true;

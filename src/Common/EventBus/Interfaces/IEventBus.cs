@@ -1,10 +1,6 @@
-﻿using EventBus.Dtos;
-using EventBus.Events;
+﻿using EventBus.Events;
 using EventBus.Events.Interfaces;
 using RabbitMQ.Client.Events;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace EventBus
 {

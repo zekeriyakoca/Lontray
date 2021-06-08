@@ -1,14 +1,13 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Catalog.API.AppServices;
+using Catalog.API.Grpc;
 using Catalog.API.Infrastructure;
 using Catalog.API.Infrastructure.Filters;
-using Catalog.API.IntegrationEvents.EventHandlers;
-using Catalog.API.IntegrationEvents.Events;
 using Catalog.API.IntegrationEvents.Services;
 using EventBus;
-using EventBus.Events;
 using EventBus.Events.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +17,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
 
@@ -25,9 +25,12 @@ namespace Catalog.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        private readonly IWebHostEnvironment env;
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            this.env = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -54,17 +57,6 @@ namespace Catalog.API
             services.AddOptions();
             services.Configure<CatalogSettings>(Configuration);
 
-            var connectionString = Configuration["ConnectionString"];
-            var migrationAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
-            services.AddDbContext<CatalogContext>(options =>
-            {
-                options.UseSqlServer(connectionString,
-                    (sqlOptions) =>
-                    {
-                        sqlOptions.MigrationsAssembly(migrationAssembly);
-                        sqlOptions.EnableRetryOnFailure(15, TimeSpan.FromSeconds(30), default);
-                    });
-            });
             services.AddTransient<CatalogContextSeeder>();
 
             services.AddTransient<ICatalogAppService, CatalogAppService>();
@@ -76,7 +68,8 @@ namespace Catalog.API
             services.AddEventBusRabbitMQ(Configuration);
 
             services.AddCustomSwagger(Configuration)
-                    .AddCustomDbContext(Configuration);
+                    .ConfigureAuthService(Configuration)
+                    .AddCustomDbContext(Configuration, env);
         }
 
         //Configure Autofac Container
@@ -97,7 +90,12 @@ namespace Catalog.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Catalog.API v1"));
+                app.UseSwaggerUI(setup =>
+                {
+                    setup.SwaggerEndpoint($"/swagger/v1/swagger.json", "Catalog.API V1");
+                    setup.OAuthClientId("catalogswaggerui");
+                    setup.OAuthAppName("Catalog Swagger UI");
+                });
             }
 
             app.UseHttpsRedirection();
@@ -105,10 +103,14 @@ namespace Catalog.API
             app.UseRouting();
             app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
+            app.UseAuthorization();
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<CatalogService>();
             });
 
             app.ConfigureIntegrationEvents();
@@ -132,7 +134,7 @@ namespace Catalog.API
                     .GetMethod("Subscribe")
                     .MakeGenericMethod(@event, handler.GetType());
 
-                subscribemethod.Invoke(eventBus, new object[] { @event.Name, "OrderApi", handler });
+                subscribemethod.Invoke(eventBus, new object[] { @event.Name, "CatalogApi", handler });
             }
         }
 
@@ -140,20 +142,38 @@ namespace Catalog.API
         {
             services.AddSwaggerGen(options =>
             {
-                //options.DescribeAllEnumsAsStrings();
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Catalog API",
+                    Title = "The Catalog API",
                     Version = "v1",
-                    Description = "The Catalog API."
+                    Description = "The Catalog API"
                 });
+
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows()
+                    {
+                        Implicit = new OpenApiOAuthFlow()
+                        {
+                            AuthorizationUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/authorize"),
+                            TokenUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/token"),
+                            Scopes = new Dictionary<string, string>()
+                            {
+                                { "catalogApi", "Catalog API" }
+                            }
+                        }
+                    }
+                });
+
+                options.OperationFilter<AuthorizeCheckOperationFilter>();
             });
 
             return services;
 
         }
 
-        internal static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration)
+        internal static IServiceCollection AddCustomDbContext(this IServiceCollection services, IConfiguration configuration, IWebHostEnvironment env)
         {
             services.AddEntityFrameworkSqlServer()
                 .AddDbContext<CatalogContext>(options =>
@@ -164,8 +184,31 @@ namespace Catalog.API
                                              sqlOptions.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
                                              sqlOptions.EnableRetryOnFailure(maxRetryCount: 15, maxRetryDelay: TimeSpan.FromSeconds(30), errorNumbersToAdd: null);
                                          });
+                    if (env.IsDevelopment()) options.LogTo(Console.WriteLine, Microsoft.Extensions.Logging.LogLevel.Information); // logs all sql commands to console
                 });
 
+
+            return services;
+        }
+
+        internal static IServiceCollection ConfigureAuthService(this IServiceCollection services, IConfiguration configuration)
+        {
+            // prevent from mapping "sub" claim to nameidentifier.
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+
+            var identityUrl = configuration.GetValue<string>("IdentityUrl");
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = identityUrl;
+                options.RequireHttpsMetadata = false;
+                options.Audience = "catalogApi";
+            });
 
             return services;
         }

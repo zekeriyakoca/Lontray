@@ -3,10 +3,10 @@
 using Catalog.API.AppServices;
 using Catalog.API.Dtos;
 using Catalog.API.Infrastructure;
-using Catalog.API.IntegrationEvents.Events;
-using EventBus;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace Catalog.API.Controllers
@@ -26,14 +26,21 @@ namespace Catalog.API.Controllers
             this.catalogAppService = catalogAppService;
         }
 
-        [HttpGet("/Test")]
-        public IActionResult Index()
+        [HttpGet("{id}")]
+        public async Task<ActionResult<CatalogItemDto>> GetItem([FromQuery] int id)
         {
-            return Ok("");
+
+            throw new NotImplementedException();
         }
 
-        [HttpPost("/Create")]
-        public async Task<IActionResult> AddCatalogItem([FromBody] CreateCatalogItemDto dto)
+        [HttpPost("")]
+        public async Task<ActionResult<IEnumerable<CatalogItemDto>>> GetItems([FromBody] CatalogItemSearchParamsDto dto)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpPost("")]
+        public async Task<ActionResult> AddCatalogItem([FromBody] CreateCatalogItemDto dto)
         {
             if (dto == null)
                 return BadRequest();
@@ -42,14 +49,20 @@ namespace Catalog.API.Controllers
             return Ok("");
         }
 
-        [HttpPut("/Update")]
-        public async Task<IActionResult> UpdateCatalogItem([FromBody] UpdateCatalogItemDto dto)
+        [HttpPut("")]
+        public async Task<ActionResult> UpdateCatalogItem([FromBody] UpdateCatalogItemDto dto)
         {
             if (dto == null)
                 return BadRequest();
 
             await catalogAppService.UpdateCatalogItem(dto);
             return Ok("");
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> RemoveCatalogItem([FromQuery] int id)
+        {
+            throw new NotImplementedException();
         }
 
     }

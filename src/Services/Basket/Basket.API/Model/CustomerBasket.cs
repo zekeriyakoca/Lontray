@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Basket.API.Model
 {
     public class CustomerBasket
     {
-        public string BuyerId { get; set; }
+        public string CustomerId { get; set; }
 
         public List<BasketItem> Items { get; set; } = new List<BasketItem>();
 
@@ -18,8 +15,8 @@ namespace Basket.API.Model
 
         public CustomerBasket(string customerId)
         {
-            BuyerId = customerId;
+            CustomerId = customerId;
         }
     }
-  
+
 }

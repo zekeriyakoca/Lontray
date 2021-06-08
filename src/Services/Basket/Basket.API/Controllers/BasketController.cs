@@ -12,6 +12,9 @@ namespace Basket.API.Controllers
     [ApiController]
     public class BasketController : ControllerBase
     {
+        [FromHeader(Name = "x-requestid")]
+        private string RequestId { get; set; }
+
         private readonly IBasketRepository basketRepository;
         private readonly ILogger<BasketController> logger;
 
@@ -28,7 +31,8 @@ namespace Basket.API.Controllers
             return Ok(await basketRepository.GetBasketAsync(customerId) ?? new CustomerBasket(customerId));
         }
 
-        [HttpPost("Update")]
+
+        [HttpPut("")]
         [ProducesResponseType(typeof(CustomerBasket), StatusCodes.Status200OK)]
         public async Task<ActionResult<CustomerBasket>> UpdateBasket([FromBody] CustomerBasket basket)
         {
@@ -37,7 +41,7 @@ namespace Basket.API.Controllers
 
         [HttpPost("checkout/{customerId}")]
         [ProducesResponseType(typeof(CustomerBasket), StatusCodes.Status200OK)]
-        public async Task<ActionResult<CustomerBasket>> CheckoutBasket([FromQuery] string customerId, [FromHeader(Name = "x-requestid")] string requestId)
+        public async Task<ActionResult<CustomerBasket>> CheckoutBasket([FromQuery] string customerId)
         {
             var basket = await basketRepository.GetBasketAsync(customerId);
 
@@ -49,7 +53,14 @@ namespace Basket.API.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpGet("Delete/{customerId}")]
+        [HttpPost("ApplyCode/{code}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ApplyCoupon([FromQuery] string code)
+        {
+            throw new NotImplementedException();
+        }
+
+        [HttpDelete("{customerId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> DeleteBasket([FromQuery] string customerId)
         {

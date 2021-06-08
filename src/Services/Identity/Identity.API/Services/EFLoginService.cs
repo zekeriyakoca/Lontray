@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Lontray.Services.Identity.API.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
-using Lontray.Services.Identity.API.Models;
 using System.Threading.Tasks;
 
 namespace Lontray.Services.Identity.API.Services

@@ -1,11 +1,8 @@
 ﻿using Logger;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 
 namespace Microsoft.Extensions.Hosting
 {

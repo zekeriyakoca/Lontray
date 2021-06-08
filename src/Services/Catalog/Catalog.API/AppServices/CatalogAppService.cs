@@ -5,7 +5,6 @@ using Catalog.API.Infrastructure;
 using Catalog.API.IntegrationEvents.Events;
 using Catalog.API.IntegrationEvents.Services;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -39,7 +38,7 @@ namespace Catalog.API.AppServices
         public async Task UpdateCatalogItem(UpdateCatalogItemDto dto)
         {
             var itemToUpdate = context.CatalogItems.SingleOrDefault(c => c.Id == dto.Id);
-            if(itemToUpdate == null)
+            if (itemToUpdate == null)
                 throw new Exception($"CatalogItem cannot be found to update. CatalogItemId :{dto.Id}");
 
             itemToUpdate = mapper.Map<UpdateCatalogItemDto, CatalogItem>(dto, itemToUpdate);

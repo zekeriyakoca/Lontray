@@ -8,9 +8,8 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddEventBusRabbitMQ(this IServiceCollection services, IConfiguration Configuration)
+        public static IServiceCollection AddEventBusRabbitMQ(this IServiceCollection services, IConfiguration Configuration)
         {
-
             var retryCount = Configuration["RabbitMQ:EventBusRetryCount"] ?? "5";
 
             services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
@@ -39,12 +38,14 @@ namespace Microsoft.Extensions.DependencyInjection
                 return new RabbitMQBus(rabbitMQPersistentConnection, logger, subscriptionClientName, int.Parse(retryCount));
             });
 
+            return services;
+
 
         }
 
-        public static void AddEventBusSimple(this IServiceCollection services, IConfiguration Configuration)
+        public static IServiceCollection AddEventBusSimple(this IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddSingleton<IEventBus, SimpleBus>();
+            return services.AddSingleton<IEventBus, SimpleBus>();
         }
     }
 }

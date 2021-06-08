@@ -1,8 +1,8 @@
 ﻿using IdentityModel;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
-using Microsoft.AspNetCore.Identity;
 using Lontray.Services.Identity.API.Models;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;

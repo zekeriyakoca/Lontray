@@ -1,9 +1,6 @@
 ﻿using DomainHelper.Entities;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Catalog.API.Entities
 {
@@ -19,8 +16,6 @@ namespace Catalog.API.Entities
 
         public string PictureUri { get; set; }
 
-        public CatalogItem() { }
-
         [ForeignKey(nameof(Brand))]
         public int BrandId { get; set; }
         public CatalogBrand Brand { get; set; }
@@ -28,6 +23,10 @@ namespace Catalog.API.Entities
         [ForeignKey(nameof(Type))]
         public int TypeId { get; set; }
         public CatalogType Type { get; set; }
+
+        public IEnumerable<CatalogFeature> Features { get; set; }
+
+        public string Tags { get; set; }
 
         // Quantity in stock
         public int AvailableStock { get; set; }

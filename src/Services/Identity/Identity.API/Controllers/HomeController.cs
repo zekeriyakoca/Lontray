@@ -1,8 +1,8 @@
 ﻿
 using IdentityServer4.Services;
-using Microsoft.AspNetCore.Mvc;
 using Lontray.Services.Identity.API.Models;
 using Lontray.Services.Identity.API.Services;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using System.Threading.Tasks;
 

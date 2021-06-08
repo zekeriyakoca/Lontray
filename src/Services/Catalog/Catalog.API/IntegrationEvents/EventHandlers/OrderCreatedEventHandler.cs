@@ -1,6 +1,5 @@
 ﻿using Catalog.API.Infrastructure;
 using Catalog.API.IntegrationEvents.Events;
-using EventBus.Events;
 using EventBus.Events.Interfaces;
 using Microsoft.Extensions.Logging;
 using Serilog.Context;
@@ -12,20 +11,20 @@ using System.Threading.Tasks;
 
 namespace Catalog.API.IntegrationEvents.EventHandlers
 {
-    public record CatalogItemUpdatedEventHandler : IIntegrationEventHandler<CatalogItemUpdatedEvent>
+    public class OrderCreatedEventHandler : IIntegrationEventHandler<OrderCreatedIntegrationEvent>
     {
         private readonly CatalogContext _catalogContext;
-        private readonly ILogger<CatalogItemUpdatedEventHandler> _logger;
+        private readonly ILogger<OrderCreatedEventHandler> _logger;
 
-        public CatalogItemUpdatedEventHandler(
+        public OrderCreatedEventHandler(
             CatalogContext catalogContext,
-            ILogger<CatalogItemUpdatedEventHandler> logger)
+            ILogger<OrderCreatedEventHandler> logger)
         {
             _catalogContext = catalogContext;
             _logger = logger ?? throw new System.ArgumentNullException(nameof(logger));
         }
 
-        public async Task Handle(CatalogItemUpdatedEvent @event)
+        public async Task Handle(OrderCreatedIntegrationEvent @event)
         {
             using (LogContext.PushProperty("IntegrationEventContext", $"{@event.Id}-{Program.AppName}"))
             {

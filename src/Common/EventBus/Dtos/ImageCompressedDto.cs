@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EventBus.Dtos
+﻿namespace EventBus.Dtos
 {
     public class ImageCompressedDto : BaseQueueItemDto
     {

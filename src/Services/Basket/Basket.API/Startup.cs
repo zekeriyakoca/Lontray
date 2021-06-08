@@ -1,23 +1,22 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using Basket.API.Grpc;
 using Basket.API.Infrastructure.Filters;
 using Basket.API.Infrastructure.Repositories;
 using EventBus;
 using EventBus.Events.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Basket.API
 {
@@ -56,9 +55,10 @@ namespace Basket.API
             services.AddCache(Cache.Enum.CachingServiceEnum.InMemory);
             //services.AddCache(Cache.Enum.CachingServiceEnum.Redis); // Activate after Redis is ready
 
-            services.AddEventBusRabbitMQ(Configuration);
-
-            services.AddCustomSwagger(Configuration);
+            services
+                .AddEventBusRabbitMQ(Configuration)
+                .AddCustomSwagger(Configuration)
+                .ConfigureAuthService(Configuration);
         }
 
         //Configure Autofac Container
@@ -79,7 +79,12 @@ namespace Basket.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Basket.API v1"));
+                app.UseSwaggerUI(setup =>
+                {
+                   setup.SwaggerEndpoint($"/swagger/v1/swagger.json", "Basket.API V1");
+                   setup.OAuthClientId("basketswaggerui");
+                   setup.OAuthAppName("Basket Swagger UI");
+                });
             }
 
             app.UseHttpsRedirection();
@@ -87,12 +92,14 @@ namespace Basket.API
             app.UseRouting();
             app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
+                endpoints.MapGrpcService<BasketService>();
             });
 
             app.ConfigureIntegrationEvents();
@@ -124,14 +131,55 @@ namespace Basket.API
             {
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
-                    Title = "Basket API",
+                    Title = "The Basket API",
                     Version = "v1",
-                    Description = "The Basket API."
+                    Description = "The Basket API"
                 });
+
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows()
+                    {
+                        Implicit = new OpenApiOAuthFlow()
+                        {
+                            AuthorizationUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/authorize"),
+                            TokenUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/token"),
+                            Scopes = new Dictionary<string, string>()
+                            {
+                                { "basketApi", "Basket API" }
+                            }
+                        }
+                    }
+                });
+
+                options.OperationFilter<AuthorizeCheckOperationFilter>();
             });
 
             return services;
 
+        }
+
+        internal static IServiceCollection ConfigureAuthService(this IServiceCollection services, IConfiguration configuration)
+        {
+            // prevent from mapping "sub" claim to nameidentifier.
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("sub");
+
+            var identityUrl = configuration.GetValue<string>("IdentityUrl");
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = identityUrl;
+                options.RequireHttpsMetadata = false;
+                options.Audience = "basketApi";
+            });
+
+            return services;
         }
     }
 }

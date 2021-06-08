@@ -1,19 +1,16 @@
+using BasketGrpc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Linq;
-using System.Threading.Tasks;
 using Web.BFF.Shopping.Filters;
 using Web.BFF.Shopping.Infrastructure;
 
@@ -36,8 +33,6 @@ namespace Web.BFF.Shopping
 
             services.AddSwaggerGen(options =>
             {
-                options.DescribeAllEnumsAsStrings();
-
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Web.BFF.Shopping",
@@ -54,7 +49,7 @@ namespace Web.BFF.Shopping
                         {
                             AuthorizationUrl = new Uri($"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/authorize"),
                             TokenUrl = new Uri($"{Configuration.GetValue<string>("IdentityUrlExternal")}/connect/token"),
-                            
+
                             Scopes = new Dictionary<string, string>()
                             {
                                 { "webbffshopping.all", "Shopping BFF for Web Clients" }
@@ -89,6 +84,12 @@ namespace Web.BFF.Shopping
                 options.Authority = Configuration["Urls:Identity"];
                 options.Audience = "webbffshopping";
                 options.RequireHttpsMetadata = false;
+            });
+
+            services.AddGrpcClient<Basket.BasketClient>((services, options) =>
+            {
+                var basketApi = services.GetRequiredService<IOptions<UrlConfig>>().Value.BasketGrpc;
+                options.Address = new Uri(basketApi);
             });
         }
 
