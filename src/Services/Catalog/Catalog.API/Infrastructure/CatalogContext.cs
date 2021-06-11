@@ -40,7 +40,7 @@ namespace Catalog.API.Infrastructure
                 }
             }
 
-
+            // This can be replaced with [DatabaseGenerated(DatabaseGeneratedOption.Identity)] annotation
             modelBuilder.Entity<CatalogItem>().Property(p => p.LastCreationTime).HasDefaultValueSql(sql);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(CatalogContext).Assembly);
@@ -69,20 +69,9 @@ namespace Catalog.API.Infrastructure
 
             foreach (var entityEntry in entriesModified)
             {
+                // This can be replaced with [DatabaseGenerated(DatabaseGeneratedOption.Computed)] annotation
                 entityEntry.LastModificationTime = DateTime.Now;
             }
-
-            //var entriesChanged = ChangeTracker
-            //  .Entries()
-            //  .Where(e => e.Entity is ICreationAudited
-            //              && e.State == EntityState.Added)
-            //  .Select(e => e.Entity as ICreationAudited);
-
-            //foreach (var entityEntry in entriesChanged)
-            //{
-            //    entityEntry.LastCreationTime = DateTime.Now;
-
-            //}
         }
 
 
