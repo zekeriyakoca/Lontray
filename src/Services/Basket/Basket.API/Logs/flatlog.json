@@ -1,0 +1,720 @@
+2021-11-14 17:53:49.187 +01:00 [DBG] Hosting starting
+2021-11-14 17:53:49.242 +01:00 [INF] User profile is available. Using 'C:\Users\zeker\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-11-14 17:53:49.270 +01:00 [DBG] Reading data from file 'C:\Users\zeker\AppData\Local\ASP.NET\DataProtection-Keys\key-6f4bae6b-6191-4ee7-8d7e-aed285b26c04.xml'.
+2021-11-14 17:53:49.284 +01:00 [DBG] Found key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04}.
+2021-11-14 17:53:49.297 +01:00 [DBG] Considering key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} with expiration date 2022-01-05 09:40:16Z as default key.
+2021-11-14 17:53:49.317 +01:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-11-14 17:53:49.320 +01:00 [DBG] Decrypting secret element using Windows DPAPI.
+2021-11-14 17:53:49.322 +01:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-11-14 17:53:49.327 +01:00 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-11-14 17:53:49.330 +01:00 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-11-14 17:53:49.334 +01:00 [DBG] Using key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} as the default key.
+2021-11-14 17:53:49.336 +01:00 [DBG] Key ring with default key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} was loaded during application startup.
+2021-11-14 17:53:49.567 +01:00 [VRB] Discovering gRPC methods for BasketGrpc.BasketService.
+2021-11-14 17:53:49.580 +01:00 [VRB] Added gRPC method 'GetBasketById' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/GetBasketById'.
+2021-11-14 17:53:49.582 +01:00 [VRB] Added gRPC method 'UpdateBasket' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/UpdateBasket'.
+2021-11-14 17:53:49.583 +01:00 [VRB] Added gRPC method 'ValidateBasket' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/ValidateBasket'.
+2021-11-14 17:53:49.741 +01:00 [DBG] Using development certificate: CN=localhost (Thumbprint: B20F8C4492BC171D5F2900CDD8983CE5AB2E74AC)
+2021-11-14 17:53:49.801 +01:00 [INF] Now listening on: https://localhost:8001
+2021-11-14 17:53:49.802 +01:00 [INF] Now listening on: http://localhost:8000
+2021-11-14 17:53:49.804 +01:00 [DBG] Loaded hosting startup assembly Basket.API
+2021-11-14 17:53:49.805 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-11-14 17:53:49.805 +01:00 [INF] Hosting environment: Development
+2021-11-14 17:53:49.806 +01:00 [INF] Content root path: C:\Users\zeker\source\repos\Lontray\src\Services\Basket\Basket.API
+2021-11-14 17:53:49.807 +01:00 [DBG] Hosting started
+2021-11-14 17:53:49.877 +01:00 [DBG] Connection id "0HMD7HTAGQR0O" accepted.
+2021-11-14 17:53:49.877 +01:00 [DBG] Connection id "0HMD7HTAGQR0P" accepted.
+2021-11-14 17:53:49.879 +01:00 [DBG] Connection id "0HMD7HTAGQR0O" started.
+2021-11-14 17:53:49.879 +01:00 [DBG] Connection id "0HMD7HTAGQR0P" started.
+2021-11-14 17:53:49.894 +01:00 [DBG] Connection id "0HMD7HTAGQR0O" received FIN.
+2021-11-14 17:53:49.894 +01:00 [DBG] Connection id "0HMD7HTAGQR0P" received FIN.
+2021-11-14 17:53:49.915 +01:00 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException:  Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.<FillHandshakeBufferAsync>g__InternalFillHandshakeBufferAsync|182_0[TIOAdapter](TIOAdapter adap, ValueTask`1 task, Int32 minSize)
+   at System.Net.Security.SslStream.ReceiveBlobAsync[TIOAdapter](TIOAdapter adapter)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](TIOAdapter adapter, Boolean receiveFirst, Byte[] reAuthenticationData, Boolean isApm)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2021-11-14 17:53:49.915 +01:00 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException:  Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.<FillHandshakeBufferAsync>g__InternalFillHandshakeBufferAsync|182_0[TIOAdapter](TIOAdapter adap, ValueTask`1 task, Int32 minSize)
+   at System.Net.Security.SslStream.ReceiveBlobAsync[TIOAdapter](TIOAdapter adapter)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](TIOAdapter adapter, Boolean receiveFirst, Byte[] reAuthenticationData, Boolean isApm)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2021-11-14 17:53:49.956 +01:00 [DBG] Connection id "0HMD7HTAGQR0P" stopped.
+2021-11-14 17:53:49.956 +01:00 [DBG] Connection id "0HMD7HTAGQR0O" stopped.
+2021-11-14 17:53:49.961 +01:00 [DBG] Connection id "0HMD7HTAGQR0P" sending FIN because: "The Socket transport's send loop completed gracefully."
+2021-11-14 17:53:49.962 +01:00 [DBG] Connection id "0HMD7HTAGQR0O" sending FIN because: "The Socket transport's send loop completed gracefully."
+2021-11-14 17:53:50.220 +01:00 [DBG] Connection id "0HMD7HTAGQR0Q" accepted.
+2021-11-14 17:53:50.221 +01:00 [DBG] Connection id "0HMD7HTAGQR0Q" started.
+2021-11-14 17:53:50.271 +01:00 [DBG] Connection "0HMD7HTAGQR0Q" established using the following protocol: "Tls13"
+2021-11-14 17:53:50.286 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "SETTINGS" frame for stream ID 0 with length 18 and flags "NONE"
+2021-11-14 17:53:50.291 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "WINDOW_UPDATE" frame for stream ID 0 with length 4 and flags 0x0
+2021-11-14 17:53:50.294 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" received "SETTINGS" frame for stream ID 0 with length 24 and flags "NONE"
+2021-11-14 17:53:50.296 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "SETTINGS" frame for stream ID 0 with length 0 and flags "ACK"
+2021-11-14 17:53:50.297 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" received "WINDOW_UPDATE" frame for stream ID 0 with length 4 and flags 0x0
+2021-11-14 17:53:50.300 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" received "HEADERS" frame for stream ID 1 with length 2483 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:53:50.320 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" received "SETTINGS" frame for stream ID 0 with length 0 and flags "ACK"
+2021-11-14 17:53:50.330 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger - -
+2021-11-14 17:53:50.332 +01:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-11-14 17:53:50.333 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:53:50.360 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "HEADERS" frame for stream ID 1 with length 69 and flags "END_STREAM, END_HEADERS"
+2021-11-14 17:53:50.368 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" received "HEADERS" frame for stream ID 3 with length 42 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:53:50.369 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger - - - 301 0 - 40.2946ms
+2021-11-14 17:53:50.373 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/index.html - -
+2021-11-14 17:53:50.375 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:53:50.433 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "HEADERS" frame for stream ID 3 with length 28 and flags "END_HEADERS"
+2021-11-14 17:53:50.436 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 3 with length 3243 and flags "NONE"
+2021-11-14 17:53:50.437 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 3 with length 0 and flags "END_STREAM"
+2021-11-14 17:53:50.439 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/index.html - - - 200 - text/html;charset=utf-8 66.5482ms
+2021-11-14 17:53:50.452 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" received "HEADERS" frame for stream ID 5 with length 112 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:53:50.459 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" received "HEADERS" frame for stream ID 7 with length 58 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:53:50.459 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/swagger-ui.css - -
+2021-11-14 17:53:50.462 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" received "HEADERS" frame for stream ID 9 with length 170 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:53:50.462 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/swagger-ui-bundle.js - -
+2021-11-14 17:53:50.462 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:53:50.465 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/swagger-ui-standalone-preset.js - -
+2021-11-14 17:53:50.468 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:53:50.470 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:53:50.478 +01:00 [VRB] Range header's value is empty.
+2021-11-14 17:53:50.478 +01:00 [VRB] Range header's value is empty.
+2021-11-14 17:53:50.478 +01:00 [VRB] Range header's value is empty.
+2021-11-14 17:53:50.483 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "HEADERS" frame for stream ID 5 with length 79 and flags "END_HEADERS"
+2021-11-14 17:53:50.485 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "HEADERS" frame for stream ID 9 with length 57 and flags "END_HEADERS"
+2021-11-14 17:53:50.487 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "HEADERS" frame for stream ID 7 with length 34 and flags "END_HEADERS"
+2021-11-14 17:53:50.488 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 5 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.490 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 5 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.492 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 5 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.493 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 5 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.501 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.503 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.505 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.507 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.517 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 5 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.519 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 5 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.521 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 5 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.522 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 5 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.525 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.530 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.532 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.534 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.537 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.538 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.540 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.542 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.548 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 5 with length 11861 and flags "NONE"
+2021-11-14 17:53:50.550 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.551 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.551 +01:00 [INF] Sending file. Request path: '/swagger-ui.css'. Physical path: 'N/A'
+2021-11-14 17:53:50.553 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.556 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.558 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.562 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.563 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.565 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.567 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 5 with length 0 and flags "END_STREAM"
+2021-11-14 17:53:50.570 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.570 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/swagger-ui.css - - - 200 142933 text/css 111.0058ms
+2021-11-14 17:53:50.572 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.579 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.580 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.583 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.584 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.586 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.588 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.594 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.595 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.597 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.599 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.601 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.603 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.608 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.610 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.613 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.615 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.617 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.618 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.620 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.624 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.626 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.627 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 508 and flags "NONE"
+2021-11-14 17:53:50.630 +01:00 [INF] Sending file. Request path: '/swagger-ui-standalone-preset.js'. Physical path: 'N/A'
+2021-11-14 17:53:50.630 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.632 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.634 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.636 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.642 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 9 with length 0 and flags "END_STREAM"
+2021-11-14 17:53:50.644 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.646 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/swagger-ui-standalone-preset.js - - - 200 311804 application/javascript 181.1507ms
+2021-11-14 17:53:50.646 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.649 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.651 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.656 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.657 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.659 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.661 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.664 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.665 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.666 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.668 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.675 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.676 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.678 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.680 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.683 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.686 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.688 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.690 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.693 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.694 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.696 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.697 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.700 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.704 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.705 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.708 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.711 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.712 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.713 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.715 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 16384 and flags "NONE"
+2021-11-14 17:53:50.720 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 3302 and flags "NONE"
+2021-11-14 17:53:50.721 +01:00 [INF] Sending file. Request path: '/swagger-ui-bundle.js'. Physical path: 'N/A'
+2021-11-14 17:53:50.723 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 7 with length 0 and flags "END_STREAM"
+2021-11-14 17:53:50.724 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/swagger-ui-bundle.js - - - 200 986342 application/javascript 262.3082ms
+2021-11-14 17:53:50.863 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" received "HEADERS" frame for stream ID 11 with length 167 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:53:50.865 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/v1/swagger.json - -
+2021-11-14 17:53:50.866 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:53:50.884 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" received "HEADERS" frame for stream ID 13 with length 102 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:53:50.887 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/favicon-32x32.png - -
+2021-11-14 17:53:50.888 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:53:50.889 +01:00 [VRB] Range header's value is empty.
+2021-11-14 17:53:50.893 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "HEADERS" frame for stream ID 13 with length 71 and flags "END_HEADERS"
+2021-11-14 17:53:50.895 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 13 with length 628 and flags "NONE"
+2021-11-14 17:53:50.897 +01:00 [INF] Sending file. Request path: '/favicon-32x32.png'. Physical path: 'N/A'
+2021-11-14 17:53:50.898 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 13 with length 0 and flags "END_STREAM"
+2021-11-14 17:53:50.900 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/favicon-32x32.png - - - 200 628 image/png 12.7230ms
+2021-11-14 17:53:50.936 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "HEADERS" frame for stream ID 11 with length 35 and flags "END_HEADERS"
+2021-11-14 17:53:50.938 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 11 with length 6718 and flags "NONE"
+2021-11-14 17:53:50.940 +01:00 [VRB] Connection id "0HMD7HTAGQR0Q" sending "DATA" frame for stream ID 11 with length 0 and flags "END_STREAM"
+2021-11-14 17:53:50.942 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 76.9272ms
+2021-11-14 17:55:33.752 +01:00 [DBG] Hosting starting
+2021-11-14 17:55:33.804 +01:00 [INF] User profile is available. Using 'C:\Users\zeker\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-11-14 17:55:33.832 +01:00 [DBG] Reading data from file 'C:\Users\zeker\AppData\Local\ASP.NET\DataProtection-Keys\key-6f4bae6b-6191-4ee7-8d7e-aed285b26c04.xml'.
+2021-11-14 17:55:33.849 +01:00 [DBG] Found key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04}.
+2021-11-14 17:55:33.862 +01:00 [DBG] Considering key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} with expiration date 2022-01-05 09:40:16Z as default key.
+2021-11-14 17:55:33.873 +01:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-11-14 17:55:33.876 +01:00 [DBG] Decrypting secret element using Windows DPAPI.
+2021-11-14 17:55:33.878 +01:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-11-14 17:55:33.882 +01:00 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-11-14 17:55:33.885 +01:00 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-11-14 17:55:33.889 +01:00 [DBG] Using key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} as the default key.
+2021-11-14 17:55:33.891 +01:00 [DBG] Key ring with default key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} was loaded during application startup.
+2021-11-14 17:55:34.007 +01:00 [VRB] Discovering gRPC methods for BasketGrpc.BasketService.
+2021-11-14 17:55:34.022 +01:00 [VRB] Added gRPC method 'GetBasketById' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/GetBasketById'.
+2021-11-14 17:55:34.025 +01:00 [VRB] Added gRPC method 'UpdateBasket' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/UpdateBasket'.
+2021-11-14 17:55:34.028 +01:00 [VRB] Added gRPC method 'ValidateBasket' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/ValidateBasket'.
+2021-11-14 17:55:34.157 +01:00 [DBG] Using development certificate: CN=localhost (Thumbprint: B20F8C4492BC171D5F2900CDD8983CE5AB2E74AC)
+2021-11-14 17:55:34.210 +01:00 [INF] Now listening on: https://localhost:8001
+2021-11-14 17:55:34.211 +01:00 [INF] Now listening on: http://localhost:8000
+2021-11-14 17:55:34.213 +01:00 [DBG] Loaded hosting startup assembly Basket.API
+2021-11-14 17:55:34.214 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-11-14 17:55:34.215 +01:00 [INF] Hosting environment: Development
+2021-11-14 17:55:34.216 +01:00 [INF] Content root path: C:\Users\zeker\source\repos\Lontray\src\Services\Basket\Basket.API
+2021-11-14 17:55:34.217 +01:00 [DBG] Hosting started
+2021-11-14 17:55:34.536 +01:00 [DBG] Connection id "0HMD7HU9MV1DQ" received FIN.
+2021-11-14 17:55:34.536 +01:00 [DBG] Connection id "0HMD7HU9MV1DR" received FIN.
+2021-11-14 17:55:34.551 +01:00 [DBG] Connection id "0HMD7HU9MV1DR" accepted.
+2021-11-14 17:55:34.551 +01:00 [DBG] Connection id "0HMD7HU9MV1DQ" accepted.
+2021-11-14 17:55:34.553 +01:00 [DBG] Connection id "0HMD7HU9MV1DR" started.
+2021-11-14 17:55:34.553 +01:00 [DBG] Connection id "0HMD7HU9MV1DQ" started.
+2021-11-14 17:55:34.568 +01:00 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException:  Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveBlobAsync[TIOAdapter](TIOAdapter adapter)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](TIOAdapter adapter, Boolean receiveFirst, Byte[] reAuthenticationData, Boolean isApm)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2021-11-14 17:55:34.568 +01:00 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException:  Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveBlobAsync[TIOAdapter](TIOAdapter adapter)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](TIOAdapter adapter, Boolean receiveFirst, Byte[] reAuthenticationData, Boolean isApm)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2021-11-14 17:55:34.605 +01:00 [DBG] Connection id "0HMD7HU9MV1DR" stopped.
+2021-11-14 17:55:34.605 +01:00 [DBG] Connection id "0HMD7HU9MV1DQ" stopped.
+2021-11-14 17:55:34.609 +01:00 [DBG] Connection id "0HMD7HU9MV1DR" sending FIN because: "The Socket transport's send loop completed gracefully."
+2021-11-14 17:55:34.609 +01:00 [DBG] Connection id "0HMD7HU9MV1DQ" sending FIN because: "The Socket transport's send loop completed gracefully."
+2021-11-14 17:55:34.842 +01:00 [DBG] Connection id "0HMD7HU9MV1DS" accepted.
+2021-11-14 17:55:34.844 +01:00 [DBG] Connection id "0HMD7HU9MV1DS" started.
+2021-11-14 17:55:34.887 +01:00 [DBG] Connection "0HMD7HU9MV1DS" established using the following protocol: "Tls13"
+2021-11-14 17:55:34.900 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "SETTINGS" frame for stream ID 0 with length 18 and flags "NONE"
+2021-11-14 17:55:34.904 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "WINDOW_UPDATE" frame for stream ID 0 with length 4 and flags 0x0
+2021-11-14 17:55:34.907 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" received "SETTINGS" frame for stream ID 0 with length 24 and flags "NONE"
+2021-11-14 17:55:34.909 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "SETTINGS" frame for stream ID 0 with length 0 and flags "ACK"
+2021-11-14 17:55:34.911 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" received "WINDOW_UPDATE" frame for stream ID 0 with length 4 and flags 0x0
+2021-11-14 17:55:34.914 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" received "HEADERS" frame for stream ID 1 with length 2491 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:55:34.932 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" received "SETTINGS" frame for stream ID 0 with length 0 and flags "ACK"
+2021-11-14 17:55:34.942 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/index.html - -
+2021-11-14 17:55:34.944 +01:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-11-14 17:55:34.945 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:55:35.022 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "HEADERS" frame for stream ID 1 with length 66 and flags "END_HEADERS"
+2021-11-14 17:55:35.025 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "DATA" frame for stream ID 1 with length 3243 and flags "NONE"
+2021-11-14 17:55:35.027 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "DATA" frame for stream ID 1 with length 0 and flags "END_STREAM"
+2021-11-14 17:55:35.035 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/index.html - - - 200 - text/html;charset=utf-8 94.4001ms
+2021-11-14 17:55:35.288 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" received "HEADERS" frame for stream ID 3 with length 112 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:55:35.294 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/v1/swagger.json - -
+2021-11-14 17:55:35.294 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:55:35.364 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "HEADERS" frame for stream ID 3 with length 65 and flags "END_HEADERS"
+2021-11-14 17:55:35.367 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "DATA" frame for stream ID 3 with length 6104 and flags "NONE"
+2021-11-14 17:55:35.369 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "DATA" frame for stream ID 3 with length 0 and flags "END_STREAM"
+2021-11-14 17:55:35.370 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 76.7622ms
+2021-11-14 17:55:45.033 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" received "HEADERS" frame for stream ID 5 with length 45 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:55:45.037 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/api/Basket/12 - -
+2021-11-14 17:55:45.038 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:55:45.040 +01:00 [DBG] The request path  does not match the path filter
+2021-11-14 17:55:45.075 +01:00 [DBG] 1 candidate(s) found for the request path '/api/Basket/12'
+2021-11-14 17:55:45.080 +01:00 [DBG] Endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)' with route pattern 'api/Basket/{customerId}' is valid for the request path '/api/Basket/12'
+2021-11-14 17:55:45.082 +01:00 [DBG] Request matched endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 17:55:45.200 +01:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2021-11-14 17:55:45.203 +01:00 [INF] Executing endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 17:55:45.211 +01:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2021-11-14 17:55:45.275 +01:00 [INF] Route matched with {action = "GetBasket", controller = "Basket"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Basket.API.Model.CustomerBasket]] GetBasket(System.String) on controller Basket.API.Controllers.BasketController (Basket.API).
+2021-11-14 17:55:45.281 +01:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2021-11-14 17:55:45.282 +01:00 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2021-11-14 17:55:45.284 +01:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2021-11-14 17:55:45.292 +01:00 [DBG] Execution plan of exception filters (in the following order): ["Basket.API.Infrastructure.Filters.GlobalExceptionFilter"]
+2021-11-14 17:55:45.296 +01:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2021-11-14 17:55:45.299 +01:00 [DBG] Executing controller factory for controller Basket.API.Controllers.BasketController (Basket.API)
+2021-11-14 17:55:45.308 +01:00 [VRB] Exception Filter: Before executing OnException on filter Basket.API.Infrastructure.Filters.GlobalExceptionFilter.
+2021-11-14 17:55:45.311 +01:00 [ERR] An exception was thrown while activating Basket.API.Infrastructure.Repositories.RedisBasketRepository -> Cache.Services.InMemmoryCacheService.
+Autofac.Core.DependencyResolutionException: An exception was thrown while activating Basket.API.Infrastructure.Repositories.RedisBasketRepository -> Cache.Services.InMemmoryCacheService.
+ ---> Autofac.Core.DependencyResolutionException: None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' on type 'Cache.Services.InMemmoryCacheService' can be invoked with the available services and parameters:
+Cannot resolve parameter 'Microsoft.Extensions.Caching.Memory.IMemoryCache cache' of constructor 'Void .ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache)'.
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.GetAllBindings(ConstructorBinder[] availableConstructors, IComponentContext context, IEnumerable`1 parameters)
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.ActivateInstance(IComponentContext context, IEnumerable`1 parameters)
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.<ConfigurePipeline>b__11_0(ResolveRequestContext ctxt, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.DisposalTrackingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.ActivatorErrorHandlingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   --- End of inner exception stack trace ---
+   at Autofac.Core.Resolving.Middleware.ActivatorErrorHandlingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.SharingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.CircularDependencyDetectorMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.ResolveOperation.GetOrCreateInstance(ISharingLifetimeScope currentOperationScope, ResolveRequest request)
+   at Autofac.Core.Resolving.ResolveOperation.ExecuteOperation(ResolveRequest request)
+   at Autofac.Core.Resolving.ResolveOperation.Execute(ResolveRequest request)
+   at Autofac.Core.Lifetime.LifetimeScope.ResolveComponent(ResolveRequest request)
+   at Autofac.ResolutionExtensions.TryResolveService(IComponentContext context, Service service, IEnumerable`1 parameters, Object& instance)
+   at Autofac.ResolutionExtensions.ResolveOptionalService(IComponentContext context, Service service, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.ResolveOptional(IComponentContext context, Type serviceType, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.ResolveOptional(IComponentContext context, Type serviceType)
+   at Autofac.Extensions.DependencyInjection.AutofacServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method400(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass4_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass5_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2021-11-14 17:55:45.384 +01:00 [VRB] Exception Filter: After executing OnException on filter Basket.API.Infrastructure.Filters.GlobalExceptionFilter.
+2021-11-14 17:55:45.387 +01:00 [DBG] Request was short circuited at exception filter 'Basket.API.Infrastructure.Filters.GlobalExceptionFilter'.
+2021-11-14 17:55:45.389 +01:00 [VRB] Always Run Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 17:55:45.391 +01:00 [VRB] Always Run Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 17:55:45.401 +01:00 [VRB] Before executing action result Microsoft.AspNetCore.Mvc.BadRequestObjectResult.
+2021-11-14 17:55:45.403 +01:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.NewtonsoftJsonOutputFormatter"]
+2021-11-14 17:55:45.409 +01:00 [DBG] Attempting to select an output formatter based on Accept header '["text/plain"]'.
+2021-11-14 17:55:45.412 +01:00 [DBG] Could not find an output formatter based on content negotiation. Accepted types were (["text/plain"])
+2021-11-14 17:55:45.413 +01:00 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2021-11-14 17:55:45.415 +01:00 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2021-11-14 17:55:45.417 +01:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.NewtonsoftJsonOutputFormatter' and content type 'application/json' to write the response.
+2021-11-14 17:55:45.418 +01:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.String, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Exception, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2021-11-14 17:55:45.556 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "HEADERS" frame for stream ID 5 with length 73 and flags "END_HEADERS"
+2021-11-14 17:55:45.559 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "DATA" frame for stream ID 5 with length 1024 and flags "NONE"
+2021-11-14 17:55:45.561 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "DATA" frame for stream ID 5 with length 1024 and flags "NONE"
+2021-11-14 17:55:45.563 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "DATA" frame for stream ID 5 with length 1024 and flags "NONE"
+2021-11-14 17:55:45.566 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "DATA" frame for stream ID 5 with length 1024 and flags "NONE"
+2021-11-14 17:55:45.570 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "DATA" frame for stream ID 5 with length 258 and flags "NONE"
+2021-11-14 17:55:45.573 +01:00 [VRB] After executing action result Microsoft.AspNetCore.Mvc.BadRequestObjectResult.
+2021-11-14 17:55:45.574 +01:00 [VRB] Always Run Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 17:55:45.576 +01:00 [VRB] Always Run Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 17:55:45.583 +01:00 [INF] Executed action Basket.API.Controllers.BasketController.GetBasket (Basket.API) in 280.2926ms
+2021-11-14 17:55:45.590 +01:00 [INF] Executed endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 17:55:45.592 +01:00 [VRB] Connection id "0HMD7HU9MV1DS" sending "DATA" frame for stream ID 5 with length 0 and flags "END_STREAM"
+2021-11-14 17:55:45.595 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/api/Basket/12 - - - 400 4354 application/json;+charset=utf-8 558.2024ms
+2021-11-14 17:58:39.053 +01:00 [DBG] Hosting starting
+2021-11-14 17:58:39.109 +01:00 [INF] User profile is available. Using 'C:\Users\zeker\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-11-14 17:58:39.141 +01:00 [DBG] Reading data from file 'C:\Users\zeker\AppData\Local\ASP.NET\DataProtection-Keys\key-6f4bae6b-6191-4ee7-8d7e-aed285b26c04.xml'.
+2021-11-14 17:58:39.157 +01:00 [DBG] Found key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04}.
+2021-11-14 17:58:39.169 +01:00 [DBG] Considering key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} with expiration date 2022-01-05 09:40:16Z as default key.
+2021-11-14 17:58:39.185 +01:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-11-14 17:58:39.193 +01:00 [DBG] Decrypting secret element using Windows DPAPI.
+2021-11-14 17:58:39.197 +01:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-11-14 17:58:39.200 +01:00 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-11-14 17:58:39.204 +01:00 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-11-14 17:58:39.208 +01:00 [DBG] Using key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} as the default key.
+2021-11-14 17:58:39.211 +01:00 [DBG] Key ring with default key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} was loaded during application startup.
+2021-11-14 17:58:39.319 +01:00 [VRB] Discovering gRPC methods for BasketGrpc.BasketService.
+2021-11-14 17:58:39.332 +01:00 [VRB] Added gRPC method 'GetBasketById' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/GetBasketById'.
+2021-11-14 17:58:39.335 +01:00 [VRB] Added gRPC method 'UpdateBasket' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/UpdateBasket'.
+2021-11-14 17:58:39.337 +01:00 [VRB] Added gRPC method 'ValidateBasket' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/ValidateBasket'.
+2021-11-14 17:58:39.446 +01:00 [DBG] Using development certificate: CN=localhost (Thumbprint: B20F8C4492BC171D5F2900CDD8983CE5AB2E74AC)
+2021-11-14 17:58:39.495 +01:00 [INF] Now listening on: https://localhost:8001
+2021-11-14 17:58:39.496 +01:00 [INF] Now listening on: http://localhost:8000
+2021-11-14 17:58:39.497 +01:00 [DBG] Loaded hosting startup assembly Basket.API
+2021-11-14 17:58:39.499 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-11-14 17:58:39.499 +01:00 [INF] Hosting environment: Development
+2021-11-14 17:58:39.500 +01:00 [INF] Content root path: C:\Users\zeker\source\repos\Lontray\src\Services\Basket\Basket.API
+2021-11-14 17:58:39.502 +01:00 [DBG] Hosting started
+2021-11-14 17:58:39.760 +01:00 [DBG] Connection id "0HMD7I00TB35O" accepted.
+2021-11-14 17:58:39.760 +01:00 [DBG] Connection id "0HMD7I00TB35N" received FIN.
+2021-11-14 17:58:39.760 +01:00 [DBG] Connection id "0HMD7I00TB35O" received FIN.
+2021-11-14 17:58:39.760 +01:00 [DBG] Connection id "0HMD7I00TB35N" accepted.
+2021-11-14 17:58:39.762 +01:00 [DBG] Connection id "0HMD7I00TB35O" started.
+2021-11-14 17:58:39.768 +01:00 [DBG] Connection id "0HMD7I00TB35N" started.
+2021-11-14 17:58:39.782 +01:00 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException:  Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveBlobAsync[TIOAdapter](TIOAdapter adapter)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](TIOAdapter adapter, Boolean receiveFirst, Byte[] reAuthenticationData, Boolean isApm)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2021-11-14 17:58:39.782 +01:00 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException:  Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveBlobAsync[TIOAdapter](TIOAdapter adapter)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](TIOAdapter adapter, Boolean receiveFirst, Byte[] reAuthenticationData, Boolean isApm)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2021-11-14 17:58:39.822 +01:00 [DBG] Connection id "0HMD7I00TB35O" stopped.
+2021-11-14 17:58:39.822 +01:00 [DBG] Connection id "0HMD7I00TB35N" stopped.
+2021-11-14 17:58:39.824 +01:00 [DBG] Connection id "0HMD7I00TB35O" sending FIN because: "The Socket transport's send loop completed gracefully."
+2021-11-14 17:58:39.824 +01:00 [DBG] Connection id "0HMD7I00TB35N" sending FIN because: "The Socket transport's send loop completed gracefully."
+2021-11-14 17:58:40.058 +01:00 [DBG] Connection id "0HMD7I00TB35P" accepted.
+2021-11-14 17:58:40.060 +01:00 [DBG] Connection id "0HMD7I00TB35P" started.
+2021-11-14 17:58:40.105 +01:00 [DBG] Connection "0HMD7I00TB35P" established using the following protocol: "Tls13"
+2021-11-14 17:58:40.117 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "SETTINGS" frame for stream ID 0 with length 18 and flags "NONE"
+2021-11-14 17:58:40.121 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "WINDOW_UPDATE" frame for stream ID 0 with length 4 and flags 0x0
+2021-11-14 17:58:40.123 +01:00 [VRB] Connection id "0HMD7I00TB35P" received "SETTINGS" frame for stream ID 0 with length 24 and flags "NONE"
+2021-11-14 17:58:40.126 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "SETTINGS" frame for stream ID 0 with length 0 and flags "ACK"
+2021-11-14 17:58:40.129 +01:00 [VRB] Connection id "0HMD7I00TB35P" received "WINDOW_UPDATE" frame for stream ID 0 with length 4 and flags 0x0
+2021-11-14 17:58:40.131 +01:00 [VRB] Connection id "0HMD7I00TB35P" received "HEADERS" frame for stream ID 1 with length 2491 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:58:40.151 +01:00 [VRB] Connection id "0HMD7I00TB35P" received "SETTINGS" frame for stream ID 0 with length 0 and flags "ACK"
+2021-11-14 17:58:40.161 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/index.html - -
+2021-11-14 17:58:40.163 +01:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-11-14 17:58:40.164 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:58:40.239 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "HEADERS" frame for stream ID 1 with length 66 and flags "END_HEADERS"
+2021-11-14 17:58:40.242 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "DATA" frame for stream ID 1 with length 3243 and flags "NONE"
+2021-11-14 17:58:40.243 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "DATA" frame for stream ID 1 with length 0 and flags "END_STREAM"
+2021-11-14 17:58:40.251 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/index.html - - - 200 - text/html;charset=utf-8 91.2111ms
+2021-11-14 17:58:40.453 +01:00 [VRB] Connection id "0HMD7I00TB35P" received "HEADERS" frame for stream ID 3 with length 112 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:58:40.459 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/v1/swagger.json - -
+2021-11-14 17:58:40.460 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:58:40.529 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "HEADERS" frame for stream ID 3 with length 65 and flags "END_HEADERS"
+2021-11-14 17:58:40.531 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "DATA" frame for stream ID 3 with length 6104 and flags "NONE"
+2021-11-14 17:58:40.535 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "DATA" frame for stream ID 3 with length 0 and flags "END_STREAM"
+2021-11-14 17:58:40.536 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 77.4166ms
+2021-11-14 17:59:38.535 +01:00 [VRB] Connection id "0HMD7I00TB35P" received "HEADERS" frame for stream ID 5 with length 45 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 17:59:38.539 +01:00 [VRB] Connection id "0HMD7I00TB35P" received "PING" frame for stream ID 0 with length 8 and flags "NONE"
+2021-11-14 17:59:38.539 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/api/Basket/12 - -
+2021-11-14 17:59:38.541 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "PING" frame for stream ID 0 with length 8 and flags "ACK"
+2021-11-14 17:59:38.542 +01:00 [VRB] All hosts are allowed.
+2021-11-14 17:59:38.546 +01:00 [DBG] The request path  does not match the path filter
+2021-11-14 17:59:38.580 +01:00 [DBG] 1 candidate(s) found for the request path '/api/Basket/12'
+2021-11-14 17:59:38.583 +01:00 [DBG] Endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)' with route pattern 'api/Basket/{customerId}' is valid for the request path '/api/Basket/12'
+2021-11-14 17:59:38.586 +01:00 [DBG] Request matched endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 17:59:38.624 +01:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2021-11-14 17:59:38.627 +01:00 [INF] Executing endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 17:59:38.634 +01:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2021-11-14 17:59:38.687 +01:00 [INF] Route matched with {action = "GetBasket", controller = "Basket"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Basket.API.Model.CustomerBasket]] GetBasket(System.String) on controller Basket.API.Controllers.BasketController (Basket.API).
+2021-11-14 17:59:38.692 +01:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2021-11-14 17:59:38.693 +01:00 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2021-11-14 17:59:38.695 +01:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2021-11-14 17:59:38.699 +01:00 [DBG] Execution plan of exception filters (in the following order): ["Basket.API.Infrastructure.Filters.GlobalExceptionFilter"]
+2021-11-14 17:59:38.702 +01:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2021-11-14 17:59:38.713 +01:00 [DBG] Executing controller factory for controller Basket.API.Controllers.BasketController (Basket.API)
+2021-11-14 17:59:38.722 +01:00 [VRB] Exception Filter: Before executing OnException on filter Basket.API.Infrastructure.Filters.GlobalExceptionFilter.
+2021-11-14 17:59:38.726 +01:00 [ERR] An exception was thrown while activating Basket.API.Infrastructure.Repositories.RedisBasketRepository -> Cache.Services.InMemmoryCacheService.
+Autofac.Core.DependencyResolutionException: An exception was thrown while activating Basket.API.Infrastructure.Repositories.RedisBasketRepository -> Cache.Services.InMemmoryCacheService.
+ ---> Autofac.Core.DependencyResolutionException: None of the constructors found with 'Autofac.Core.Activators.Reflection.DefaultConstructorFinder' on type 'Cache.Services.InMemmoryCacheService' can be invoked with the available services and parameters:
+Cannot resolve parameter 'Microsoft.Extensions.Caching.Memory.IMemoryCache cache' of constructor 'Void .ctor(Microsoft.Extensions.Caching.Memory.IMemoryCache)'.
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.GetAllBindings(ConstructorBinder[] availableConstructors, IComponentContext context, IEnumerable`1 parameters)
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.ActivateInstance(IComponentContext context, IEnumerable`1 parameters)
+   at Autofac.Core.Activators.Reflection.ReflectionActivator.<ConfigurePipeline>b__11_0(ResolveRequestContext ctxt, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.DisposalTrackingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.ActivatorErrorHandlingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   --- End of inner exception stack trace ---
+   at Autofac.Core.Resolving.Middleware.ActivatorErrorHandlingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.SharingMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.Middleware.CircularDependencyDetectorMiddleware.Execute(ResolveRequestContext context, Action`1 next)
+   at Autofac.Core.Resolving.ResolveOperation.GetOrCreateInstance(ISharingLifetimeScope currentOperationScope, ResolveRequest request)
+   at Autofac.Core.Resolving.ResolveOperation.ExecuteOperation(ResolveRequest request)
+   at Autofac.Core.Resolving.ResolveOperation.Execute(ResolveRequest request)
+   at Autofac.Core.Lifetime.LifetimeScope.ResolveComponent(ResolveRequest request)
+   at Autofac.ResolutionExtensions.TryResolveService(IComponentContext context, Service service, IEnumerable`1 parameters, Object& instance)
+   at Autofac.ResolutionExtensions.ResolveOptionalService(IComponentContext context, Service service, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.ResolveOptional(IComponentContext context, Type serviceType, IEnumerable`1 parameters)
+   at Autofac.ResolutionExtensions.ResolveOptional(IComponentContext context, Type serviceType)
+   at Autofac.Extensions.DependencyInjection.AutofacServiceProvider.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ActivatorUtilities.GetService(IServiceProvider sp, Type type, Type requiredBy, Boolean isDefaultParameterRequired)
+   at lambda_method400(Closure , IServiceProvider , Object[] )
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerActivatorProvider.<>c__DisplayClass4_0.<CreateActivator>b__0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Controllers.ControllerFactoryProvider.<>c__DisplayClass5_0.<CreateControllerFactory>g__CreateController|0(ControllerContext controllerContext)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+2021-11-14 17:59:38.804 +01:00 [VRB] Exception Filter: After executing OnException on filter Basket.API.Infrastructure.Filters.GlobalExceptionFilter.
+2021-11-14 17:59:38.806 +01:00 [DBG] Request was short circuited at exception filter 'Basket.API.Infrastructure.Filters.GlobalExceptionFilter'.
+2021-11-14 17:59:38.812 +01:00 [VRB] Always Run Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 17:59:38.814 +01:00 [VRB] Always Run Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 17:59:38.818 +01:00 [VRB] Before executing action result Microsoft.AspNetCore.Mvc.BadRequestObjectResult.
+2021-11-14 17:59:38.820 +01:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.NewtonsoftJsonOutputFormatter"]
+2021-11-14 17:59:38.830 +01:00 [DBG] Attempting to select an output formatter based on Accept header '["text/plain"]'.
+2021-11-14 17:59:38.831 +01:00 [DBG] Could not find an output formatter based on content negotiation. Accepted types were (["text/plain"])
+2021-11-14 17:59:38.834 +01:00 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2021-11-14 17:59:38.837 +01:00 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2021-11-14 17:59:38.839 +01:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.NewtonsoftJsonOutputFormatter' and content type 'application/json' to write the response.
+2021-11-14 17:59:38.845 +01:00 [INF] Executing BadRequestObjectResult, writing value of type '<>f__AnonymousType0`2[[System.String, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e],[System.Exception, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2021-11-14 17:59:38.968 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "HEADERS" frame for stream ID 5 with length 73 and flags "END_HEADERS"
+2021-11-14 17:59:38.971 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "DATA" frame for stream ID 5 with length 1024 and flags "NONE"
+2021-11-14 17:59:38.973 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "DATA" frame for stream ID 5 with length 1024 and flags "NONE"
+2021-11-14 17:59:38.975 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "DATA" frame for stream ID 5 with length 1024 and flags "NONE"
+2021-11-14 17:59:38.977 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "DATA" frame for stream ID 5 with length 1024 and flags "NONE"
+2021-11-14 17:59:38.979 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "DATA" frame for stream ID 5 with length 258 and flags "NONE"
+2021-11-14 17:59:38.981 +01:00 [VRB] After executing action result Microsoft.AspNetCore.Mvc.BadRequestObjectResult.
+2021-11-14 17:59:38.982 +01:00 [VRB] Always Run Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 17:59:38.986 +01:00 [VRB] Always Run Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 17:59:38.993 +01:00 [INF] Executed action Basket.API.Controllers.BasketController.GetBasket (Basket.API) in 277.1563ms
+2021-11-14 17:59:38.996 +01:00 [INF] Executed endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 17:59:38.997 +01:00 [VRB] Connection id "0HMD7I00TB35P" sending "DATA" frame for stream ID 5 with length 0 and flags "END_STREAM"
+2021-11-14 17:59:38.999 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/api/Basket/12 - - - 400 4354 application/json;+charset=utf-8 460.2179ms
+2021-11-14 18:01:59.860 +01:00 [DBG] Hosting starting
+2021-11-14 18:01:59.934 +01:00 [INF] User profile is available. Using 'C:\Users\zeker\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-11-14 18:01:59.969 +01:00 [DBG] Reading data from file 'C:\Users\zeker\AppData\Local\ASP.NET\DataProtection-Keys\key-6f4bae6b-6191-4ee7-8d7e-aed285b26c04.xml'.
+2021-11-14 18:01:59.993 +01:00 [DBG] Found key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04}.
+2021-11-14 18:02:00.016 +01:00 [DBG] Considering key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} with expiration date 2022-01-05 09:40:16Z as default key.
+2021-11-14 18:02:00.035 +01:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-11-14 18:02:00.040 +01:00 [DBG] Decrypting secret element using Windows DPAPI.
+2021-11-14 18:02:00.043 +01:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-11-14 18:02:00.049 +01:00 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-11-14 18:02:00.057 +01:00 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-11-14 18:02:00.063 +01:00 [DBG] Using key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} as the default key.
+2021-11-14 18:02:00.066 +01:00 [DBG] Key ring with default key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} was loaded during application startup.
+2021-11-14 18:02:00.219 +01:00 [VRB] Discovering gRPC methods for BasketGrpc.BasketService.
+2021-11-14 18:02:00.237 +01:00 [VRB] Added gRPC method 'GetBasketById' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/GetBasketById'.
+2021-11-14 18:02:00.239 +01:00 [VRB] Added gRPC method 'UpdateBasket' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/UpdateBasket'.
+2021-11-14 18:02:00.241 +01:00 [VRB] Added gRPC method 'ValidateBasket' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/ValidateBasket'.
+2021-11-14 18:02:00.400 +01:00 [DBG] Using development certificate: CN=localhost (Thumbprint: B20F8C4492BC171D5F2900CDD8983CE5AB2E74AC)
+2021-11-14 18:02:00.485 +01:00 [INF] Now listening on: https://localhost:8001
+2021-11-14 18:02:00.487 +01:00 [INF] Now listening on: http://localhost:8000
+2021-11-14 18:02:00.489 +01:00 [DBG] Loaded hosting startup assembly Basket.API
+2021-11-14 18:02:00.491 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-11-14 18:02:00.493 +01:00 [INF] Hosting environment: Development
+2021-11-14 18:02:00.495 +01:00 [INF] Content root path: C:\Users\zeker\source\repos\Lontray\src\Services\Basket\Basket.API
+2021-11-14 18:02:00.501 +01:00 [DBG] Hosting started
+2021-11-14 18:02:00.959 +01:00 [DBG] Connection id "0HMD7I1SS58DT" accepted.
+2021-11-14 18:02:00.959 +01:00 [DBG] Connection id "0HMD7I1SS58DU" accepted.
+2021-11-14 18:02:00.968 +01:00 [DBG] Connection id "0HMD7I1SS58DT" started.
+2021-11-14 18:02:00.969 +01:00 [DBG] Connection id "0HMD7I1SS58DU" started.
+2021-11-14 18:02:01.048 +01:00 [DBG] Connection id "0HMD7I1SS58DU" received FIN.
+2021-11-14 18:02:01.048 +01:00 [DBG] Connection id "0HMD7I1SS58DT" received FIN.
+2021-11-14 18:02:01.055 +01:00 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException:  Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.<FillHandshakeBufferAsync>g__InternalFillHandshakeBufferAsync|182_0[TIOAdapter](TIOAdapter adap, ValueTask`1 task, Int32 minSize)
+   at System.Net.Security.SslStream.ReceiveBlobAsync[TIOAdapter](TIOAdapter adapter)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](TIOAdapter adapter, Boolean receiveFirst, Byte[] reAuthenticationData, Boolean isApm)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2021-11-14 18:02:01.055 +01:00 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException:  Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.<FillHandshakeBufferAsync>g__InternalFillHandshakeBufferAsync|182_0[TIOAdapter](TIOAdapter adap, ValueTask`1 task, Int32 minSize)
+   at System.Net.Security.SslStream.ReceiveBlobAsync[TIOAdapter](TIOAdapter adapter)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](TIOAdapter adapter, Boolean receiveFirst, Byte[] reAuthenticationData, Boolean isApm)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2021-11-14 18:02:01.103 +01:00 [DBG] Connection id "0HMD7I1SS58DU" stopped.
+2021-11-14 18:02:01.103 +01:00 [DBG] Connection id "0HMD7I1SS58DT" stopped.
+2021-11-14 18:02:01.109 +01:00 [DBG] Connection id "0HMD7I1SS58DT" sending FIN because: "The Socket transport's send loop completed gracefully."
+2021-11-14 18:02:01.109 +01:00 [DBG] Connection id "0HMD7I1SS58DU" sending FIN because: "The Socket transport's send loop completed gracefully."
+2021-11-14 18:02:01.490 +01:00 [DBG] Connection id "0HMD7I1SS58DV" accepted.
+2021-11-14 18:02:01.493 +01:00 [DBG] Connection id "0HMD7I1SS58DV" started.
+2021-11-14 18:02:01.550 +01:00 [DBG] Connection "0HMD7I1SS58DV" established using the following protocol: "Tls13"
+2021-11-14 18:02:01.568 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "SETTINGS" frame for stream ID 0 with length 18 and flags "NONE"
+2021-11-14 18:02:01.572 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "WINDOW_UPDATE" frame for stream ID 0 with length 4 and flags 0x0
+2021-11-14 18:02:01.574 +01:00 [VRB] Connection id "0HMD7I1SS58DV" received "SETTINGS" frame for stream ID 0 with length 24 and flags "NONE"
+2021-11-14 18:02:01.577 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "SETTINGS" frame for stream ID 0 with length 0 and flags "ACK"
+2021-11-14 18:02:01.580 +01:00 [VRB] Connection id "0HMD7I1SS58DV" received "WINDOW_UPDATE" frame for stream ID 0 with length 4 and flags 0x0
+2021-11-14 18:02:01.583 +01:00 [VRB] Connection id "0HMD7I1SS58DV" received "HEADERS" frame for stream ID 1 with length 2491 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 18:02:01.604 +01:00 [VRB] Connection id "0HMD7I1SS58DV" received "SETTINGS" frame for stream ID 0 with length 0 and flags "ACK"
+2021-11-14 18:02:01.617 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/index.html - -
+2021-11-14 18:02:01.619 +01:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-11-14 18:02:01.620 +01:00 [VRB] All hosts are allowed.
+2021-11-14 18:02:01.703 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "HEADERS" frame for stream ID 1 with length 66 and flags "END_HEADERS"
+2021-11-14 18:02:01.706 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "DATA" frame for stream ID 1 with length 3243 and flags "NONE"
+2021-11-14 18:02:01.707 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "DATA" frame for stream ID 1 with length 0 and flags "END_STREAM"
+2021-11-14 18:02:01.718 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/index.html - - - 200 - text/html;charset=utf-8 102.2087ms
+2021-11-14 18:02:01.926 +01:00 [VRB] Connection id "0HMD7I1SS58DV" received "HEADERS" frame for stream ID 3 with length 112 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 18:02:01.932 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/v1/swagger.json - -
+2021-11-14 18:02:01.933 +01:00 [VRB] All hosts are allowed.
+2021-11-14 18:02:02.018 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "HEADERS" frame for stream ID 3 with length 35 and flags "END_HEADERS"
+2021-11-14 18:02:02.021 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "DATA" frame for stream ID 3 with length 6104 and flags "NONE"
+2021-11-14 18:02:02.026 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "DATA" frame for stream ID 3 with length 0 and flags "END_STREAM"
+2021-11-14 18:02:02.029 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 96.5332ms
+2021-11-14 18:02:07.203 +01:00 [VRB] Connection id "0HMD7I1SS58DV" received "HEADERS" frame for stream ID 5 with length 45 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 18:02:07.208 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/api/Basket/12 - -
+2021-11-14 18:02:07.209 +01:00 [VRB] All hosts are allowed.
+2021-11-14 18:02:07.213 +01:00 [DBG] The request path  does not match the path filter
+2021-11-14 18:02:07.253 +01:00 [DBG] 1 candidate(s) found for the request path '/api/Basket/12'
+2021-11-14 18:02:07.258 +01:00 [DBG] Endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)' with route pattern 'api/Basket/{customerId}' is valid for the request path '/api/Basket/12'
+2021-11-14 18:02:07.262 +01:00 [DBG] Request matched endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 18:02:07.305 +01:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2021-11-14 18:02:07.308 +01:00 [INF] Executing endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 18:02:07.314 +01:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2021-11-14 18:02:07.353 +01:00 [INF] Route matched with {action = "GetBasket", controller = "Basket"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Basket.API.Model.CustomerBasket]] GetBasket(System.String) on controller Basket.API.Controllers.BasketController (Basket.API).
+2021-11-14 18:02:07.357 +01:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2021-11-14 18:02:07.358 +01:00 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2021-11-14 18:02:07.361 +01:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2021-11-14 18:02:07.363 +01:00 [DBG] Execution plan of exception filters (in the following order): ["Basket.API.Infrastructure.Filters.GlobalExceptionFilter"]
+2021-11-14 18:02:07.365 +01:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2021-11-14 18:02:07.368 +01:00 [DBG] Executing controller factory for controller Basket.API.Controllers.BasketController (Basket.API)
+2021-11-14 18:02:07.375 +01:00 [DBG] Executed controller factory for controller Basket.API.Controllers.BasketController (Basket.API)
+2021-11-14 18:02:07.390 +01:00 [DBG] Attempting to bind parameter 'customerId' of type 'System.String' ...
+2021-11-14 18:02:07.394 +01:00 [DBG] Attempting to bind parameter 'customerId' of type 'System.String' using the name 'customerId' in request data ...
+2021-11-14 18:02:07.397 +01:00 [DBG] Done attempting to bind parameter 'customerId' of type 'System.String'.
+2021-11-14 18:02:07.398 +01:00 [DBG] Done attempting to bind parameter 'customerId' of type 'System.String'.
+2021-11-14 18:02:07.399 +01:00 [DBG] Attempting to validate the bound parameter 'customerId' of type 'System.String' ...
+2021-11-14 18:02:07.402 +01:00 [DBG] Done attempting to validate the bound parameter 'customerId' of type 'System.String'.
+2021-11-14 18:02:07.406 +01:00 [VRB] Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2021-11-14 18:02:07.407 +01:00 [VRB] Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2021-11-14 18:02:07.411 +01:00 [VRB] Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2021-11-14 18:02:07.413 +01:00 [VRB] Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2021-11-14 18:02:07.418 +01:00 [INF] Executing action method Basket.API.Controllers.BasketController.GetBasket (Basket.API) - Validation state: "Valid"
+2021-11-14 18:02:07.420 +01:00 [VRB] Executing action method Basket.API.Controllers.BasketController.GetBasket (Basket.API) with arguments (["12"])
+2021-11-14 18:02:07.480 +01:00 [INF] Executed action method Basket.API.Controllers.BasketController.GetBasket (Basket.API), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 55.0001ms.
+2021-11-14 18:02:07.483 +01:00 [VRB] Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2021-11-14 18:02:07.484 +01:00 [VRB] Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2021-11-14 18:02:07.486 +01:00 [VRB] Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2021-11-14 18:02:07.487 +01:00 [VRB] Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2021-11-14 18:02:07.489 +01:00 [VRB] Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 18:02:07.491 +01:00 [VRB] Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 18:02:07.493 +01:00 [VRB] Before executing action result Microsoft.AspNetCore.Mvc.OkObjectResult.
+2021-11-14 18:02:07.495 +01:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.NewtonsoftJsonOutputFormatter"]
+2021-11-14 18:02:07.502 +01:00 [DBG] Attempting to select an output formatter based on Accept header '["text/plain"]'.
+2021-11-14 18:02:07.504 +01:00 [DBG] Could not find an output formatter based on content negotiation. Accepted types were (["text/plain"])
+2021-11-14 18:02:07.505 +01:00 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2021-11-14 18:02:07.506 +01:00 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2021-11-14 18:02:07.508 +01:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.NewtonsoftJsonOutputFormatter' and content type 'application/json' to write the response.
+2021-11-14 18:02:07.509 +01:00 [INF] Executing OkObjectResult, writing value of type 'Basket.API.Model.CustomerBasket'.
+2021-11-14 18:02:07.609 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "HEADERS" frame for stream ID 5 with length 71 and flags "END_HEADERS"
+2021-11-14 18:02:07.611 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "DATA" frame for stream ID 5 with length 30 and flags "NONE"
+2021-11-14 18:02:07.613 +01:00 [VRB] After executing action result Microsoft.AspNetCore.Mvc.OkObjectResult.
+2021-11-14 18:02:07.614 +01:00 [VRB] Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 18:02:07.617 +01:00 [VRB] Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 18:02:07.622 +01:00 [INF] Executed action Basket.API.Controllers.BasketController.GetBasket (Basket.API) in 251.5694ms
+2021-11-14 18:02:07.626 +01:00 [INF] Executed endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 18:02:07.627 +01:00 [VRB] Connection id "0HMD7I1SS58DV" sending "DATA" frame for stream ID 5 with length 0 and flags "END_STREAM"
+2021-11-14 18:02:07.630 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/api/Basket/12 - - - 200 30 application/json;+charset=utf-8 421.5313ms
+2021-11-14 18:02:23.764 +01:00 [DBG] Hosting starting
+2021-11-14 18:02:23.846 +01:00 [INF] User profile is available. Using 'C:\Users\zeker\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2021-11-14 18:02:23.885 +01:00 [DBG] Reading data from file 'C:\Users\zeker\AppData\Local\ASP.NET\DataProtection-Keys\key-6f4bae6b-6191-4ee7-8d7e-aed285b26c04.xml'.
+2021-11-14 18:02:23.905 +01:00 [DBG] Found key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04}.
+2021-11-14 18:02:23.922 +01:00 [DBG] Considering key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} with expiration date 2022-01-05 09:40:16Z as default key.
+2021-11-14 18:02:23.939 +01:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.XmlEncryption.DpapiXmlDecryptor, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-11-14 18:02:23.943 +01:00 [DBG] Decrypting secret element using Windows DPAPI.
+2021-11-14 18:02:23.946 +01:00 [DBG] Forwarded activator type request from Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Version=3.1.19.0, Culture=neutral, PublicKeyToken=adb9793829ddae60 to Microsoft.AspNetCore.DataProtection.AuthenticatedEncryption.ConfigurationModel.AuthenticatedEncryptorDescriptorDeserializer, Microsoft.AspNetCore.DataProtection, Culture=neutral, PublicKeyToken=adb9793829ddae60
+2021-11-14 18:02:23.952 +01:00 [DBG] Opening CNG algorithm 'AES' from provider 'null' with chaining mode CBC.
+2021-11-14 18:02:23.959 +01:00 [DBG] Opening CNG algorithm 'SHA256' from provider 'null' with HMAC.
+2021-11-14 18:02:23.965 +01:00 [DBG] Using key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} as the default key.
+2021-11-14 18:02:23.967 +01:00 [DBG] Key ring with default key {6f4bae6b-6191-4ee7-8d7e-aed285b26c04} was loaded during application startup.
+2021-11-14 18:02:24.131 +01:00 [VRB] Discovering gRPC methods for BasketGrpc.BasketService.
+2021-11-14 18:02:24.150 +01:00 [VRB] Added gRPC method 'GetBasketById' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/GetBasketById'.
+2021-11-14 18:02:24.153 +01:00 [VRB] Added gRPC method 'UpdateBasket' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/UpdateBasket'.
+2021-11-14 18:02:24.156 +01:00 [VRB] Added gRPC method 'ValidateBasket' to service 'BasketApi.Basket'. Method type: '"Unary"', route pattern: '/BasketApi.Basket/ValidateBasket'.
+2021-11-14 18:02:24.337 +01:00 [DBG] Using development certificate: CN=localhost (Thumbprint: B20F8C4492BC171D5F2900CDD8983CE5AB2E74AC)
+2021-11-14 18:02:24.485 +01:00 [INF] Now listening on: https://localhost:8001
+2021-11-14 18:02:24.487 +01:00 [INF] Now listening on: http://localhost:8000
+2021-11-14 18:02:24.489 +01:00 [DBG] Loaded hosting startup assembly Basket.API
+2021-11-14 18:02:24.491 +01:00 [INF] Application started. Press Ctrl+C to shut down.
+2021-11-14 18:02:24.493 +01:00 [INF] Hosting environment: Development
+2021-11-14 18:02:24.494 +01:00 [INF] Content root path: C:\Users\zeker\source\repos\Lontray\src\Services\Basket\Basket.API
+2021-11-14 18:02:24.495 +01:00 [DBG] Hosting started
+2021-11-14 18:02:24.619 +01:00 [DBG] Connection id "0HMD7I23TQM8G" received FIN.
+2021-11-14 18:02:24.635 +01:00 [DBG] Connection id "0HMD7I23TQM8G" accepted.
+2021-11-14 18:02:24.637 +01:00 [DBG] Connection id "0HMD7I23TQM8G" started.
+2021-11-14 18:02:24.653 +01:00 [DBG] Failed to authenticate HTTPS connection.
+System.IO.IOException:  Received an unexpected EOF or 0 bytes from the transport stream.
+   at System.Net.Security.SslStream.ReceiveBlobAsync[TIOAdapter](TIOAdapter adapter)
+   at System.Net.Security.SslStream.ForceAuthenticationAsync[TIOAdapter](TIOAdapter adapter, Boolean receiveFirst, Byte[] reAuthenticationData, Boolean isApm)
+   at Microsoft.AspNetCore.Server.Kestrel.Https.Internal.HttpsConnectionMiddleware.OnConnectionAsync(ConnectionContext context)
+2021-11-14 18:02:24.691 +01:00 [DBG] Connection id "0HMD7I23TQM8G" stopped.
+2021-11-14 18:02:24.694 +01:00 [DBG] Connection id "0HMD7I23TQM8G" sending FIN because: "The Socket transport's send loop completed gracefully."
+2021-11-14 18:02:25.012 +01:00 [DBG] Connection id "0HMD7I23TQM8H" accepted.
+2021-11-14 18:02:25.015 +01:00 [DBG] Connection id "0HMD7I23TQM8H" started.
+2021-11-14 18:02:25.070 +01:00 [DBG] Connection "0HMD7I23TQM8H" established using the following protocol: "Tls13"
+2021-11-14 18:02:25.083 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "SETTINGS" frame for stream ID 0 with length 18 and flags "NONE"
+2021-11-14 18:02:25.086 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "WINDOW_UPDATE" frame for stream ID 0 with length 4 and flags 0x0
+2021-11-14 18:02:25.088 +01:00 [VRB] Connection id "0HMD7I23TQM8H" received "SETTINGS" frame for stream ID 0 with length 24 and flags "NONE"
+2021-11-14 18:02:25.090 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "SETTINGS" frame for stream ID 0 with length 0 and flags "ACK"
+2021-11-14 18:02:25.095 +01:00 [VRB] Connection id "0HMD7I23TQM8H" received "WINDOW_UPDATE" frame for stream ID 0 with length 4 and flags 0x0
+2021-11-14 18:02:25.098 +01:00 [VRB] Connection id "0HMD7I23TQM8H" received "HEADERS" frame for stream ID 1 with length 2491 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 18:02:25.118 +01:00 [VRB] Connection id "0HMD7I23TQM8H" received "SETTINGS" frame for stream ID 0 with length 0 and flags "ACK"
+2021-11-14 18:02:25.130 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/index.html - -
+2021-11-14 18:02:25.132 +01:00 [DBG] Wildcard detected, all requests with hosts will be allowed.
+2021-11-14 18:02:25.133 +01:00 [VRB] All hosts are allowed.
+2021-11-14 18:02:25.216 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "HEADERS" frame for stream ID 1 with length 66 and flags "END_HEADERS"
+2021-11-14 18:02:25.219 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "DATA" frame for stream ID 1 with length 3243 and flags "NONE"
+2021-11-14 18:02:25.221 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "DATA" frame for stream ID 1 with length 0 and flags "END_STREAM"
+2021-11-14 18:02:25.231 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/index.html - - - 200 - text/html;charset=utf-8 102.1968ms
+2021-11-14 18:02:25.451 +01:00 [VRB] Connection id "0HMD7I23TQM8H" received "HEADERS" frame for stream ID 3 with length 112 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 18:02:25.457 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/swagger/v1/swagger.json - -
+2021-11-14 18:02:25.459 +01:00 [VRB] All hosts are allowed.
+2021-11-14 18:02:25.535 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "HEADERS" frame for stream ID 3 with length 65 and flags "END_HEADERS"
+2021-11-14 18:02:25.537 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "DATA" frame for stream ID 3 with length 6104 and flags "NONE"
+2021-11-14 18:02:25.539 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "DATA" frame for stream ID 3 with length 0 and flags "END_STREAM"
+2021-11-14 18:02:25.541 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/swagger/v1/swagger.json - - - 200 - application/json;charset=utf-8 84.3549ms
+2021-11-14 18:02:43.014 +01:00 [VRB] Connection id "0HMD7I23TQM8H" received "HEADERS" frame for stream ID 5 with length 45 and flags "END_STREAM, END_HEADERS, PRIORITY"
+2021-11-14 18:02:43.018 +01:00 [VRB] Connection id "0HMD7I23TQM8H" received "PING" frame for stream ID 0 with length 8 and flags "NONE"
+2021-11-14 18:02:43.018 +01:00 [INF] Request starting HTTP/2 GET https://localhost:8001/api/Basket/12 - -
+2021-11-14 18:02:43.020 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "PING" frame for stream ID 0 with length 8 and flags "ACK"
+2021-11-14 18:02:43.021 +01:00 [VRB] All hosts are allowed.
+2021-11-14 18:02:43.029 +01:00 [DBG] The request path  does not match the path filter
+2021-11-14 18:02:43.061 +01:00 [DBG] 1 candidate(s) found for the request path '/api/Basket/12'
+2021-11-14 18:02:43.065 +01:00 [DBG] Endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)' with route pattern 'api/Basket/{customerId}' is valid for the request path '/api/Basket/12'
+2021-11-14 18:02:43.071 +01:00 [DBG] Request matched endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 18:02:43.113 +01:00 [DBG] AuthenticationScheme: Bearer was not authenticated.
+2021-11-14 18:02:43.116 +01:00 [INF] Executing endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 18:02:43.125 +01:00 [DBG] Registered model binder providers, in the following order: ["Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BinderTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ServicesModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.BodyModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.HeaderModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FloatingPointTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.EnumTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DateTimeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.SimpleTypeModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CancellationTokenModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ByteArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormFileModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.FormCollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.KeyValuePairModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.DictionaryModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ArrayModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.CollectionModelBinderProvider","Microsoft.AspNetCore.Mvc.ModelBinding.Binders.ComplexObjectModelBinderProvider"]
+2021-11-14 18:02:43.182 +01:00 [INF] Route matched with {action = "GetBasket", controller = "Basket"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.ActionResult`1[Basket.API.Model.CustomerBasket]] GetBasket(System.String) on controller Basket.API.Controllers.BasketController (Basket.API).
+2021-11-14 18:02:43.187 +01:00 [DBG] Execution plan of authorization filters (in the following order): ["None"]
+2021-11-14 18:02:43.188 +01:00 [DBG] Execution plan of resource filters (in the following order): ["None"]
+2021-11-14 18:02:43.190 +01:00 [DBG] Execution plan of action filters (in the following order): ["Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter (Order: -3000)","Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter (Order: -2000)"]
+2021-11-14 18:02:43.197 +01:00 [DBG] Execution plan of exception filters (in the following order): ["Basket.API.Infrastructure.Filters.GlobalExceptionFilter"]
+2021-11-14 18:02:43.199 +01:00 [DBG] Execution plan of result filters (in the following order): ["Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter (Order: -2000)"]
+2021-11-14 18:02:43.203 +01:00 [DBG] Executing controller factory for controller Basket.API.Controllers.BasketController (Basket.API)
+2021-11-14 18:02:43.208 +01:00 [DBG] Executed controller factory for controller Basket.API.Controllers.BasketController (Basket.API)
+2021-11-14 18:02:43.231 +01:00 [DBG] Attempting to bind parameter 'customerId' of type 'System.String' ...
+2021-11-14 18:02:43.236 +01:00 [DBG] Attempting to bind parameter 'customerId' of type 'System.String' using the name 'customerId' in request data ...
+2021-11-14 18:02:43.239 +01:00 [DBG] Done attempting to bind parameter 'customerId' of type 'System.String'.
+2021-11-14 18:02:43.245 +01:00 [DBG] Done attempting to bind parameter 'customerId' of type 'System.String'.
+2021-11-14 18:02:43.250 +01:00 [DBG] Attempting to validate the bound parameter 'customerId' of type 'System.String' ...
+2021-11-14 18:02:43.255 +01:00 [DBG] Done attempting to validate the bound parameter 'customerId' of type 'System.String'.
+2021-11-14 18:02:43.265 +01:00 [VRB] Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2021-11-14 18:02:43.268 +01:00 [VRB] Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2021-11-14 18:02:43.271 +01:00 [VRB] Action Filter: Before executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2021-11-14 18:02:43.279 +01:00 [VRB] Action Filter: After executing OnActionExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2021-11-14 18:02:43.288 +01:00 [INF] Executing action method Basket.API.Controllers.BasketController.GetBasket (Basket.API) - Validation state: "Valid"
+2021-11-14 18:02:43.297 +01:00 [VRB] Executing action method Basket.API.Controllers.BasketController.GetBasket (Basket.API) with arguments (["12"])
+2021-11-14 18:02:43.385 +01:00 [INF] Executed action method Basket.API.Controllers.BasketController.GetBasket (Basket.API), returned result Microsoft.AspNetCore.Mvc.OkObjectResult in 78.9961ms.
+2021-11-14 18:02:43.388 +01:00 [VRB] Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2021-11-14 18:02:43.390 +01:00 [VRB] Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ModelStateInvalidFilter.
+2021-11-14 18:02:43.392 +01:00 [VRB] Action Filter: Before executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2021-11-14 18:02:43.394 +01:00 [VRB] Action Filter: After executing OnActionExecuted on filter Microsoft.AspNetCore.Mvc.ModelBinding.UnsupportedContentTypeFilter.
+2021-11-14 18:02:43.397 +01:00 [VRB] Result Filter: Before executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 18:02:43.398 +01:00 [VRB] Result Filter: After executing OnResultExecuting on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 18:02:43.401 +01:00 [VRB] Before executing action result Microsoft.AspNetCore.Mvc.OkObjectResult.
+2021-11-14 18:02:43.403 +01:00 [DBG] List of registered output formatters, in the following order: ["Microsoft.AspNetCore.Mvc.Formatters.HttpNoContentOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StringOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.StreamOutputFormatter","Microsoft.AspNetCore.Mvc.Formatters.NewtonsoftJsonOutputFormatter"]
+2021-11-14 18:02:43.408 +01:00 [DBG] Attempting to select an output formatter based on Accept header '["text/plain"]'.
+2021-11-14 18:02:43.415 +01:00 [DBG] Could not find an output formatter based on content negotiation. Accepted types were (["text/plain"])
+2021-11-14 18:02:43.416 +01:00 [DBG] Attempting to select an output formatter without using a content type as no explicit content types were specified for the response.
+2021-11-14 18:02:43.418 +01:00 [DBG] Attempting to select the first formatter in the output formatters list which can write the result.
+2021-11-14 18:02:43.419 +01:00 [DBG] Selected output formatter 'Microsoft.AspNetCore.Mvc.Formatters.NewtonsoftJsonOutputFormatter' and content type 'application/json' to write the response.
+2021-11-14 18:02:43.421 +01:00 [INF] Executing OkObjectResult, writing value of type 'Basket.API.Model.CustomerBasket'.
+2021-11-14 18:02:43.530 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "HEADERS" frame for stream ID 5 with length 71 and flags "END_HEADERS"
+2021-11-14 18:02:43.532 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "DATA" frame for stream ID 5 with length 30 and flags "NONE"
+2021-11-14 18:02:43.534 +01:00 [VRB] After executing action result Microsoft.AspNetCore.Mvc.OkObjectResult.
+2021-11-14 18:02:43.535 +01:00 [VRB] Result Filter: Before executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 18:02:43.538 +01:00 [VRB] Result Filter: After executing OnResultExecuted on filter Microsoft.AspNetCore.Mvc.Infrastructure.ClientErrorResultFilter.
+2021-11-14 18:02:43.544 +01:00 [INF] Executed action Basket.API.Controllers.BasketController.GetBasket (Basket.API) in 337.9903ms
+2021-11-14 18:02:43.548 +01:00 [INF] Executed endpoint 'Basket.API.Controllers.BasketController.GetBasket (Basket.API)'
+2021-11-14 18:02:43.550 +01:00 [VRB] Connection id "0HMD7I23TQM8H" sending "DATA" frame for stream ID 5 with length 0 and flags "END_STREAM"
+2021-11-14 18:02:43.551 +01:00 [INF] Request finished HTTP/2 GET https://localhost:8001/api/Basket/12 - - - 200 30 application/json;+charset=utf-8 532.8898ms

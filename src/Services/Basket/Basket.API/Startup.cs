@@ -1,8 +1,8 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Basket.API.Grpc;
 using Basket.API.Infrastructure.Filters;
 using Basket.API.Infrastructure.Repositories;
+using BasketGrpc;
 using EventBus;
 using EventBus.Events.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -50,9 +50,12 @@ namespace Basket.API
             services.AddOptions();
             services.Configure<BasketSettings>(Configuration);
 
+            services.AddCache(Cache.Enum.CachingServiceEnum.InMemory);
+
+            services.AddGrpc();
+
             services.AddTransient<IBasketRepository, RedisBasketRepository>();
 
-            services.AddCache(Cache.Enum.CachingServiceEnum.InMemory);
             //services.AddCache(Cache.Enum.CachingServiceEnum.Redis); // Activate after Redis is ready
 
             services

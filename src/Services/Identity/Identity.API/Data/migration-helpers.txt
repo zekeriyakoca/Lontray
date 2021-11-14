@@ -1,0 +1,8 @@
+﻿
+#### add new migration
+
+    dotnet ef migrations add 1 -c ApplicationDbContext
+    dotnet ef database update 1 -c ApplicationDbContext
+
+    dotnet ef migrations add 1 -c PersistedGrantDbContext
+    dotnet ef database update 1 -c PersistedGrantDbContext

@@ -26,7 +26,7 @@ namespace Basket.API.Controllers
 
         [HttpGet("{customerId}")]
         [ProducesResponseType(typeof(CustomerBasket), StatusCodes.Status200OK)]
-        public async Task<ActionResult<CustomerBasket>> GetBasket([FromQuery] string customerId)
+        public async Task<ActionResult<CustomerBasket>> GetBasket([FromRoute] string customerId)
         {
             return Ok(await basketRepository.GetBasketAsync(customerId) ?? new CustomerBasket(customerId));
         }
@@ -41,7 +41,7 @@ namespace Basket.API.Controllers
 
         [HttpPost("checkout/{customerId}")]
         [ProducesResponseType(typeof(CustomerBasket), StatusCodes.Status200OK)]
-        public async Task<ActionResult<CustomerBasket>> CheckoutBasket([FromQuery] string customerId)
+        public async Task<ActionResult<CustomerBasket>> CheckoutBasket([FromRoute] string customerId)
         {
             var basket = await basketRepository.GetBasketAsync(customerId);
 
@@ -55,14 +55,14 @@ namespace Basket.API.Controllers
 
         [HttpPost("ApplyCode/{code}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> ApplyCoupon([FromQuery] string code)
+        public async Task<ActionResult> ApplyCoupon([FromRoute] string code)
         {
             throw new NotImplementedException();
         }
 
         [HttpDelete("{customerId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> DeleteBasket([FromQuery] string customerId)
+        public async Task<ActionResult> DeleteBasket([FromRoute] string customerId)
         {
             await basketRepository.DeleteBasketAsync(customerId);
             return Ok();

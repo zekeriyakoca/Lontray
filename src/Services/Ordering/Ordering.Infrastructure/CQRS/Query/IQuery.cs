@@ -1,7 +1,5 @@
 ﻿namespace Ordering.Infrastructure.CQRS
 {
-    public interface IQuery<out TResult>
-    {
-
-    }
+    //Marker Interface
+    public interface IQuery<out TResult> { }
 }

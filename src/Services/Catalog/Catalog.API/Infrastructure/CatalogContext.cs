@@ -23,7 +23,7 @@ namespace Catalog.API.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.HasDefaultSchema("catalogapi");
             base.OnModelCreating(modelBuilder);
 
             string sql = "getdate()";

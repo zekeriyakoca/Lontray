@@ -71,6 +71,7 @@ namespace Web.BFF.Shopping
                     .AllowCredentials());
             });
 
+            services.AddGrpc();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<AuthorizationDelegatingHandler>();
 
