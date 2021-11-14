@@ -31,7 +31,7 @@ namespace Ordering.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
+            modelBuilder.HasDefaultSchema(DEFAULT_SCHEMA);
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetAssembly(typeof(PaymentMethodConfigurations)));
             base.OnModelCreating(modelBuilder);
         }

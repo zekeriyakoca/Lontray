@@ -13,6 +13,7 @@ namespace Lontray.Services.Identity.API.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.HasDefaultSchema("identity");
             base.OnModelCreating(builder);
         }
     }

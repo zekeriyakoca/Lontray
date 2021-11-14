@@ -1,10 +1,10 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Catalog.API.AppServices;
-using Catalog.API.Grpc;
 using Catalog.API.Infrastructure;
 using Catalog.API.Infrastructure.Filters;
 using Catalog.API.IntegrationEvents.Services;
+using CatalogGrpc;
 using EventBus;
 using EventBus.Events.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -58,6 +58,9 @@ namespace Catalog.API
             services.Configure<CatalogSettings>(Configuration);
 
             services.AddTransient<CatalogContextSeeder>();
+
+
+            services.AddGrpc();
 
             services.AddTransient<ICatalogAppService, CatalogAppService>();
 

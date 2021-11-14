@@ -27,7 +27,7 @@ namespace Catalog.API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CatalogItemDto>> GetItem([FromQuery] int id)
+        public async Task<ActionResult<CatalogItemDto>> GetItem([FromRoute] int id)
         {
 
             throw new NotImplementedException();
@@ -60,7 +60,7 @@ namespace Catalog.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> RemoveCatalogItem([FromQuery] int id)
+        public async Task<ActionResult> RemoveCatalogItem([FromRoute] int id)
         {
             throw new NotImplementedException();
         }

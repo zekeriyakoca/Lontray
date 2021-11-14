@@ -13,6 +13,7 @@ namespace Microsoft.Extensions.DependencyInjection
                     services.AddSingleton<ICacheService, RedisCacheService>();
                     break;
                 case CachingServiceEnum.InMemory:
+                    services.AddMemoryCache();
                     services.AddSingleton<ICacheService, InMemmoryCacheService>();
                     break;
                 default:

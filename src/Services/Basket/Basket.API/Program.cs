@@ -1,3 +1,4 @@
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -10,7 +11,9 @@ namespace Basket.API
 
         public static void Main(string[] args)
         {
-            CreateHostBuilder(args).Build().Run();
+            var host = CreateHostBuilder(args).Build();
+
+            host.Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -19,6 +22,7 @@ namespace Basket.API
                 {
                     webBuilder.UseStartup<Startup>();
                 })
+                .UseServiceProviderFactory(new AutofacServiceProviderFactory())
                 .UseCustomSerilog(AppName);
     }
 }

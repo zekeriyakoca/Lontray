@@ -11,7 +11,6 @@ namespace Ordering.Infrastructure.AutofacModules
     {
         public ApplicationModule()
         {
-
         }
 
         protected override void Load(ContainerBuilder builder)

@@ -10,13 +10,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using Ordering.API.Grpc;
 using Ordering.API.Infrastructure.Filters;
 using Ordering.Infrastructure;
 using Ordering.Infrastructure.AutofacModules;
 using Ordering.Infrastructure.CQRS;
 using Ordering.Infrastructure.Filters;
 using Ordering.Infrastructure.Services;
+using OrderingGrpc;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -65,6 +65,7 @@ namespace Ordering.API
 
             services.AddHttpContextAccessor();
 
+            services.AddGrpc();
             services.AddTransient<OrderingContextSeeder>();
             services.AddTransient<IQueryExecuter, QueryExecuter>();
             services.AddTransient<ICommandExecuter, CommandExecuter>();
