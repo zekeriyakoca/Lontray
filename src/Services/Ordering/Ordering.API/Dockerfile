@@ -8,7 +8,11 @@ WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
+#ENV IS_CONTAINER=true
+ENV ASPNETCORE_ENVIRONMENT="Container"
+
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
+
 WORKDIR /src
 COPY ["Services/Ordering/Ordering.API/Ordering.API.csproj", "Services/Ordering/Ordering.API/"]
 RUN dotnet restore "Services/Ordering/Ordering.API/Ordering.API.csproj"
@@ -23,3 +27,4 @@ FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "Ordering.API.dll"]
+
