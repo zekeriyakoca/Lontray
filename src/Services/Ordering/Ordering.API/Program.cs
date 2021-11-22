@@ -27,11 +27,11 @@ namespace Ordering.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
-                    //webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
-                    // {
-                    //     if (config.Build().GetValue<string>("IS_CONTAINER") == "true")
-                    //         config.AddJsonFile("appsettings.Container.json", optional: false, reloadOnChange: false);
-                    // });
+                    webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
+                     {
+                         if (config.Build().GetValue<string>("IS_CONTAINER") == "true")
+                             config.AddJsonFile("appsettings.Container.json", optional: false, reloadOnChange: false);
+                     });
                     webBuilder.UseStartup<Startup>();
                 })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())
