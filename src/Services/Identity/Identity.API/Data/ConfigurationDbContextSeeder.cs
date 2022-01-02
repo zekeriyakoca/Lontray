@@ -20,6 +20,9 @@ namespace Lontray.Services.Identity.API.Data
             clientUrls.Add("BasketApi", configuration.GetValue<string>("Urls:BasketApi"));
             clientUrls.Add("OrderingApi", configuration.GetValue<string>("Urls:OrderingApi"));
             clientUrls.Add("CatalogApi", configuration.GetValue<string>("Urls:CatalogApi"));
+            clientUrls.Add("WebMVCIdentity", configuration.GetValue<string>("Urls:WebMVCIdentity"));
+
+            
 
             if (bool.Parse(configuration["RecreateIdentityTables"]))
             {

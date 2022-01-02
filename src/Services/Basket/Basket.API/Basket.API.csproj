@@ -1,10 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
     <UserSecretsId>4e1f1a2c-c02a-4aaa-81d0-79cdec43aa7a</UserSecretsId>
-    <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+    <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+    <DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -29,8 +30,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="IntegrationEvents\Events\" />
-    <Folder Include="IntegrationEvents\EventHandlers\" />
     <Folder Include="Logs\" />
   </ItemGroup>
 

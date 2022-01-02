@@ -33,7 +33,7 @@ namespace Catalog.API.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpPost("")]
+        [HttpPost("list")]
         public async Task<ActionResult<IEnumerable<CatalogItemDto>>> GetItems([FromBody] CatalogItemSearchParamsDto dto)
         {
             throw new NotImplementedException();

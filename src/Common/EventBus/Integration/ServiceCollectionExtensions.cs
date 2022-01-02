@@ -15,11 +15,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddSingleton<IRabbitMQPersistentConnection>(sp =>
             {
                 var logger = sp.GetRequiredService<ILogger<DefaultRabbitMQPersistentConnection>>();
-
                 var factory = new ConnectionFactory()
                 {
                     HostName = Configuration["RabbitMQ:EventBusConnection"],
-                    DispatchConsumersAsync = true
+                    //Port = int.Parse(Configuration["RabbitMQ:EventBusPort"]), // This should not be set for docker compose. Becareful if you need it.
+                    DispatchConsumersAsync = true,
                 };
 
                 factory.UserName = Configuration["RabbitMQ:EventBusUserName"] ?? default;

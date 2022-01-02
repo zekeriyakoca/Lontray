@@ -97,8 +97,8 @@ namespace Lontray.Services.Identity.API.Configuration
                     {
                         new Secret("secret".Sha256())
                     },
-                    RedirectUris = new List<string> {"https://localhost:7001/signin-oidc"},
-                    PostLogoutRedirectUris = { "https://localhost:7001/signout-callback-oidc" },
+                    RedirectUris = new List<string> {$"{clientsUrl["WebMVCIdentity"]}/signin-oidc"},
+                    PostLogoutRedirectUris = { $"{clientsUrl["WebMVCIdentity"]}/signout-callback-oidc" },
                     AllowedScopes = new List<string>
                     {
                         IdentityServerConstants.StandardScopes.OpenId,
@@ -156,7 +156,7 @@ namespace Lontray.Services.Identity.API.Configuration
                         "catalog.all",
                     }
                 },
-                 new Client
+                new Client
                 {
                     ClientId = "orderingswaggerui",
                     ClientName = "Ordering API Swagger UI",

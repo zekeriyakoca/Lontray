@@ -6,6 +6,8 @@
     <UserSecretsId>174841b6-471e-4ea5-b30d-a5edd066a672</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..\..</DockerfileContext>
+	<DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath> 
+
     <RootNamespace>Lontray.Services.Identity.API</RootNamespace>
   </PropertyGroup>
 

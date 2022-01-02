@@ -2,6 +2,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using Basket.API.Infrastructure.Filters;
 using Basket.API.Infrastructure.Repositories;
+using Basket.API.IntegrationEvents.Services;
 using BasketGrpc;
 using EventBus;
 using EventBus.Events.Interfaces;
@@ -56,7 +57,8 @@ namespace Basket.API
 
             services.AddTransient<IBasketRepository, RedisBasketRepository>();
 
-            //services.AddCache(Cache.Enum.CachingServiceEnum.Redis); // Activate after Redis is ready
+            services.AddTransient<IBasketIntegrationService, BasketIntegrationService>();
+
 
             services
                 .AddEventBusRabbitMQ(Configuration)
@@ -67,7 +69,7 @@ namespace Basket.API
         //Configure Autofac Container
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            //Add IntegrationHandlers to Container
+            //Add IntegrationEventHandlers to Container
             var currentAssembly = Assembly.GetExecutingAssembly();
             builder.RegisterAssemblyTypes(currentAssembly)
                 .Where(t => t.GetInterfaces().Contains(typeof(IIntegrationEventHandler)))
@@ -84,9 +86,9 @@ namespace Basket.API
                 app.UseSwagger();
                 app.UseSwaggerUI(setup =>
                 {
-                   setup.SwaggerEndpoint($"/swagger/v1/swagger.json", "Basket.API V1");
-                   setup.OAuthClientId("basketswaggerui");
-                   setup.OAuthAppName("Basket Swagger UI");
+                    setup.SwaggerEndpoint($"/swagger/v1/swagger.json", "Basket.API V1");
+                    setup.OAuthClientId("basketswaggerui");
+                    setup.OAuthAppName("Basket Swagger UI");
                 });
             }
 
@@ -120,11 +122,11 @@ namespace Basket.API
             {
                 var @event = handler.GetType().GetInterfaces().First().GenericTypeArguments.First();
 
-                var subscribemethod = typeof(IEventBus)
+                var subscribeMethod = typeof(IEventBus)
                     .GetMethod("Subscribe")
                     .MakeGenericMethod(@event, handler.GetType());
 
-                subscribemethod.Invoke(eventBus, new object[] { @event.Name, "BasketApi", handler });
+                subscribeMethod.Invoke(eventBus, new object[] { @event.Name, "BasketApi", handler });
             }
         }
 

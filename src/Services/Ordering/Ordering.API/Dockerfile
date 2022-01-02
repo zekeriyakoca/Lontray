@@ -9,7 +9,6 @@ EXPOSE 80
 EXPOSE 443
 
 ENV IS_CONTAINER=true
-#ENV ASPNETCORE_ENVIRONMENT="Container"
 
 FROM mcr.microsoft.com/dotnet/sdk:5.0 AS build
 

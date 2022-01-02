@@ -13,8 +13,7 @@ namespace Lontray.Services.Identity.API.Data
     public class ApplicationDbContextSeeder
     {
 
-        public async Task SeedAsync(ApplicationDbContext context, IWebHostEnvironment env,
-            ILogger logger, int? retry = 0)
+        public async Task SeedAsync(ApplicationDbContext context, IWebHostEnvironment env, ILogger logger, int? retry = 0)
         {
             try
             {

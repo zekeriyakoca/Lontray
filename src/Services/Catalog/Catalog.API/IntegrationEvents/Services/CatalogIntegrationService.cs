@@ -10,6 +10,7 @@ namespace Catalog.API.IntegrationEvents.Services
         void PublishEvent(IntegrationEvent @event);
     }
 
+    // Create an abstract or base service in a shared project
     public class CatalogIntegrationService : ICatalogIntegrationService
     {
         private readonly IEventBus eventBus;

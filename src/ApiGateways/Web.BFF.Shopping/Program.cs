@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 
 namespace Web.BFF.Shopping
@@ -14,6 +15,11 @@ namespace Web.BFF.Shopping
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
+                    {
+                        if (config.Build().GetValue<string>("IS_CONTAINER") == "true")
+                            config.AddJsonFile("appsettings.Container.json", optional: false, reloadOnChange: false);
+                    });
                     webBuilder.UseStartup<Startup>();
                 });
     }

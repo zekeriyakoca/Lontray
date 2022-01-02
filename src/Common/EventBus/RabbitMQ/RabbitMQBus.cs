@@ -74,6 +74,7 @@ namespace EventBus
             channel.ExchangeDeclare(exchange: BROKER_NAME, type: "topic");
         }
 
+        // TODO : parameter is strapping the event. Find a solution
         public void Publish(IntegrationEvent @event)
         {
             if (!_persistentConnection.IsConnected)

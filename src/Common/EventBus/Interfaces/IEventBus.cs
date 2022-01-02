@@ -6,6 +6,7 @@ namespace EventBus
 {
     public interface IEventBus
     {
+        // This method's signature is used during startup, so shouldn't be changed
         void Subscribe<TEvent, THandler>(string typeName, string appSuffix, THandler handler) where TEvent : IntegrationEvent where THandler : IIntegrationEventHandler<TEvent>;
 
         void Publish(IntegrationEvent @event);
