@@ -32,7 +32,6 @@ namespace Basket.API.Controllers
             return Ok(await basketRepository.GetBasketAsync(customerId) ?? new CustomerBasket(customerId));
         }
 
-
         [HttpPut("")]
         [ProducesResponseType(typeof(CustomerBasket), StatusCodes.Status200OK)]
         public async Task<ActionResult<CustomerBasket>> UpdateBasket([FromBody] CustomerBasket basket)

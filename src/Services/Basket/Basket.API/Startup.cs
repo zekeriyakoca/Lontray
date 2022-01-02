@@ -23,9 +23,11 @@ namespace Basket.API
 {
     public class Startup
     {
+        private readonly bool IS_ORCHESTRATED;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            IS_ORCHESTRATED = Configuration.GetValue<bool>("IS_ORCHESTRATED");
         }
 
         public IConfiguration Configuration { get; }
@@ -51,7 +53,10 @@ namespace Basket.API
             services.AddOptions();
             services.Configure<BasketSettings>(Configuration);
 
-            services.AddCache(Cache.Enum.CachingServiceEnum.InMemory);
+            if (IS_ORCHESTRATED)
+                services.AddCache(Cache.Enum.CachingServiceEnum.Redis);
+            else
+                services.AddCache(Cache.Enum.CachingServiceEnum.InMemory);
 
             services.AddGrpc();
 
