@@ -22,8 +22,6 @@ namespace Lontray.Services.Identity.API.Data
             clientUrls.Add("CatalogApi", configuration.GetValue<string>("Urls:CatalogApi"));
             clientUrls.Add("WebMVCIdentity", configuration.GetValue<string>("Urls:WebMVCIdentity"));
 
-            
-
             if (bool.Parse(configuration["RecreateIdentityTables"]))
             {
                 context.ApiResources.RemoveRange(context.ApiResources.ToList());
