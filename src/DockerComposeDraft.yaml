@@ -1,0 +1,10 @@
+services: 
+	catalogapi: 
+		image: catalogApi
+		build: 
+			context: Services/Catalog/Catalog.API
+			dockerfile: Dockerfile
+			args:
+				buildversion: 1
+		ports: 
+			- "7000:80"

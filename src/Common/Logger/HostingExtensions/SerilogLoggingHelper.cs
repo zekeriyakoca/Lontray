@@ -25,7 +25,10 @@ namespace Microsoft.Extensions.Hosting
                 .WriteTo.Console()
                 .WriteTo.File(roolingFileName);
                 if (settings.IsSeqActive)
+                {
+                    loggerConfiguration.Enrich.WithProperty("WithMachineName", "Development");
                     loggerConfiguration.WriteTo.Seq(settings.SeqServerUrl);
+                }
                 if (settings.IsElkActive)
                 {
                     var elasticSinkOptions = new Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions(new Uri(settings.ElasticSearchUrl))

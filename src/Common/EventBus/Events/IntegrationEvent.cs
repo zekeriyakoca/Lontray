@@ -3,6 +3,7 @@ using System;
 
 namespace EventBus.Events
 {
+    // TODO : Move implementations to the submodule project 
     public record IntegrationEvent
     {
         public IntegrationEvent()

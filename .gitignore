@@ -297,3 +297,5 @@ src/Services/Basket/Basket.API/appsettings.Development.json
 src/Services/Ordering/Ordering.API/appsettings.Development.json
 
 src/Services/Ordering/Ordering.API/Logs/
+
+src/Services/Basket/Basket.API/Logs/

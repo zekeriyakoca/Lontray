@@ -1,0 +1,25 @@
+﻿# Go to solution folder
+
+# Build image 
+docker build -f Services/Ordering/Ordering.API/Dockerfile -t ordering_api_image .
+
+# Run container
+docker run  -it --rm -p 9000:80/tcp -p 9000:80/udp ordering_api_image --name orderingApi 
+
+# Connecction String pattern to connect host database
+Server=host.docker.internal;Initial Catalog=Lontray;User=sa;Password=Your_Password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

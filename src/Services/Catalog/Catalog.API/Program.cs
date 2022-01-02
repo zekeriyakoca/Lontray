@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Serilog;
 using System;
+using Microsoft.Extensions.Configuration;
 
 namespace Catalog.API
 {
@@ -43,6 +44,11 @@ namespace Catalog.API
             Host.CreateDefaultBuilder(args)
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
+                    webBuilder.ConfigureAppConfiguration((hostingContext, config) =>
+                    {
+                        if (config.Build().GetValue<string>("IS_CONTAINER") == "true")
+                            config.AddJsonFile("appsettings.Container.json", optional: false, reloadOnChange: false);
+                    });
                     webBuilder.UseStartup<Startup>();
                 })
                 .UseServiceProviderFactory(new AutofacServiceProviderFactory())

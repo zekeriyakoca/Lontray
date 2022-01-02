@@ -1,0 +1,28 @@
+﻿# Go to solution folder
+
+# Build image 
+docker build -f Services/Catalog/Catalog.API/Dockerfile -t catalog_api_image .
+
+# Run container
+docker run  -it --rm -p 7000:80/tcp -p 7000:80/udp catalog_api_image --name catalogApi 
+
+docker run -d -p 7000:80/tcp -p 7000:80/udp --link some-rabbit:rabbitmq catalog_api_image --name catalogApi 
+
+# Connecction String pattern to connect host database
+Server=host.docker.internal;Initial Catalog=Lontray;User=sa;Password=Your_Password;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False;
+
+#If you wish to run a rabbitmq isntance on container, you may use following command to run the container
+docker run -d --hostname my-rabbit -p 5672:5672 -p 15672:15672 --name some-rabbit rabbitmq:3-management
+
+
+
+
+
+
+
+
+
+
+
+
+
