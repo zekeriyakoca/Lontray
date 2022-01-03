@@ -1,4 +1,6 @@
 using BasketGrpc;
+using CatalogGrpc;
+using OrderingGrpc;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -71,7 +73,6 @@ namespace Web.BFF.Shopping
                     .AllowCredentials());
             });
 
-            services.AddGrpc();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddTransient<AuthorizationDelegatingHandler>();
 
@@ -87,11 +88,7 @@ namespace Web.BFF.Shopping
                 options.RequireHttpsMetadata = false;
             });
 
-            services.AddGrpcClient<Basket.BasketClient>((services, options) =>
-            {
-                var basketApi = services.GetRequiredService<IOptions<UrlConfig>>().Value.BasketGrpc;
-                options.Address = new Uri(basketApi);
-            });
+            services.AddGrpcClients(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -124,6 +121,28 @@ namespace Web.BFF.Shopping
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
             });
+        }
+    }
+    public static class Extensions
+    {
+        public static IServiceCollection AddGrpcClients(this IServiceCollection services, IConfiguration Configuration)
+        {
+            services.AddGrpcClient<Basket.BasketClient>((services, options) =>
+            {
+                var basketApi = Configuration["Urls:BasketGrpc"];
+                options.Address = new Uri(basketApi);
+            });
+            services.AddGrpcClient<Catalog.CatalogClient>((services, options) =>
+            {
+                var catalogApi = Configuration["Urls:CatalogGrpc"];
+                options.Address = new Uri(catalogApi);
+            });
+            services.AddGrpcClient<Ordering.OrderingClient>((services, options) =>
+            {
+                var orderingApi = Configuration["Urls:OrderingGrpc"];
+                options.Address = new Uri(orderingApi);
+            });
+            return services;
         }
     }
 }
