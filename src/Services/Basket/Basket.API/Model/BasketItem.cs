@@ -23,7 +23,7 @@ namespace Basket.API.Model
 
             if (Quantity < 1)
             {
-                results.Add(new ValidationResult("Invalid number of units", new[] { "Quantity" }));
+                results.Add(new ValidationResult($"Invalid number of units, ProductId: {ProductId}", new[] { "Quantity" }));
             }
 
             return results;

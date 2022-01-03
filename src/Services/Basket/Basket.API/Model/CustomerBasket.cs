@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
 
 namespace Basket.API.Model
 {
@@ -17,6 +19,7 @@ namespace Basket.API.Model
         {
             CustomerId = customerId;
         }
+
     }
 
 }

@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 
 namespace BasketGrpc
 {
+    // TODO : Move bussiness logic to common service to be used in controller and here.
     public class BasketService : Basket.BasketBase
     {
         private readonly ILogger<BasketService> logger;

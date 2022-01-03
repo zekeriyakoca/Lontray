@@ -53,19 +53,19 @@ namespace Basket.API.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpPost("ApplyCode/{code}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<ActionResult> ApplyCoupon([FromRoute] string code)
-        {
-            throw new NotImplementedException();
-        }
-
         [HttpDelete("{customerId}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<ActionResult> DeleteBasket([FromRoute] string customerId)
         {
             await basketRepository.DeleteBasketAsync(customerId);
             return Ok();
+        }
+
+        [HttpPost("ApplyCode/{code}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<ActionResult> ApplyCoupon([FromRoute] string code)
+        {
+            throw new NotImplementedException();
         }
     }
 
