@@ -2,6 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
+using CatalogGrpc;
+using Grpc.Core;
+using System.Threading.Tasks;
 
 namespace Web.BFF.Shopping.Controllers
 {
@@ -10,11 +13,13 @@ namespace Web.BFF.Shopping.Controllers
     public class HomeController : ControllerBase
     {
 
-        private readonly ILogger<HomeController> _logger;
+        private readonly ILogger<HomeController> logger;
+        private readonly Catalog.CatalogClient catalogClient;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, Catalog.CatalogClient catalogClient)
         {
-            _logger = logger;
+            this.logger = logger;
+            this.catalogClient = catalogClient;
         }
 
         [HttpGet]
@@ -22,6 +27,24 @@ namespace Web.BFF.Shopping.Controllers
         public IEnumerable<string> Get()
         {
             return new string[2] { "Get it!", "Get it!" };
+        }
+
+        [HttpGet("ValidateBasket")]
+        public async Task<IActionResult> ValidateBasket() // Test method
+        {
+            var request = new CheckAvailibilityRequest();
+            //{
+            //    Items = new List<CatalogItemAvailibilityRequest>() {
+            //        new CatalogItemAvailibilityRequest()
+            //        {
+            //            Id = 2,
+            //            Quantity = 1
+            //        }
+            //    }
+            //};
+
+            var response = await catalogClient.ValidateBasketAsync(request);
+            return Ok();
         }
     }
 }

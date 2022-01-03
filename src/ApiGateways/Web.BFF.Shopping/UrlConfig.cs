@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Web.BFF.Shopping
 {
-    public class UrlConfig
+    public  class UrlConfig
     {
         public string Identity { get; set; }
         public string Ordering { get; set; }

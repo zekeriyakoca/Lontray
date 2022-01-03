@@ -10,6 +10,7 @@ using EventBus.Events.Interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +19,7 @@ using Microsoft.OpenApi.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 
@@ -62,11 +64,11 @@ namespace Catalog.API
 
             services.AddGrpc();
 
+            services.AddAutoMapper(typeof(Startup));
+
             services.AddTransient<ICatalogAppService, CatalogAppService>();
 
             services.AddTransient<ICatalogIntegrationService, CatalogIntegrationService>();
-
-            services.AddAutoMapper(typeof(Startup));
 
             services.AddEventBusRabbitMQ(Configuration);
 
@@ -101,7 +103,7 @@ namespace Catalog.API
                 });
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection(); // Check GPRC port configuration before uncomment
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
@@ -113,6 +115,20 @@ namespace Catalog.API
             {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
+                endpoints.MapGet("/_proto/", async ctx =>
+                {
+                    ctx.Response.ContentType = "text/plain";
+                    using var fs = new FileStream(Path.Combine(env.ContentRootPath, "Proto", "catalog.proto"), FileMode.Open, FileAccess.Read);
+                    using var sr = new StreamReader(fs);
+                    while (!sr.EndOfStream)
+                    {
+                        var line = await sr.ReadLineAsync();
+                        if (line != "/* >>" || line != "<< */")
+                        {
+                            await ctx.Response.WriteAsync(line);
+                        }
+                    }
+                });
                 endpoints.MapGrpcService<CatalogService>();
             });
 

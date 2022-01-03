@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Reflection;
+using Microsoft.AspNetCore.Http;
+using System.IO;
 
 namespace Basket.API
 {
@@ -97,7 +99,7 @@ namespace Basket.API
                 });
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection(); // Check GPRC port configuration before uncomment
 
             app.UseRouting();
             app.UseCors("CorsPolicy");
@@ -109,6 +111,20 @@ namespace Basket.API
             {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
+                endpoints.MapGet("/_proto/", async ctx =>
+                {
+                    ctx.Response.ContentType = "text/plain";
+                    using var fs = new FileStream(Path.Combine(env.ContentRootPath, "Proto", "basket.proto"), FileMode.Open, FileAccess.Read);
+                    using var sr = new StreamReader(fs);
+                    while (!sr.EndOfStream)
+                    {
+                        var line = await sr.ReadLineAsync();
+                        if (line != "/* >>" || line != "<< */")
+                        {
+                            await ctx.Response.WriteAsync(line);
+                        }
+                    }
+                });
                 endpoints.MapGrpcService<BasketService>();
             });
 

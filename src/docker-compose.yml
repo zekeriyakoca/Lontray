@@ -3,7 +3,7 @@ version: '3.4'
 services:
   web.bff:
     container_name: webBFF
-    image: ${DOCKER_REGISTRY-}webbff
+    image: ${DOCKER_REGISTRY-}webbff:${PLATFORM:-linux}-${TAG:-latest}
     build:
       context: .
       dockerfile: ApiGateways/Web.BFF.Shopping/Dockerfile
@@ -19,13 +19,14 @@ services:
       - identityApi
   basket.api:
     container_name: basketApi
-    image: ${DOCKER_REGISTRY-}basketapi
+    image: ${DOCKER_REGISTRY-}basketapi:${PLATFORM:-linux}-${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Basket/Basket.API/Dockerfile
     ports:
       - 8001:443 
       - 8000:80
+      - 8020:81
     networks:
       - lontray-net
     depends_on:
@@ -33,33 +34,35 @@ services:
       - redis
   catalog.api:
     container_name: catalogApi
-    image: ${DOCKER_REGISTRY-}catalogapi
+    image: ${DOCKER_REGISTRY-}catalogapi:${PLATFORM:-linux}-${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Catalog/Catalog.API/Dockerfile
     ports:
       - 7001:443 
       - 7000:80
+      - 7020:81
     networks:
       - lontray-net
     depends_on:
       - rabbitmq
   ordering.api:
     container_name: orderingApi
-    image: ${DOCKER_REGISTRY-}orderingapi
+    image: ${DOCKER_REGISTRY-}orderingapi:${PLATFORM:-linux}-${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Ordering/Ordering.API/Dockerfile
     ports:
       - 9001:443 
       - 9000:80
+      - 9020:81
     networks:
       - lontray-net
     depends_on:
       - rabbitmq
   identity.api:
     container_name: identityApi
-    image: ${DOCKER_REGISTRY-}identityapi
+    image: ${DOCKER_REGISTRY-}identityapi:${PLATFORM:-linux}-${TAG:-latest}
     build:
       context: .
       dockerfile: Services/Identity/Identity.API/Dockerfile
