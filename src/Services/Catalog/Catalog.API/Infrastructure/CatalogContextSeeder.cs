@@ -35,13 +35,13 @@ namespace Catalog.API.Infrastructure
         {
             await CreatePolicy(nameof(CatalogContextSeeder)).ExecuteAsync(async () =>
             {
-                var useCustomizationData = settings.UseCustomizationData;
+                var useCustomizedData = settings.UseCustomizationData;
                 var contentRootPath = env.ContentRootPath;
                 var picturePath = env.WebRootPath;
 
                 if (!context.CatalogBrands.Any())
                 {
-                    await context.CatalogBrands.AddRangeAsync(useCustomizationData
+                    await context.CatalogBrands.AddRangeAsync(useCustomizedData
                         ? GetCatalogBrandsFromFile(contentRootPath, logger)
                         : GetPreconfiguredCatalogBrands());
 
@@ -50,7 +50,7 @@ namespace Catalog.API.Infrastructure
 
                 if (!context.CatalogTypes.Any())
                 {
-                    await context.CatalogTypes.AddRangeAsync(useCustomizationData
+                    await context.CatalogTypes.AddRangeAsync(useCustomizedData
                         ? GetCatalogTypesFromFile(contentRootPath, logger)
                         : GetPreconfiguredCatalogTypes());
 
@@ -59,7 +59,7 @@ namespace Catalog.API.Infrastructure
 
                 if (!context.CatalogItems.Any())
                 {
-                    await context.CatalogItems.AddRangeAsync(useCustomizationData
+                    await context.CatalogItems.AddRangeAsync(useCustomizedData
                         ? GetCatalogItemsFromFile(contentRootPath, context, logger)
                         : GetPreconfiguredItems());
 

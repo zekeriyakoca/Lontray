@@ -61,7 +61,6 @@ namespace Catalog.API
 
             services.AddTransient<CatalogContextSeeder>();
 
-
             services.AddGrpc();
 
             services.AddAutoMapper(typeof(Startup));

@@ -5,6 +5,7 @@ using Catalog.API.Infrastructure;
 using Catalog.API.IntegrationEvents.Events;
 using Catalog.API.IntegrationEvents.Services;
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -22,6 +23,20 @@ namespace Catalog.API.AppServices
             this.context = context ?? throw new ArgumentNullException(nameof(context));
             this.integrationService = integrationService;
         }
+
+        public async Task<CatalogItemDto> GetCatalogItem([NotNull] int id)
+        {
+            if (id == default)
+                throw new ArgumentNullException($"Catalog Item id cannot be null");
+
+            var itemFound = await context.CatalogItems.FindAsync(id);
+
+            if (itemFound == null)
+                return null;
+
+            return mapper.Map<CatalogItemDto>(itemFound);
+        }
+
         public async Task CreateCatalogItem(CreateCatalogItemDto dto)
         {
             var itemToCreate = mapper.Map<CatalogItem>(dto);
@@ -41,11 +56,24 @@ namespace Catalog.API.AppServices
             if (itemToUpdate == null)
                 throw new Exception($"CatalogItem cannot be found to update. CatalogItemId :{dto.Id}");
 
-            itemToUpdate = mapper.Map<UpdateCatalogItemDto, CatalogItem>(dto, itemToUpdate);
             await context.SaveChangesAsync();
+            itemToUpdate = mapper.Map<UpdateCatalogItemDto, CatalogItem>(dto, itemToUpdate);
 
             var eventToPublish = mapper.Map<CatalogItemUpdatedEvent>(itemToUpdate);
             integrationService.PublishEvent(eventToPublish);
+        }
+        public async Task<bool> RemoveCatalogItem([NotNull] int id)
+        {
+            if (id == default)
+                throw new ArgumentNullException($"Catalog Item id cannot be null");
+
+            var itemFound = await context.CatalogItems.FindAsync(id);
+
+            if (itemFound == null)
+                return false;
+
+            context.CatalogItems.Remove(itemFound);
+            return true;
         }
 
     }

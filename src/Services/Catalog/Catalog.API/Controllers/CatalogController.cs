@@ -29,8 +29,7 @@ namespace Catalog.API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<CatalogItemDto>> GetItem([FromRoute] int id)
         {
-
-            throw new NotImplementedException();
+            return await catalogAppService.GetCatalogItem(id);
         }
 
         [HttpPost("list")]
@@ -42,9 +41,6 @@ namespace Catalog.API.Controllers
         [HttpPost("")]
         public async Task<ActionResult> AddCatalogItem([FromBody] CreateCatalogItemDto dto)
         {
-            if (dto == null)
-                return BadRequest();
-
             await catalogAppService.CreateCatalogItem(dto);
             return Ok("");
         }
@@ -52,18 +48,14 @@ namespace Catalog.API.Controllers
         [HttpPut("")]
         public async Task<ActionResult> UpdateCatalogItem([FromBody] UpdateCatalogItemDto dto)
         {
-            if (dto == null)
-                return BadRequest();
-
             await catalogAppService.UpdateCatalogItem(dto);
             return Ok("");
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult> RemoveCatalogItem([FromRoute] int id)
+        public async Task<ActionResult<bool>> RemoveCatalogItem([FromRoute] int id)
         {
-            throw new NotImplementedException();
+            return await catalogAppService.RemoveCatalogItem(id);
         }
-
     }
 }

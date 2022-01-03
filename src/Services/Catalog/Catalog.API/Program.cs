@@ -25,8 +25,6 @@ namespace Catalog.API
                 host.Migrate<CatalogContext>(seederAction: (context, services) =>
                 {
                     context.Database.EnsureCreated();
-                    //var env = services.GetService<IWebHostEnvironment>();
-                    //var logger = services.GetService<ILogger<Program>>();
                     services.GetService<CatalogContextSeeder>().Seed().Wait();
                 });
 

@@ -2,7 +2,7 @@
 
 namespace Catalog.API.IntegrationEvents.Events
 {
-    public record OrderCreatedIntegrationEvent : IntegrationEvent
+    public record OrderCreatedIntegrationEvent: IntegrationEvent
     {
 
     }
