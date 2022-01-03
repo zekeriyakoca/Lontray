@@ -15,6 +15,7 @@ namespace Basket.API.Infrastructure.Repositories
         {
             this.cache = cache;
         }
+
         public async Task DeleteBasketAsync(string customerId)
         {
             await cache.RemoveValue(customerId.ToRedisKey());

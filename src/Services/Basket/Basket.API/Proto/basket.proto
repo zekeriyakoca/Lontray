@@ -11,7 +11,7 @@ service Basket {
 }
 
 message BasketRequest {
-	string id = 1;
+	string buyerid = 1;
 }
 
 message CustomerBasketRequest {
