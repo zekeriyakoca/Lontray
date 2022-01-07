@@ -7,13 +7,16 @@ using Catalog.API.IntegrationEvents.Services;
 using CatalogGrpc;
 using EventBus;
 using EventBus.Events.Interfaces;
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using System;
@@ -74,6 +77,21 @@ namespace Catalog.API
             services.AddCustomSwagger(Configuration)
                     .ConfigureAuthService(Configuration)
                     .AddCustomDbContext(Configuration, env);
+
+            var hcBuilder = services.AddHealthChecks();
+
+            hcBuilder
+                .AddCheck("self", () => HealthCheckResult.Healthy())
+                .AddDbContextCheck<CatalogContext>(
+                    name: "CatalogDB-check",
+                    tags: new string[] { "catalogdb" });
+
+            hcBuilder
+                   .AddRabbitMQ(
+                       $"amqp://{Configuration["RabbitMQ:EventBusConnection"]}",
+                       name: "catalog-rabbitmqbus-check",
+                       tags: new string[] { "rabbitmqbus" });
+
         }
 
         //Configure Autofac Container
@@ -129,6 +147,15 @@ namespace Catalog.API
                     }
                 });
                 endpoints.MapGrpcService<CatalogService>();
+                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
+                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+                {
+                    Predicate = r => r.Name.Contains("self")
+                });
             });
 
             app.ConfigureIntegrationEvents();
