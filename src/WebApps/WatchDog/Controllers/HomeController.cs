@@ -1,12 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
-using WatchDog.Models;
 
 namespace WatchDog.Controllers
 {
@@ -19,11 +13,16 @@ namespace WatchDog.Controllers
             Configuration = configuration;
         }
 
-        //public IActionResult Index() => RedirectToRoute("/hc-ui");
-        public IActionResult Index() => View();
+        public IActionResult Index()
+        {
+            var model = Configuration.GetSection("Urls").GetChildren()
+                .ToDictionary(u => u.GetValue<string>("Name"), u => u.GetValue<string>("Url"));
+
+            return View(model);
+        }
 
         // List all configs including ovirriden config
-        [HttpGet("/config")]
+        [Route("/config")]
         public IActionResult Config()
         {
             var allHealthCheckConfigs = Configuration.GetSection("HealthChecksUI:HealthChecks").GetChildren()
@@ -33,10 +32,11 @@ namespace WatchDog.Controllers
                 .SelectMany(cs => cs.GetChildren())
                 .Select(c => new { Path = c.Path, Value = c.Value })
                 .GroupBy(c => c.Path.Substring(0, c.Path.LastIndexOf(":")))
+                //.OrderBy(c => c.ElementAt(0).Value)
                 .ToDictionary(c => c.ElementAt(0).Value, c => c.ElementAt(1).Value);
 
 
-            return Json(children);
+            return View(children);
         }
 
 

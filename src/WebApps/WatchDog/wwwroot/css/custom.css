@@ -1,0 +1,35 @@
+﻿.resources {
+    display: flex;
+    justify-content: space-around;
+    margin: 60px 0px;
+    flex-wrap: wrap;
+}
+
+.resource-box {
+    font-size: inherit;
+    width: 30%;
+    height: 100px;
+    background-color: #798fc9;
+    display: flex;
+    margin: 20px 0px;
+    align-content: space-around;
+    justify-content: space-between;
+    border-radius: 10px;
+    box-shadow: 3px 2px 8px 4px #e2e0eb;
+}
+
+    .resource-box:hover {
+        cursor: pointer;
+    }
+
+    .resource-box a {
+        width: 100%;
+        color: white;
+        margin: auto;
+        line-height: 100px; // bound to resource-box height
+    }
+
+        .resource-box a:hover {
+            color: white;
+            text-decoration: none;
+        }

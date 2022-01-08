@@ -1,0 +1,33 @@
+﻿@{
+    ViewData["Title"] = "Config";
+}
+
+@model Dictionary<string,string>
+
+<h1>Config</h1>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (var i = 0; i < @Model.Count; i++)
+            {
+                var item = Model.ElementAt(i);
+                var rowId = i + 1;
+                <tr>
+                    <th scope="row">@rowId</th>
+                    <td>@item.Key</td>
+                    <td>@item.Value</td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+</div>
+
