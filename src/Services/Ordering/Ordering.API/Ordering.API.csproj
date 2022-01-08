@@ -6,15 +6,19 @@
 		<DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
 		<DockerfileContext>..\..\..</DockerfileContext>
 		<DockerComposeProjectPath>..\..\..\docker-compose.dcproj</DockerComposeProjectPath>
-  </PropertyGroup>
+	</PropertyGroup>
 	<PropertyGroup>
 		<IncludeOpenAPIAnalyzers>true</IncludeOpenAPIAnalyzers>
 	</PropertyGroup>
 	<ItemGroup>
-	  <None Remove="Proto\ordering.proto" />
+		<None Remove="Proto\ordering.proto" />
 	</ItemGroup>
 
 	<ItemGroup>
+		<PackageReference Include="AspNetCore.HealthChecks.Rabbitmq" Version="5.0.2" />
+		<PackageReference Include="AspNetCore.HealthChecks.SqlServer" Version="5.0.2" />
+		<PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="5.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Diagnostics.HealthChecks.EntityFrameworkCore" Version="5.0.2" />
 		<PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
 		<PackageReference Include="Grpc.AspNetCore" Version="2.32.0" />
 		<PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="5.0.5" />
@@ -44,13 +48,13 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Protobuf Include="Proto\ordering.proto" GrpcServices="Server" />
+		<Protobuf Include="Proto\ordering.proto" GrpcServices="Server" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Content Update="appsettings.Container.json">
-	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-	  </Content>
+		<Content Update="appsettings.Container.json">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</Content>
 	</ItemGroup>
 
 </Project>

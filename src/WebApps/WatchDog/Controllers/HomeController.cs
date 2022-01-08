@@ -19,7 +19,8 @@ namespace WatchDog.Controllers
             Configuration = configuration;
         }
 
-        public IActionResult Index() => RedirectToRoute("/hc-ui");
+        //public IActionResult Index() => RedirectToRoute("/hc-ui");
+        public IActionResult Index() => View();
 
         // List all configs including ovirriden config
         [HttpGet("/config")]

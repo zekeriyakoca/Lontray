@@ -1,12 +1,16 @@
+using HealthChecks.UI.Client;
+using IdentityServer4.EntityFramework.DbContexts;
 using Lontray.Services.Identity.API.Data;
 using Lontray.Services.Identity.API.Models;
 using Lontray.Services.Identity.API.Services.Ioc;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using System;
 using System.Reflection;
@@ -74,6 +78,18 @@ namespace Lontray.Services.Identity.API
             services.AddControllers();
             services.AddControllersWithViews();
             services.AddRazorPages();
+
+            var hcBuilder = services.AddHealthChecks();
+
+            hcBuilder
+                .AddCheck("self", () => HealthCheckResult.Healthy())
+                .AddDbContextCheck<ApplicationDbContext>(
+                    name: "IdentityAPI-ApplicationDB-check",
+                    tags: new string[] { "identityapplicationdb" })
+                .AddDbContextCheck<ConfigurationDbContext>(
+                    name: "IdentityAPI-ConfigurationDB-check",
+                    tags: new string[] { "identityconfigurationdb" });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -88,7 +104,9 @@ namespace Lontray.Services.Identity.API
                 app.UseExceptionHandler("/Home/Error");
                 app.UseHsts();
             }
-            app.UseHttpsRedirection();
+
+            // Fix healthcheck if you want to use redirection
+            //app.UseHttpsRedirection();
             app.UseStaticFiles();
 
             app.UseRouting();
@@ -103,6 +121,16 @@ namespace Lontray.Services.Identity.API
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+                
+                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
+                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+                {
+                    Predicate = r => r.Name.Contains("self")
+                });
             });
         }
     }

@@ -15,6 +15,9 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using Web.BFF.Shopping.Filters;
 using Web.BFF.Shopping.Infrastructure;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace Web.BFF.Shopping
 {
@@ -89,6 +92,11 @@ namespace Web.BFF.Shopping
             });
 
             services.AddGrpcClients(Configuration);
+
+            var hcBuilder = services.AddHealthChecks();
+
+            hcBuilder
+                .AddCheck("self", () => HealthCheckResult.Healthy());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -98,8 +106,8 @@ namespace Web.BFF.Shopping
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseHttpsRedirection();
+            // Fix healthcheck if you want to use redirection
+            //app.UseHttpsRedirection();
 
             app.UseSwagger().UseSwaggerUI(c =>
             {
@@ -120,6 +128,15 @@ namespace Web.BFF.Shopping
             {
                 endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllers();
+                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
+                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+                {
+                    Predicate = r => r.Name.Contains("self")
+                });
             });
         }
     }

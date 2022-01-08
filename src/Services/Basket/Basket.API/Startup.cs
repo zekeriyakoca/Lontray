@@ -20,6 +20,9 @@ using System.Linq;
 using System.Reflection;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
+using HealthChecks.UI.Client;
 
 namespace Basket.API
 {
@@ -66,11 +69,31 @@ namespace Basket.API
 
             services.AddTransient<IBasketIntegrationService, BasketIntegrationService>();
 
-
             services
                 .AddEventBusRabbitMQ(Configuration)
                 .AddCustomSwagger(Configuration)
                 .ConfigureAuthService(Configuration);
+
+            var hcBuilder = services.AddHealthChecks();
+
+            hcBuilder
+                .AddCheck("self", () => HealthCheckResult.Healthy());
+
+            if (IS_ORCHESTRATED)
+            {
+                hcBuilder
+                    .AddRedis(
+                        Configuration["Redis:ConnectionService"],
+                        name: "basket-redis-check",
+                        tags: new string[] { "redis" });
+            }
+
+
+            hcBuilder
+                   .AddRabbitMQ(
+                       $"amqp://{Configuration["RabbitMQ:EventBusConnection"]}",
+                       name: "basket-rabbitmqbus-check",
+                       tags: new string[] { "rabbitmqbus" });
         }
 
         //Configure Autofac Container
@@ -126,6 +149,15 @@ namespace Basket.API
                     }
                 });
                 endpoints.MapGrpcService<BasketService>();
+                endpoints.MapHealthChecks("/hc", new HealthCheckOptions()
+                {
+                    Predicate = _ => true,
+                    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+                });
+                endpoints.MapHealthChecks("/liveness", new HealthCheckOptions
+                {
+                    Predicate = r => r.Name.Contains("self")
+                });
             });
 
             app.ConfigureIntegrationEvents();
