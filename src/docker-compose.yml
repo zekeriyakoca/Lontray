@@ -12,11 +12,22 @@ services:
       - 6000:80
     networks:
       - lontray-net
-    depends_on:
-      - basketApi
-      - catalogApi
-      - orderingApi
-      - identityApi
+    #depends_on:
+    #  - basketApi
+    #  - catalogApi
+    #  - orderingApi
+    #  - identityApi
+  watchDog:
+    container_name: watchDog
+    image: ${DOCKER_REGISTRY-}webbff:${PLATFORM:-linux}-${TAG:-latest}
+    build:
+      context: .
+      dockerfile: WebApps/WatchDog/Dockerfile
+    ports:
+      - 10001:443 
+      - 10000:80
+    networks:
+      - lontray-net
   basket.api:
     container_name: basketApi
     image: ${DOCKER_REGISTRY-}basketapi:${PLATFORM:-linux}-${TAG:-latest}
