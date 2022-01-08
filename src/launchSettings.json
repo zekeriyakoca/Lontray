@@ -1,0 +1,19 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "basket.api": "StartDebugging",
+        "catalog.api": "StartDebugging",
+        "identity.api": "StartDebugging",
+        "ordering.api": "StartDebugging",
+        "rabbitmq": "StartWithoutDebugging",
+        "redis": "StartWithoutDebugging",
+        "seq": "StartWithoutDebugging",
+        "watchDog": "StartDebugging",
+        "web.bff": "StartDebugging"
+      }
+    }
+  }
+}
