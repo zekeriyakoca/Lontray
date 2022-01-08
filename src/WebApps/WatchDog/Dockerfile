@@ -19,4 +19,4 @@ RUN dotnet publish "WatchDog.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "WatchDog.dll"]
+ENTRYPOINT dotnet watch run WatchDog.dll --no-restore 
