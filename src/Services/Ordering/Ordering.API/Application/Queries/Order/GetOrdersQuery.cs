@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Ordering.Domain.Aggregates;
 using Ordering.Infrastructure;
@@ -13,7 +14,7 @@ namespace Ordering.Application.Queries
 
     public class GetOrderQueryHandler : QueryHandler<GetOrdersQuery, IEnumerable<Order>>
     {
-        public GetOrderQueryHandler(IOptions<OrderingSettings> orderingOptions) : base(orderingOptions.Value)
+        public GetOrderQueryHandler(IOptions<OrderingSettings> orderingOptions, ILogger<GetOrderQueryHandler> logger) : base(orderingOptions.Value, logger)
         { }
 
         public override async Task<IEnumerable<Order>> Action(GetOrdersQuery query)

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.Logging;
+using System;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 
@@ -13,10 +14,13 @@ namespace Ordering.Infrastructure.CQRS
     {
         protected SqlConnection connection;
         private readonly string connectionString;
+        public ILogger<QueryHandler<TQuery, TResult>> logger { get; }
 
-        public QueryHandler(OrderingSettings options)
+        public QueryHandler(OrderingSettings options, ILogger<QueryHandler<TQuery, TResult>> logger)
         {
+            // Connection pooling is provided through ConnectionString
             connectionString = options?.ConnectionString ?? throw new ArgumentNullException(nameof(options.ConnectionString));
+            this.logger = logger;
         }
 
         public async Task<TResult> Handle(TQuery query)
@@ -30,9 +34,8 @@ namespace Ordering.Infrastructure.CQRS
                 return result;
 
             }
-            catch
+            catch (Exception ex)
             {
-                //TODO : Implement
                 throw;
             }
             finally
@@ -40,6 +43,7 @@ namespace Ordering.Infrastructure.CQRS
                 connection.Close();
             }
         }
+
 
         public abstract Task<TResult> Action(TQuery query);
 

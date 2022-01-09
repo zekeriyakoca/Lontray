@@ -4,6 +4,8 @@ using System.Threading.Tasks;
 
 namespace Ordering.Domain.Common
 {
+    // Most likely we won't need this class since we are adding Domaing events to Entity's property
+    // and raise events during EF SaveChanges()
     public class DomainEvents
     {
         private readonly IServiceProvider provider;
