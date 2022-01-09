@@ -109,7 +109,8 @@ namespace Web.BFF.Shopping
             // Fix healthcheck if you want to use redirection
             //app.UseHttpsRedirection();
 
-            app.UseSwagger().UseSwaggerUI(c =>
+            app.UseSwagger()
+               .UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint($"/swagger/v1/swagger.json", "Shopping BFF V1");
 
