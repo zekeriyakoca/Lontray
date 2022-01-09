@@ -15,17 +15,17 @@ namespace Lontray.Services.Identity.API.Configuration
                     //Here we are creating a relation between ApiResources and ApiScopes
                     Scopes = new List<string> { "webbffshopping.all" }
                 },
-                new ApiResource("BasketApi", "Basket API")
+                new ApiResource("basketApi", "Basket API")
                 {
-                    Scopes = new List<string> { "BasketApi.read", "BasketApi.all" }
+                    Scopes = new List<string> { "basketApi.read", "basketApi.all" }
                 },
-                new ApiResource("OrderApi", "Order API")
+                new ApiResource("orderApi", "Order API")
                 {
-                    Scopes = new List<string> { "OrderApi.read", "OrderApi.all" }
+                    Scopes = new List<string> { "orderApi.read", "orderApi.all" }
                 },
-                new ApiResource("CatalogApi", "Catalog API")
+                new ApiResource("catalogApi", "Catalog API")
                 {
-                    Scopes = new List<string> { "CatalogApi.read", "CatalogApi.all" }
+                    Scopes = new List<string> { "catalogApi.read", "catalogApi.all" }
                 },
             };
 
@@ -33,12 +33,12 @@ namespace Lontray.Services.Identity.API.Configuration
             new List<ApiScope>() {
                 new ApiScope("webbffshopping.all", "Can access to Web Bff for Shopping"), // Corresponds to Clients' allowed scopes
                 
-                new ApiScope("BasketApi.read", "Can query Basket API"),
-                new ApiScope("BasketApi.all", "Can manage Basket API"),
-                new ApiScope("OrderApi.read", "Can query Order API"),
-                new ApiScope("OrderApi.all", "Can manage Order API"),
-                new ApiScope("CatalogApi.read", "Can query Catalog API"),
-                new ApiScope("CatalogApi.all", "Can manage Catalog API"),
+                new ApiScope("basketApi.read", "Can query Basket API"),
+                new ApiScope("basketApi.all", "Can manage Basket API"),
+                new ApiScope("orderApi.read", "Can query Order API"),
+                new ApiScope("orderApi.all", "Can manage Order API"),
+                new ApiScope("catalogApi.read", "Can query Catalog API"),
+                new ApiScope("catalogApi.all", "Can manage Catalog API"),
             };
 
 
@@ -86,7 +86,7 @@ namespace Lontray.Services.Identity.API.Configuration
                     },
 
                     // scopes that client has access to
-                    AllowedScopes = { "WebApi.manage", "BasketApi.all", "OrderApi.all", "CatalogApi.all" }
+                    AllowedScopes = { "webApi.manage", "basketApi.all", "orderApi.all", "catalogApi.all" }
                 },
                 new Client
                 {
@@ -124,7 +124,7 @@ namespace Lontray.Services.Identity.API.Configuration
                     },
 
                     // scopes that client has access to
-                    AllowedScopes = { "WebApi.manage" }
+                    AllowedScopes = { "webApi.manage" }
                 },
                 new Client
                 {
@@ -138,7 +138,7 @@ namespace Lontray.Services.Identity.API.Configuration
 
                     AllowedScopes =
                     {
-                        "basket.all",
+                        "basketApi.all",
                     }
                 },
                 new Client
@@ -153,7 +153,7 @@ namespace Lontray.Services.Identity.API.Configuration
 
                     AllowedScopes =
                     {
-                        "catalog.all",
+                        "catalogApi.all",
                     }
                 },
                 new Client
@@ -168,7 +168,7 @@ namespace Lontray.Services.Identity.API.Configuration
 
                     AllowedScopes =
                     {
-                        "ordering.all",
+                        "orderingApi.all",
                     }
                 },
 

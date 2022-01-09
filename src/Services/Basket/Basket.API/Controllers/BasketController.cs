@@ -1,5 +1,6 @@
 ﻿using Basket.API.Infrastructure.Repositories;
 using Basket.API.Model;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -26,6 +27,7 @@ namespace Basket.API.Controllers
         }
 
         [HttpGet("{customerId}")]
+        [Authorize]
         [ProducesResponseType(typeof(CustomerBasket), StatusCodes.Status200OK)]
         public async Task<ActionResult<CustomerBasket>> GetBasket([FromRoute] string customerId)
         {

@@ -205,7 +205,7 @@ namespace Basket.API
                             TokenUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/token"),
                             Scopes = new Dictionary<string, string>()
                             {
-                                { "basketApi", "Basket API" }
+                                { "basketApi.all", "Basket API" }
                             }
                         }
                     }

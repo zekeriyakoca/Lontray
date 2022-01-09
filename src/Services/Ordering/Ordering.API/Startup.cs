@@ -205,7 +205,7 @@ namespace Ordering.API
                             TokenUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/token"),
                             Scopes = new Dictionary<string, string>()
                             {
-                                { "orderingApi", "Ordering API" }
+                                { "orderingApi.all", "Ordering API" }
                             }
                         }
                     }

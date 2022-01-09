@@ -205,7 +205,7 @@ namespace Catalog.API
                             TokenUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/token"),
                             Scopes = new Dictionary<string, string>()
                             {
-                                { "catalogApi", "Catalog API" }
+                                { "catalogApi.all", "Catalog API" }
                             }
                         }
                     }

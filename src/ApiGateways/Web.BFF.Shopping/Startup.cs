@@ -106,6 +106,8 @@ namespace Web.BFF.Shopping
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseDeveloperExceptionPage();
             // Fix healthcheck if you want to use redirection
             //app.UseHttpsRedirection();
 
