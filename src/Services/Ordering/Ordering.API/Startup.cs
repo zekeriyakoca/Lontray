@@ -201,8 +201,8 @@ namespace Ordering.API
                     {
                         Implicit = new OpenApiOAuthFlow()
                         {
-                            AuthorizationUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/authorize"),
-                            TokenUrl = new Uri($"{configuration.GetValue<string>("IdentityUrl")}/connect/token"),
+                            AuthorizationUrl = new Uri($"{configuration.GetValue<string>("IdentityUrlExternal")}/connect/authorize"),
+                            TokenUrl = new Uri($"{configuration.GetValue<string>("IdentityUrlExternal")}/connect/token"),
                             Scopes = new Dictionary<string, string>()
                             {
                                 { "orderingApi.all", "Ordering API" }
@@ -253,6 +253,11 @@ namespace Ordering.API
                 options.Authority = identityUrl;
                 options.RequireHttpsMetadata = false;
                 options.Audience = "orderingApi";
+            });
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("manage_access", policy =>
+                    policy.RequireClaim("scope", "orderingApi.all"));
             });
 
             return services;

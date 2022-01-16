@@ -4,8 +4,10 @@ using Lontray.Services.Identity.API.Data;
 using Lontray.Services.Identity.API.Models;
 using Lontray.Services.Identity.API.Services.Ioc;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.CookiePolicy;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -108,6 +110,15 @@ namespace Lontray.Services.Identity.API
 
             // Fix healthcheck if you want to use redirection
             //app.UseHttpsRedirection();
+
+            // If you need to use http redirectionUri for clients, we need keep following CookiePolicy
+            app.UseCookiePolicy(new CookiePolicyOptions
+            {
+                HttpOnly = HttpOnlyPolicy.None,
+                MinimumSameSitePolicy = SameSiteMode.None,
+                Secure = CookieSecurePolicy.Always
+            });
+
             app.UseStaticFiles();
 
             app.UseRouting();

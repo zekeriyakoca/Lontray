@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Ordering.Application.Commands;
 using Ordering.Application.Queries;
@@ -11,6 +12,7 @@ using System.Threading.Tasks;
 namespace Ordering.API.Controllers
 {
     [ApiController]
+    [Authorize]
     [Route("[controller]")]
     public class OrderController : ControllerBase
     {
@@ -24,10 +26,19 @@ namespace Ordering.API.Controllers
         }
 
         [HttpGet("")]
+        //[Authorize(Policy = = "manage_access")]
         [ProducesResponseType(StatusCodes.Status200OK)] // No need to define type of the body since we are using ActionResult<T>
         public async Task<ActionResult<IEnumerable<Order>>> GetOrders()
         {
             var result = await queryExecuter.Execute(new GetOrdersQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("{customerId}")]
+        [ProducesResponseType(StatusCodes.Status200OK)] // No need to define type of the body since we are using ActionResult<T>
+        public async Task<ActionResult<IEnumerable<Order>>> GetOrdersByCustomerId([FromRoute] int customerId)
+        {
+            var result = await queryExecuter.Execute(new GetOrdersQuery(customerId));
             return Ok(result);
         }
 

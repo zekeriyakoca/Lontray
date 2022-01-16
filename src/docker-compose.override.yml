@@ -6,6 +6,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - IS_ORCHESTRATED=true
+      - IdentityUrl=http://identityApi
+      - IdentityUrlExternal=http://${LONTRAY_EXTERNAL_DNS_NAME_OR_IP}:5000
     ports:
       - "80"
       - "443"
@@ -38,6 +40,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - IS_ORCHESTRATED=true
+      - IdentityUrl=http://identityApi
+      - IdentityUrlExternal=http://${LONTRAY_EXTERNAL_DNS_NAME_OR_IP}:5000
     ports:
       - "80"
       - "443"
@@ -49,6 +53,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - IS_ORCHESTRATED=true
+      - IdentityUrl=http://identityApi
+      - IdentityUrlExternal=http://${LONTRAY_EXTERNAL_DNS_NAME_OR_IP}:5000
     ports:
       - "80"
       - "443"
@@ -60,6 +66,8 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - IS_ORCHESTRATED=true
+      - IdentityUrl=http://identityApi
+      - IdentityUrlExternal=http://${LONTRAY_EXTERNAL_DNS_NAME_OR_IP}:5000
     ports:
       - "80"
       - "443"
@@ -71,6 +79,11 @@ services:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=https://+:443;http://+:80
       - IS_ORCHESTRATED=true
+      - Urls__WebBffShoppingClient=https://${LONTRAY_EXTERNAL_DNS_NAME_OR_IP}:6001
+      - Urls__CatalogApi=http://${LONTRAY_EXTERNAL_DNS_NAME_OR_IP}:7000
+      - Urls__BasketApi=http://${LONTRAY_EXTERNAL_DNS_NAME_OR_IP}:8000
+      - Urls__OrderingApi=http://${LONTRAY_EXTERNAL_DNS_NAME_OR_IP}:9000
+      - Urls__WebMVCIdentity=https://${LONTRAY_EXTERNAL_DNS_NAME_OR_IP}:6001 ## test here
     ports:
       - "80"
       - "443"

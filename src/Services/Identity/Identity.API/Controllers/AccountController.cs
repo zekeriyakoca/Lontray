@@ -137,9 +137,16 @@ namespace Lontray.Services.Identity.API.Controllers
 
             return new LoginViewModel
             {
+                Password = "P@assCode",
                 ReturnUrl = returnUrl,
-                Email = context?.LoginHint,
+                Email = "demouser@microsoft.com",
             };
+            // TODO : replace the code block above with the following one
+            //return new LoginViewModel
+            //{
+            //    ReturnUrl = returnUrl,
+            //    Email = context?.LoginHint,
+            //};
         }
 
         private async Task<LoginViewModel> BuildLoginViewModelAsync(LoginViewModel model)

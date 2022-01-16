@@ -19,9 +19,9 @@ namespace Lontray.Services.Identity.API.Configuration
                 {
                     Scopes = new List<string> { "basketApi.read", "basketApi.all" }
                 },
-                new ApiResource("orderApi", "Order API")
+                new ApiResource("orderingApi", "Order API")
                 {
-                    Scopes = new List<string> { "orderApi.read", "orderApi.all" }
+                    Scopes = new List<string> { "orderingApi.read", "orderingApi.all" }
                 },
                 new ApiResource("catalogApi", "Catalog API")
                 {
@@ -35,8 +35,8 @@ namespace Lontray.Services.Identity.API.Configuration
                 
                 new ApiScope("basketApi.read", "Can query Basket API"),
                 new ApiScope("basketApi.all", "Can manage Basket API"),
-                new ApiScope("orderApi.read", "Can query Order API"),
-                new ApiScope("orderApi.all", "Can manage Order API"),
+                new ApiScope("orderingApi.read", "Can query Order API"),
+                new ApiScope("orderingApi.all", "Can manage Order API"),
                 new ApiScope("catalogApi.read", "Can query Catalog API"),
                 new ApiScope("catalogApi.all", "Can manage Catalog API"),
             };
@@ -86,7 +86,7 @@ namespace Lontray.Services.Identity.API.Configuration
                     },
 
                     // scopes that client has access to
-                    AllowedScopes = { "webApi.manage", "basketApi.all", "orderApi.all", "catalogApi.all" }
+                    AllowedScopes = { "webApi.manage", "basketApi.all", "orderingApi.all", "catalogApi.all" }
                 },
                 new Client
                 {
@@ -133,8 +133,8 @@ namespace Lontray.Services.Identity.API.Configuration
                     AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
 
-                    RedirectUris = { $"{clientsUrl["BasketApi"]}/swagger/oauth2-redirect.html" },
-                    PostLogoutRedirectUris = { $"{clientsUrl["BasketApi"]}/swagger/" },
+                    RedirectUris = { $"{clientsUrl["BasketApi"]}/swagger/oauth2-redirect.html" , "http://localhost:8000/swagger/oauth2-redirect.html" },
+                    PostLogoutRedirectUris = { $"{clientsUrl["BasketApi"]}/swagger/"},
 
                     AllowedScopes =
                     {

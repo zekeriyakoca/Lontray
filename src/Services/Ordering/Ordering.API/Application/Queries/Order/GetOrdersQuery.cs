@@ -10,7 +10,15 @@ using System.Threading.Tasks;
 namespace Ordering.Application.Queries
 {
     public class GetOrdersQuery : IQuery<IEnumerable<Order>>
-    { }
+    {
+        public GetOrdersQuery()
+        { }
+        public GetOrdersQuery(int customerId)
+        {
+            customerId = customerId;
+        }
+        public int? customerId { get; set; }
+    }
 
     public class GetOrderQueryHandler : QueryHandler<GetOrdersQuery, IEnumerable<Order>>
     {
@@ -19,7 +27,12 @@ namespace Ordering.Application.Queries
 
         public override async Task<IEnumerable<Order>> Action(GetOrdersQuery query)
         {
-            return await connection.QueryAsync<Order>("Select * from Orders");
+            var sqlQuery = "SELECT * FROM ordering.Orders";
+            if (query.customerId.HasValue && query.customerId != default)
+            {
+                sqlQuery += string.Format(" WHERE Id = {0}", query.customerId);
+            }
+            return await connection.QueryAsync<Order>(sqlQuery);
         }
     }
 }

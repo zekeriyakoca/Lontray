@@ -41,6 +41,25 @@ namespace Basket.API.Controllers
             return Ok(await basketRepository.UpdateBasketAsync(basket));
         }
 
+        [HttpPost("merge/{oldCustomerId}/into/{customerId}")]
+        [Authorize]
+        [ProducesResponseType(typeof(CustomerBasket), StatusCodes.Status200OK)]
+        public async Task<ActionResult<CustomerBasket>> MergeBaskets([FromRoute] string oldCustomerId, [FromRoute] string customerId)
+        {
+            if (String.IsNullOrWhiteSpace(oldCustomerId) || String.IsNullOrWhiteSpace(customerId))
+                    return BadRequest("BasketIds cannot be null");
+
+            var baseBasket = await basketRepository.GetBasketAsync(customerId) ?? new CustomerBasket(customerId);
+            var oldBasket = await basketRepository.GetBasketAsync(oldCustomerId);
+            baseBasket = baseBasket.MergeFrom(oldBasket);
+            
+            baseBasket = await basketRepository.UpdateBasketAsync(baseBasket);
+            
+            await basketRepository.DeleteBasketAsync(oldBasket.CustomerId);
+            
+            return Ok(baseBasket);
+        }
+
         [HttpPost("checkout/{customerId}")]
         [ProducesResponseType(typeof(CustomerBasket), StatusCodes.Status200OK)]
         public async Task<ActionResult<CustomerBasket>> CheckoutBasket([FromRoute] string customerId)
